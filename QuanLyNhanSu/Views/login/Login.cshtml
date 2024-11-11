@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = null;
+}
+<div class="container">
+    <link rel="stylesheet" href="~/Content/css/login_main.css">
+    <div class="info-section">
+        <h1>TRANG THÔNG TIN DÀNH RIÊNG CHO KHÁCH HÀNG FPT</h1>
+        <p>Quản lý thông tin khách hàng, hợp đồng và tất cả dịch vụ trực tuyến FPT khách hàng đang sử dụng. Đăng ký nâng cấp, mua mới dịch vụ, thanh toán hóa đơn và chuyển đổi phương thức thanh toán...</p>
+        <a href="#">HƯỚNG DẪN SỬ DỤNG</a>
+    </div>
+    <div class="login-section">
+        <h2>ĐĂNG NHẬP</h2>
+        <span class="text-danger"> @ViewBag.err</span>
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <input type="text" name="MaNhanVien" placeholder="UserName" required autofocus>
+            <div class="password-container">
+                <input type="password" name="MatKhau" id="password" class="password-input" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <a href="#">Quên mật khẩu</a>
+        <script src="~/Content/js/index_login.js"></script>
+    </div>
+</div>

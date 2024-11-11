@@ -1,0 +1,53 @@
+﻿@model QuanLyNhanSu.Models.ThongKeViewModel
+@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+Tổng chi : <b>@String.Format("{0:#,#}", Model.TongChi).Replace(",", ",") đ</b>
+@section scripts {
+    <script>
+        var xValues = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
+        var yValues = JSON.parse('@Html.Raw(Json.Encode(@Model.DSLuongThang))');
+        var barColors = [
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#36A2EB",
+            "#cb2dae",
+            "#f9285d",
+            "#6bd7b6",
+            "#edb8cf",
+            "#677afc",
+            "#7ece3f",
+            "#347542"
+        ];
+
+        new Chart("myChart", {
+            type: "pie",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    labels: {
+                        render: 'percentage',
+                    }
+                },
+                title: {
+                    display: true,
+                    text: "@Html.Raw(@Model.Title)"
+                }
+            }
+        });
+    </script>
+}

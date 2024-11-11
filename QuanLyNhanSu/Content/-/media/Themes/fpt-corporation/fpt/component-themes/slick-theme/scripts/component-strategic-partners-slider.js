@@ -1,0 +1,1 @@
+!function(){"use strict";var s;(s=jQuery)(".component.strategic-partners-slider").length&&s(".component.strategic-partners-slider .strategic-partners-slider-list").slick({slidesToShow:3,infinite:!1,dots:!0,responsive:[{breakpoint:1025,settings:{slidesToShow:2}},{breakpoint:769,settings:{slidesToShow:1}}]})}();
