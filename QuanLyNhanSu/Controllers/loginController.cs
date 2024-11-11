@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyNhanSu.Models;
 using System.Web.Security;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace QuanLyNhanSu.Controllers
 {
@@ -41,9 +42,10 @@ namespace QuanLyNhanSu.Controllers
             if (checkaccount)
             {
                 ViewBag.err = "";
-
                 Session["MaNhanVien"] = user.MaNhanVien;
-
+                var nhanvien = db.NhanViens.SingleOrDefault(n => n.MaNhanVien == user.MaNhanVien);
+                Session["AvtNhanVien"] = nhanvien.HinhAnh;
+                Session["TenNhanVien"] = nhanvien.HoTen;
                 FormsAuthentication.SetAuthCookie(user.MaNhanVien, false);
                 if (checkadmin)
                 {

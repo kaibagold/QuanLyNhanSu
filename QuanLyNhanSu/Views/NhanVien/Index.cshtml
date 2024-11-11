@@ -3,99 +3,68 @@
 @{
     ViewBag.Title = "Chi tiết lương";
 }
-<table class="table table-bordered table-striped table-hover">
-    <thead>
-        <tr class="success">
-            <th>
-                Mã tháng lương
-            </th>
-            <th>
-                Lương cơ bản
-            </th>
-            <th>
-                BHXH
-            </th>
-            <th>
-                BHYT
-            </th>
-            <th>
-                BHTN
-            </th>
-            <th>
-                Phụ cấp
-            </th>
-            <th>
-                Thuế thu nhập
-            </th>
-            @*<th>
-                Tiền thưởng
-            </th>
-            <th>
-                Tiền phạt
-            </th>*@
-            <th>
-                Ngày nhận lương
-            </th>
-            <th>
-                Thực lãnh
-            </th>
-          
-         
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<link rel="stylesheet" href="~/Content/css/nhanvien_index.css" />
+<div class="detail_nv">
+    <div class="salary-form">
+        <h2>CHI TIẾT THÔNG TIN LƯƠNG</h2>
+
+        <!-- Thông tin nhân viên -->
+        <div class="info-field">
+            <label>Tên nhân viên:</label>
+            <span>@Session["TenNhanVien"]</span>
+        </div>
+        <div class="info-field">
+            <label>Mã nhân viên:</label>
+            <span>@Session["MaNhanVien"]</span>
+        </div>
+        <div class="info-field">
+            <label>Ngày sinh:</label>
+            <span>@Session["NgaySinh"]</span>
+        </div>
+        <div class="info-field">
+            <label>Phòng ban:</label>
+            <span>@Session["PhongBan"]</span>
+        </div>
+
+        <!-- Thời gian chọn tháng và năm -->
+        <div class="time-selection">
+            <label for="month">Chọn tháng:</label>
+            <input type="month" id="month" name="month">
+        </div>
+
+        <!-- Bảng thông tin lương -->
+        <table class="salary-table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaChiTietBangLuong)
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.LuongCoBan).Replace(",", ",")
-                    
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.BHXH).Replace(",", ",")
-                  
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.BHYT).Replace(",", ",")
-
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.BHTN).Replace(",", ",")
-
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.PhuCap).Replace(",", ",")
-                    
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.ThueThuNhap).Replace(",", ",")
-                    
-                </td>
-                @*<td>
-                    @String.Format("{0:#,#}", @item.TienThuong).Replace(",", ",")
-                    
-                </td>
-                <td>
-                    @String.Format("{0:#,#}", @item.TienPhat).Replace(",", ",")
-                    
-                </td>*@
-                <td>
-                    @String.Format("{0:dd/MM/yyyy}", @item.NgayNhanLuong)
-                  
-                </td>
-                <td>
-                    @{
-            var t = int.Parse(item.TongTienLuong);
-                    }
-                    @String.Format("{0:#,#}", @t).Replace(",", ",")
-                </td>
-              
-
+                <th>Lương Cơ Bản</th>
+                <th>BHXH</th>
+                <th>BHYT</th>
+                <th>Phụ Cấp</th>
             </tr>
-        }
-    </tbody>
-</table>
-
+            @foreach (var item in Model.Where(nv => nv.MaChiTietBangLuong == "t9"))
+            {
+                <tr>
+                    <td id="basicSalary">@String.Format("{0:#,#}", @item.LuongCoBan).Replace(",", ",")</td>
+                    <td id="bhxh">@String.Format("{0:#,#}", @item.BHXH).Replace(",", ",")</td>
+                    <td id="bhyt">@String.Format("{0:#,#}", @item.BHYT).Replace(",", ",")</td>
+                    <td id="phuCap">@String.Format("{0:#,#}", @item.PhuCap).Replace(",", ",")</td>
+                </tr>
+            }
+            <tr>
+                <th>Thuế TNCN</th>
+                <th>Tiền Thưởng</th>
+                <th>Tiền Phạt</th>
+                <th>Tổng Tiền</th>
+            </tr>
+            @foreach (var item in Model.Where(nv => nv.MaChiTietBangLuong == "t9"))
+            {
+                <tr>
+                    <td id="ttncn">@String.Format("{0:#,#}", @item.ThueThuNhap).Replace(",", ",")</td>
+                    <td id="tienThuong">@String.Format("{0:#,#}", @item.TienThuong).Replace(",", ",")</td>
+                    <td id="tienPhat">@String.Format("{0:#,#}", @item.TienPhat).Replace(",", ",")</td>
+                    <td class="total-cell" id="tongTien">@String.Format("{0:#,#}", @item.TongTienLuong).Replace(",", ",")</td>
+                </tr>
+            }
+        </table>
+        <script src="~/Content/js/nhanvien_index.js"></script>
+    </div>
+</div>

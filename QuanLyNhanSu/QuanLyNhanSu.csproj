@@ -319,6 +319,7 @@
     <Content Include="Content\anh\icon\kinh-doanh.svg" />
     <Content Include="Content\anh\icon\play.png" />
     <Content Include="Content\anh\icon\user_login.png" />
+    <Content Include="Content\anh\img_avt\avt_admin.png" />
     <Content Include="Content\anh\img_index\cong_nghe.png" />
     <Content Include="Content\anh\img_index\cong_ty_tv.png" />
     <Content Include="Content\anh\img_index\dong_hanh_cung_chung_toi.png" />
@@ -368,6 +369,7 @@
     <Content Include="Content\css\index.css" />
     <Content Include="Content\css\login_main.css" />
     <Content Include="Content\css\login_index.css" />
+    <Content Include="Content\css\nhanvien_index.css" />
     <Content Include="Content\datatables.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
@@ -543,6 +545,7 @@
     <Content Include="Content\images\slide3.png" />
     <Content Include="Content\images\slide4.jpg" />
     <Content Include="Content\js\index_login.js" />
+    <Content Include="Content\js\nhanvien_index.js" />
     <Content Include="Content\login.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="favicon.ico" />

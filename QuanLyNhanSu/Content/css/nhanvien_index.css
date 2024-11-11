@@ -1,0 +1,89 @@
+﻿/* Đặt nền chính là màu cam */
+.detail_nv {
+    font-family: Arial, sans-serif;
+    background-color: #fef6e4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Định dạng form lương */
+.salary-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+}
+
+    /* Tiêu đề form */
+    .salary-form h2 {
+        color: #e76f51;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+/* Các trường thông tin nhân viên */
+.info-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+    .info-field label {
+        font-weight: bold;
+        color: #e76f51;
+    }
+
+/* Định dạng input chọn thời gian */
+.time-selection {
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+}
+
+    .time-selection label {
+        color: #e76f51;
+        font-weight: bold;
+    }
+
+    .time-selection input {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #333;
+    }
+
+/* Định dạng bảng lương */
+.salary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .salary-table th, .salary-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        color: #333;
+    }
+
+    .salary-table th {
+        background-color: #e76f51;
+        color: white;
+    }
+
+    /* Hover màu xám cho ô */
+    .salary-table td:hover {
+        background-color: #f2f2f2;
+    }
+
+/* Định dạng cho ô Tổng Tiền */
+.total-cell {
+    font-weight: bold;
+    background-color: #e9c46a;
+    color: #333;
+}

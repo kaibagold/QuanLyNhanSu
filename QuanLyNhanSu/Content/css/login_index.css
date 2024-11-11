@@ -33,30 +33,40 @@ button {
 .dropdown {
     display: none; /* Ban đầu ẩn */
     position: absolute;
+    width : 500px;
 
-    transform: translateX(-50%);
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+
 }
 
 .dropdown-content {
     padding: 10px;
+    width:300%
 }
 
 .dropdown a {
     display: block;
-    padding: 5px;
+    padding: 1px;
     text-decoration: none;
     color: black;
+    text-align:center;
+    font-size:5px;
 }
 
     .dropdown a:hover {
-        background-color: #f0f0f0;
+        background-color: #fd8f4d;
     }
-
+.dropdown p {
+    display: block;
+    padding: 1px;
+    height:max-content ;
+    text-decoration: none;
+    color: black;
+    font-weight:bold;
+}
 .login-button button {
     width: 40px;
     height: 40px;

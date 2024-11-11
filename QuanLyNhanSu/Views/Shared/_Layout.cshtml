@@ -288,7 +288,7 @@
                         <div class="component image file-type-icon-media-link logo-header">
                             <div class="component-content">
 
-                                <a href="vi.html" target="">
+                                <a href="http://localhost:29496/Home" target="">
                                     <img class="lazyload" style="width: 120%;" data-src="Content/anh/fpt-logo.svg" alt="image">
                                 </a>
 
@@ -438,19 +438,19 @@
                             @if (Session["MaNhanVien"] == null)
                             {
                                 <button id="login" onclick="handleLoginClick()">
-                                    <img src="~/Content/anh/icon/user_login.png" alt="Đăng Nhập">
+                                    <img src="~/Content/anh/icon/user_login.png" alt="Đăng Nhập" title="Đăng Nhập">
                                 </button>
                             }
                             else
                             {
                                 <div class="profile" id="profile">
-                                    <img src="~/Content/anh/icon/play.png" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()">
+                                    <img src="~/Content/anh/img_avt/@Session["AvtNhanVien"]" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()">
 
-                                    <div class="dropdown" id="dropdownMenu">
+                                    <div class="dropdown" id="dropdownMenu" style="width:max-content">
                                         <div class="dropdown-content">
-                                            <p id="employeeName">Tên Nhân Viên</p>
-                                            <a href="#">Hồ Sơ</a>
-                                            <a href="http://localhost:29496/login/DangXuat" onclick="logout()">Đăng Xuất</a>
+                                            <p id="employeeName">@Session["TenNhanVien"]</p>
+                                            <a href="http://localhost:29496/NhanVien">HỒ SƠ</a>
+                                            <a href="http://localhost:29496/login/DangXuat" onclick="logout()">ĐĂNG XUẤT</a>
                                         </div>
                                     </div>
                                 </div>
