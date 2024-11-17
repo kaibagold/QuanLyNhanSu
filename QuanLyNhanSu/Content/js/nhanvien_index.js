@@ -1,25 +1,22 @@
 ﻿// JavaScript để thay đổi dữ liệu khi chọn tháng/năm khác
 const monthInput = document.getElementById("month");
+const displayMonth = document.getElementById("displayMonth");
 monthInput.addEventListener("change", () => {
-    // Giả sử khi thay đổi tháng/năm thì dữ liệu sẽ được cập nhật lại
-    const newBasicSalary = "12,000,000";
-    const newBHXH = "900,000";
-    const newBHYT = "400,000";
-    const newPhuCap = "600,000";
-    const newTNCN = "600,000";
-    const newTienThuong = "1,500,000";
-    const newTienPhat = "150,000";
-
-    // Tính tổng tiền mới
-    const newTongTien = "13,650,000";
-
-    // Cập nhật dữ liệu trong bảng
-    document.getElementById("basicSalary").textContent = newBasicSalary;
-    document.getElementById("bhxh").textContent = newBHXH;
-    document.getElementById("bhyt").textContent = newBHYT;
-    document.getElementById("phuCap").textContent = newPhuCap;
-    document.getElementById("ttncn").textContent = newTNCN;
-    document.getElementById("tienThuong").textContent = newTienThuong;
-    document.getElementById("tienPhat").textContent = newTienPhat;
-    document.getElementById("tongTien").textContent = newTongTien;
+    const selectedDate = new Date(monthInput.value);
+    const month = selectedDate.getMonth() + 1; // Lấy tháng (0-11) nên cần +1
+    const year = selectedDate.getFullYear();    // Lấy năm
+    // Sử dụng fetch API để gửi AJAX yêu cầu
+    fetch('/NhanVien/YourAjaxAction', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ selectedMonth: month })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message); // Xử lý phản hồi từ server nếu cần
+        });
+    displayMonth.textContent = `Tháng: ${month}, Năm: ${year}`; // thay đổi hiển thị tháng
+    window.location.href = "http://localhost:29496/NhanVien";
 });

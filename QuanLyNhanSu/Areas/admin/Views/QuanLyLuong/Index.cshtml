@@ -9,7 +9,7 @@
     <div class="">
         <div class="">
             <h1 class="page-header">
-                Lương nhân viên
+                Lương nhân viên @ViewBag.ok
             </h1>
             <ol class="breadcrumb">
                 <li>
@@ -89,7 +89,7 @@
                             </td>
                             <td>
                                 <a class="btn btn-warning" href="@Url.Action("SuaBangLuong", "QuanLyLuong", new { @id = @item.MaNhanVien })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Thay đổi lương</a>
-                                <a class="btn btn-info tinhluong" href="@Url.Action("ThanhToanMotNhanVien", "QuanLyLuong", new { @id = @item.MaNhanVien })">Tính Lương</a> 
+                                <a class="btn btn-info tinhluong" href="@Url.Action("ThanhToanMotNhanVien", "QuanLyLuong", new { @id = @item.MaNhanVien })">Tính Lương</a>
                                 <a class="btn btn-primary" href="@Url.Action("QuaTrinhTangLuong", "QuanLyLuong", new  {@id = @item.MaNhanVien })">Quá trình nhận lương</a>
 
                             </td>

@@ -18,5 +18,20 @@ namespace QuanLyNhanSu.Controllers
             var chitiet = db.ChiTietLuongs.Where(n => n.MaNhanVien == id).ToList();
             return View(chitiet);
         }
+        [HttpPost]
+        public ActionResult YourAjaxAction(int selectedMonth)
+        {
+            Session["selectedMonth"] = selectedMonth;
+            return Redirect("~/NhanVien");
+        }
+        public string convertMonth(string month)
+        {
+            // Lấy phần chuỗi từ vị trí sau ký tự đầu tiên
+            if (month.Length > 1 && month[0] == 't')
+            {
+                return month.Substring(1); // Bỏ đi ký tự 't' ở đầu chuỗi
+            }
+            return month; // Trả lại chuỗi gốc nếu không có ký tự 't' ở đầu
+        }
     }
 }

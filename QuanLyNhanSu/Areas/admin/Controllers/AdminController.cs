@@ -16,7 +16,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
         // GET: /admin/Admin/
         public ActionResult Index()
         {
-          
+
             return View();
         }
 

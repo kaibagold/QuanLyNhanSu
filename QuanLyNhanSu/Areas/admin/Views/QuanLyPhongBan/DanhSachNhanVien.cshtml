@@ -24,7 +24,7 @@
 </div>
 <div style="margin:10px">
     <a class="btn btn-primary " href="@Url.Action("XuatFileExel", "QuanLyPhongBan", new { @id = @ViewBag.id })">
-    Xuất danh sách nhân viên
+        Xuất danh sách nhân viên
     </a>
 </div>
 <div class="table-responsive">
@@ -32,8 +32,8 @@
         <thead>
             <tr class="success">
                 @*<th>
-                    Mã nhân viên
-                </th>*@
+                        Mã nhân viên
+                    </th>*@
                 <th>
                     Họ tên
                 </th>
@@ -62,53 +62,53 @@
         </thead>
         <tbody>
             @foreach (var item in Model)
-                {
-            <tr>
-                @*<td>
-                    @item.MaNhanVien
-                    @Html.DisplayFor(modelItem => item.MaNhanVien)
-                </td>*@
+            {
+                <tr>
+                    @*<td>
+                            @item.MaNhanVien
+                            @Html.DisplayFor(modelItem => item.MaNhanVien)
+                        </td>*@
 
-                <td>
+                    <td>
 
-                    @Html.DisplayFor(modelItem => item.HoTen)
-                </td>
+                        @Html.DisplayFor(modelItem => item.HoTen)
+                    </td>
 
-                @*<td>
+                    @*<td>
 
-                        <img src="@Url.Content("~/Content/images/" + item.HinhAnh)" height="70" />
+                            <img src="@Url.Content("~/Content/images/" + item.HinhAnh)" height="70" />
 
-                    </td>*@
-                <td>
-                    @{
-                    int gt = int.Parse(@Html.DisplayFor(modelItem => item.GioiTinh).ToString());
-                    String x = string.Empty;
-                    switch (gt)
-                    {
-                        case 1: x = "Nam"; break; ;
-                        case 0: x = "Nữ"; break;
-                        default: x = "Khác"; break;
-                    }
-                    }
-                    @x
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.sdt_NhanVien)
-                </td>
+                        </td>*@
+                    <td>
+                        @{
+                            int gt = int.Parse(@Html.DisplayFor(modelItem => item.GioiTinh).ToString());
+                            String x = string.Empty;
+                            switch (gt)
+                            {
+                                case 1: x = "Nam"; break; ;
+                                case 0: x = "Nữ"; break;
+                                default: x = "Khác"; break;
+                            }
+                        }
+                        @x
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sdt_NhanVien)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.ChucVuNhanVien.TenChucVu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChucVuNhanVien.TenChucVu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChuyenNganh.TenChuyenNganh)
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrinhDoHocVan.TenTrinhDo)
-                </td>
-         
-            </tr>
-                }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrinhDoHocVan.TenTrinhDo)
+                    </td>
+
+                </tr>
+            }
         </tbody>
     </table>
 </div>

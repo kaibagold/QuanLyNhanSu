@@ -43,7 +43,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 l.BHXH = luong.BHXH == null ? 0 : luong.BHXH;
                 l.BHYT = luong.BHYT == null ? 0 : luong.BHYT;
                 l.BHTN = luong.BHTN == null ? 0 : luong.BHTN;
-             //   l.PhuCap = luong.PhuCap;
+                //   l.PhuCap = luong.PhuCap;
                 l.ThueThuNhap = luong.ThueThuNhap;
                 l.HeSoLuong = luong.HeSoLuong;
 
@@ -56,7 +56,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 capNhat.BHXH = luong.BHXH;
                 capNhat.BHYT = luong.BHYT;
                 capNhat.BHTN = luong.BHTN;
-              //  capNhat.PhuCap = luong.PhuCap;
+                //  capNhat.PhuCap = luong.PhuCap;
                 capNhat.ThueThuNhap = luong.ThueThuNhap;
                 capNhat.HeSoLuong = luong.HeSoLuong;
 
@@ -129,7 +129,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             {
                 var maChiTietBangLuong = "t" + thang.ToString();
                 //tim xem da co trong chi tiet lương chưa
-                var ctl = db.ChiTietLuongs.Where(n => n.MaNhanVien == id 
+                var ctl = db.ChiTietLuongs.Where(n => n.MaNhanVien == id
                     && n.MaChiTietBangLuong == maChiTietBangLuong).FirstOrDefault();
                 //tìm bảng lương tương ứng với nhân viên
                 var luongthang = db.Luongs.Where(n => n.MaNhanVien == id).FirstOrDefault();

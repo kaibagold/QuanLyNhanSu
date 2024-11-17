@@ -448,9 +448,13 @@
 
                                     <div class="dropdown" id="dropdownMenu" style="width:max-content">
                                         <div class="dropdown-content">
-                                            <p id="employeeName">@Session["TenNhanVien"]</p>
-                                            <a href="http://localhost:29496/NhanVien">HỒ SƠ</a>
-                                            <a href="http://localhost:29496/login/DangXuat" onclick="logout()">ĐĂNG XUẤT</a>
+                                            <p id="employeeName">@Session["MaNhanVien"]</p>
+                                            <hr />
+                                            <a href="http://localhost:29496/NhanVien"><i class="fa fa-fw fa-envelope"></i>Hồ Sơ</a>
+                                            <hr />
+                                            <a href="http://localhost:29496/login/DangXuat" onclick="logout()">
+                                                <i class="fa fa-fw fa-power-off"></i>Đăng Xuất
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -460,7 +464,7 @@
                     </div>
                 </div>
 
-              
+
 
                 <!-- Slide-bar -->
 

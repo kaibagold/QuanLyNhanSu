@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuanLyNhanSu.Models;
 using System.Web.Security;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using System.Globalization;
 
 namespace QuanLyNhanSu.Controllers
 {
@@ -46,6 +47,14 @@ namespace QuanLyNhanSu.Controllers
                 var nhanvien = db.NhanViens.SingleOrDefault(n => n.MaNhanVien == user.MaNhanVien);
                 Session["AvtNhanVien"] = nhanvien.HinhAnh;
                 Session["TenNhanVien"] = nhanvien.HoTen;
+
+                if (nhanvien.NgaySinh != null)
+                {
+                    DateTime date = (DateTime)nhanvien.NgaySinh;
+                    Session["NgaySinh"] = date.ToString("dd/MM/yyyy");
+                }
+
+                Session["PhongBan"] = nhanvien.MaPhongBan;
                 FormsAuthentication.SetAuthCookie(user.MaNhanVien, false);
                 if (checkadmin)
                 {
@@ -73,24 +82,25 @@ namespace QuanLyNhanSu.Controllers
             UserValidate up = new UserValidate();
             var id = Session["MaNhanVien"] as String;
             var us = db.NhanViens.Where(n => n.MaNhanVien == id).FirstOrDefault();
-               if(us!=null){
-            up.MaNhanVien = us.MaNhanVien;
-            up.HinhAnh = us.HinhAnh;
-            up.MatKhau = us.MatKhau;
-            up.XacNhanMatKhau = us.MatKhau;
-            up.HoTen = us.HoTen;
-            up.NgaySinh = us.NgaySinh;
-            up.QueQuan = us.QueQuan;
-            up.GioiTinh = us.GioiTinh;
-            up.DanToc = us.DanToc;
-            up.sdt_NhanVien = us.sdt_NhanVien;
-            up.MaChuyenNganh = us.MaChuyenNganh;
-            up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
-            up.CMND = us.CMND;
+            if (us != null)
+            {
+                up.MaNhanVien = us.MaNhanVien;
+                up.HinhAnh = us.HinhAnh;
+                up.MatKhau = us.MatKhau;
+                up.XacNhanMatKhau = us.MatKhau;
+                up.HoTen = us.HoTen;
+                up.NgaySinh = us.NgaySinh;
+                up.QueQuan = us.QueQuan;
+                up.GioiTinh = us.GioiTinh;
+                up.DanToc = us.DanToc;
+                up.sdt_NhanVien = us.sdt_NhanVien;
+                up.MaChuyenNganh = us.MaChuyenNganh;
+                up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
+                up.CMND = us.CMND;
 
-            return View(up);
-               }
-               return Redirect("~/");
+                return View(up);
+            }
+            return Redirect("~/");
         }
         [HttpPost]
         public ActionResult UpDateUser(UserValidate us, HttpPostedFileBase HinhAnh)
@@ -99,7 +109,7 @@ namespace QuanLyNhanSu.Controllers
             {
                 var up = db.NhanViens.Where(n => n.MaNhanVien == us.MaNhanVien).FirstOrDefault();
                 up.MaNhanVien = us.MaNhanVien;
-                
+
                 up.MatKhau = us.MatKhau;
                 up.MatKhau = us.XacNhanMatKhau;
                 up.HoTen = us.HoTen;

@@ -16,7 +16,7 @@
         }
 
         .active {
-            background: #0B0B0B;
+            background: #fc7321;
             color: red;
         }
     </style>
@@ -24,21 +24,17 @@
 </head>
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #fc7321; color:white;height:70px ">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" id="icon-menu-admin" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Trang quản trị", "Index", "Admin", null, new { @class = "navbar-brand" })
+            <div class="" style="color:white">
+                <a href="http://localhost:29496/admin/Admin"><img style="height:65px;margin-left:50px" src="~/Content/anh/logo_admin.png" /></a>
             </div>
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Admin <b class="caret"></b></a>
+            <ul class="navvv navbar-right top-nav">
+                <li class="">
+                    <a href="#" data-toggle="dropdown" style="font-size:15px;">
+                        <i class="fa fa-user"></i> Admin <b class="caret"></b>
+                    </a>
                     <ul class="dropdown-menu">
                         @*<li>
                                 <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -61,7 +57,7 @@
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav" id="activeMenu">
+                <ul class="nav navbar-nav side-nav" id="activeMenu" style="margin-top: 19px; ">
                     <li class="active">
                         <a href="@Url.Action("index","Admin")"><i class="fa fa-fw fa-dashboard"></i> Tổng quan</a>
                     </li>
@@ -78,7 +74,7 @@
                         <a href="@Url.Action("index","KhenThuong")"><i class="fa fa-money"></i> Khen thưởng</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("index","ThongKe")"><i class="fa fa-money"></i> Thống kê</a>
+                        <a href="@Url.Action("index","ThongKe")"><i class="fa fa-bar-chart"></i> Thống kê</a>
                     </li>
                     @*<li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-user"></i> MaNhanVien <i class="fa fa-fw fa-caret-down"></i></a>

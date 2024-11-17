@@ -15,7 +15,7 @@
         <div class="">
             <div class="">
                 <h1 class="page-header">
-                   Tổng quan hệ thống quản lý 
+                    Tổng Quan
                 </h1>
                 <ol class="breadcrumb">
                     <li>
@@ -31,10 +31,10 @@
                 <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <div class="row">
-                      
+
                             <div class="col-xs-9 text-right">
                                 @{
-                                    var count = db.NhanViens.Where(n=>n.TrangThai==true).ToList().Count - 1;
+                                    var count = db.NhanViens.Where(n => n.TrangThai == true).ToList().Count - 1;
                                 }
                                 <div class="huge">@count</div>
 
@@ -57,16 +57,16 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
-                            
-                               
-                                    <div class="col-xs-9 text-right">
+
+
+                            <div class="col-xs-9 text-right">
                                 @{
                                     var luong = db.Luongs.ToList();
                                     double tong = 0;
                                     foreach (var item in luong)
                                     {
-                                        double tienthue = 0, phucap = 0,luongcb=0,xh=0,yt=0,tn=0;
-                                       
+                                        double tienthue = 0, phucap = 0, luongcb = 0, xh = 0, yt = 0, tn = 0;
+
                                         item.HeSoLuong = item.HeSoLuong == null ? 0 : item.HeSoLuong;
                                         luongcb = item.LuongToiThieu * (double)item.HeSoLuong;
 
@@ -82,18 +82,18 @@
 
                                         item.PhuCap = item.PhuCap == null ? 0 : item.PhuCap;
                                         phucap = item.LuongToiThieu * (double)item.PhuCap;
-                                    
+
                                         item.ThueThuNhap = item.ThueThuNhap == null ? 0 : item.ThueThuNhap;
                                         tienthue = item.LuongToiThieu * (int)item.ThueThuNhap / 100;
-                                       
+
                                         tong = tong + (double)luongcb - (double)(xh + yt + tn) - (double)tienthue + (double)phucap;
-                                       
+
                                     }
 
                                 }
 
                                 <div class="huge">
-                                <span> @luong.Count</span>
+                                    <span> @luong.Count</span>
                                 </div>
                                 <div>Tổng số bảng lương</div>
                             </div>
@@ -114,7 +114,7 @@
                 <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
-                      
+
                             <div class="col-xs-9 text-right">
                                 @{
                                     var countPb = db.PhongBans.ToList().Count;
@@ -133,13 +133,13 @@
                     </a>
                 </div>
             </div>
-           
+
             <!--tuoi  trung binh nhan vien -->
-             <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6">
                 <div class="panel panel-red">
                     <div class="panel-heading">
                         <div class="row">
-                          
+
                             <div class="col-xs-9 text-right">
                                 @{
                                     var khen = db.KhenThuongs.ToList().Count();

@@ -33,18 +33,18 @@ button {
 .dropdown {
     display: none; /* Ban đầu ẩn */
     position: absolute;
-    width : 500px;
-
+    width: max-content;
+    height:max-content;
+    transform: translateX(-30%);
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
 }
 
 .dropdown-content {
     padding: 10px;
-    width:300%
+    width:max-content
 }
 
 .dropdown a {
@@ -53,13 +53,15 @@ button {
     text-decoration: none;
     color: black;
     text-align:center;
-    font-size:5px;
+    font-size:10px;
+    z-index:1;
 }
 
     .dropdown a:hover {
         background-color: #fd8f4d;
     }
 .dropdown p {
+    text-align:center;
     display: block;
     padding: 1px;
     height:max-content ;
@@ -89,7 +91,6 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 /* Search box ban đầu */

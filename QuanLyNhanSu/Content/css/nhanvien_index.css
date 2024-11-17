@@ -12,6 +12,7 @@
 
 /* Định dạng form lương */
 .salary-form {
+    margin-top:-80px;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
@@ -41,7 +42,7 @@
 
 /* Định dạng input chọn thời gian */
 .time-selection {
-    margin: 20px 0;
+    height:max-content;
     display: flex;
     gap: 10px;
 }
@@ -52,6 +53,8 @@
     }
 
     .time-selection input {
+        margin: 0px 10px 10px 20px;
+        width: 100px;
         padding: 5px;
         border: 1px solid #ddd;
         border-radius: 4px;

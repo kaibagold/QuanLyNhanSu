@@ -20,7 +20,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
         // GET: /admin/QuanLyUser/
         public ActionResult Index()
         {
-            var user = db.NhanViens.Where(x => x.MaNhanVien != "admin" && x.TrangThai == true).ToList();
+            var user = db.NhanViens.Where(x => x.MaNhanVien != "admin").ToList();
             return View(user);
         }
 
@@ -47,7 +47,6 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             {
                 db.ChiTietLuongs.Remove(item);
             }
-
             db.Luongs.Remove(luong);
             db.NhanViens.Remove(a);
             db.HopDongs.Remove(hd);
@@ -169,7 +168,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             {
                 ViewBag.err = String.Empty;
                 var checkMaNhanVien = db.NhanViens.Any(x => x.MaNhanVien == nv.MaNhanVien);
-                
+
                 if (checkMaNhanVien)
                 {
                     ViewBag.err = "tài khoản đã tồn tại";
@@ -206,25 +205,25 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                     luong.BHXH = 8;
                     luong.BHYT = 1.5;
                     luong.BHTN = 1;
-                    var trinhdo = db.TrinhDoHocVans.Where(n=>n.MaTrinhDoHocVan.Equals(nv.MaTrinhDoHocVan)).FirstOrDefault();
-                    var chucvu = db.ChucVuNhanViens.Where(n=>n.MaChucVuNV.Equals(nv.MaChucVuNV)).SingleOrDefault();
-                    
-                        if (trinhdo.MaTrinhDoHocVan.Equals(nv.MaTrinhDoHocVan))
+                    var trinhdo = db.TrinhDoHocVans.Where(n => n.MaTrinhDoHocVan.Equals(nv.MaTrinhDoHocVan)).FirstOrDefault();
+                    var chucvu = db.ChucVuNhanViens.Where(n => n.MaChucVuNV.Equals(nv.MaChucVuNV)).SingleOrDefault();
+
+                    if (trinhdo.MaTrinhDoHocVan.Equals(nv.MaTrinhDoHocVan))
+                    {
+                        luong.HeSoLuong = (double)trinhdo.HeSoBac;
+                    }
+
+
+                    if (chucvu.MaChucVuNV.Equals(nv.MaChucVuNV))
+                    {
+                        if (chucvu.HSPC != null)
                         {
-                            luong.HeSoLuong = (double)trinhdo.HeSoBac;
+                            luong.PhuCap = (double)chucvu.HSPC;
                         }
-                    
-                    
-                        if (chucvu.MaChucVuNV.Equals(nv.MaChucVuNV))
-                        {
-                            if (chucvu.HSPC != null)
-                            {
-                                luong.PhuCap = (double)chucvu.HSPC;
-                            }
-                            else
-                            { luong.PhuCap = 0; }
-                        }
-                    
+                        else
+                        { luong.PhuCap = 0; }
+                    }
+
 
 
                     // tmp.Image = "~/Content/images/icon.jpg";
@@ -314,5 +313,25 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             return View(ht);
         }
 
+        // Action cập nhật trạng thái
+        [HttpPost]
+        public ActionResult CapNhatTrangThai(string id)
+        {
+            // Tìm user theo ID
+            var user = db.NhanViens.FirstOrDefault(u => u.MaNhanVien == id);
+            if (user == null)
+            {
+                return Redirect("/admin/QuanLyUser"); // Trả về 404 nếu không tìm thấy user
+            }
+
+            // Đảo trạng thái
+            user.TrangThai = !user.TrangThai;
+
+            // Lưu thay đổi vào database
+            db.SaveChanges();
+
+            // Trả về JSON hoặc Redirect đến view gốc
+            return Json(new { success = true, status = user.TrangThai });
+        }
     }   //end lass
 }
