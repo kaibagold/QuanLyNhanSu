@@ -36,9 +36,9 @@ namespace QuanLyNhanSu.Models
         public virtual DbSet<KyLuat> KyLuats { get; set; }
         public virtual DbSet<KhenThuong> KhenThuongs { get; set; }
         public virtual DbSet<LuanChuyenNhanVien> LuanChuyenNhanViens { get; set; }
-        public virtual DbSet<LuongA1GV> LuongA1GV { get; set; }
-        public virtual DbSet<LuongA21PGS> LuongA21PGS { get; set; }
-        public virtual DbSet<LuongA31GS> LuongA31GS { get; set; }
+        //public virtual DbSet<LuongA1GV> LuongA1GV { get; set; }
+        //public virtual DbSet<LuongA21PGS> LuongA21PGS { get; set; }
+        //public virtual DbSet<LuongA31GS> LuongA31GS { get; set; }
         public virtual DbSet<Luong> Luongs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<PhongBan> PhongBans { get; set; }

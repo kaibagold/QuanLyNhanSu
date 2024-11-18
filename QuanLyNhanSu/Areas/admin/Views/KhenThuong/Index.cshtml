@@ -31,6 +31,9 @@
     <thead>
         <tr class="success">
             <th>
+                Id
+            </th>
+            <th>
                 Mã nhân viên
             </th>
             <th>
@@ -50,18 +53,21 @@
         {
             <tr>
                 <td>
+                    @item.Id
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.NhanVien.MaNhanVien)
                 </td>
                 <td>
                     @String.Format("{0:dd/MM/yyyy}", @item.ThangThuong)
-                    
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LyDo)
                 </td>
                 <td>
                     @string.Format("{0:#,#}", @item.TienThuong).Replace(",", ",")
-                    
+
                 </td>
 
             </tr>

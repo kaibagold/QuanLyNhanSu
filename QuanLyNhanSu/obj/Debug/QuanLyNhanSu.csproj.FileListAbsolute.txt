@@ -646,3 +646,6 @@ D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.csproj.CopyComplete
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.dll
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.pdb
+D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.AddNewFeature.resources
+D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.csproj.GenerateResource.cache
+D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.AddIdToKhenThuongs.resources

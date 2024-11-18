@@ -14,9 +14,6 @@
         <EntityTypeShape EntityType="QuanLyNhanSuModel.KyLuat" Width="1.5" PointX="5.25" PointY="1.875" />
         <EntityTypeShape EntityType="QuanLyNhanSuModel.KhenThuong" Width="1.5" PointX="5.25" PointY="4.625" />
         <EntityTypeShape EntityType="QuanLyNhanSuModel.LuanChuyenNhanVien" Width="1.5" PointX="5.25" PointY="18.25" />
-        <EntityTypeShape EntityType="QuanLyNhanSuModel.LuongA1GV" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="QuanLyNhanSuModel.LuongA21PGS" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="QuanLyNhanSuModel.LuongA31GS" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="QuanLyNhanSuModel.Luong" Width="1.5" PointX="5.25" PointY="9.625" />
         <EntityTypeShape EntityType="QuanLyNhanSuModel.NhanVien" Width="1.5" PointX="3" PointY="9.625" />
         <EntityTypeShape EntityType="QuanLyNhanSuModel.PhongBan" Width="1.5" PointX="0.75" PointY="19.625" />
