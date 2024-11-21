@@ -2,198 +2,200 @@
 @using QuanLyNhanSu.Models
 @{
     ViewBag.Title = "Cập nhật thông tin nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @model UserValidate
-
 @{
     QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
 }
-<!--nguoi dung cap nhat-->
-<div class="row">
-    <h1>Cập nhật thông tin nhân viên</h1>
-    <hr />
-    <div class="col-md-4 col-sm-3 ">
-        <img id="avatar" src="~/Content/images/@Model.HinhAnh" class="img-circle img-responsive img-thumbnail">
-    </div>
-    <div class="col-md-8 col-sm-9">
-        <form class="form-horizontal" @Url.Action("UpdateUser", "QuanLyUser") method="post" role="form" enctype="multipart/form-data">
-            @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary(true)
-            @Html.HiddenFor(model => model.MaNhanVien)
-            <!--mat khau-->
-            @*<span class="success">@ViewBag.succes</span>*@
+<link rel="stylesheet" href="~/Content/css/EditProfile.css" />
 
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Mật khẩu</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="password" name="MatKhau" value="@Model.MatKhau" />
+<section class="editProfile">
+    <div class="container">
+        <form method="post" role="form" enctype="multipart/form-data">
+            <div class="row gutters">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="account-settings">
+                                <div class="user-profile">
+                                    <div class="user-avatar">
+                                        @{
+                                            if (Model.HinhAnh == null)
+                                            {
+                                                <img style="" src="~/Content/anh/img_avt/avt_profile_default.png" alt="Maxwell Admin">
+                                            }
+                                            else
+                                            {
+                                                <img style="" src="~/Content/anh/img_avt/@Model.HinhAnh" alt="Maxwell Admin">
+                                            }
+                                        }
+  
+                                        <i onclick="triggerFileUpload()" class="fa fa-edit edit_avt"></i>
+                                        <input type="file" id="fileInput" name="HinhAnh" style="display: none;" />
+                                    </div>
 
-                    @Html.ValidationMessageFor(model => model.MatKhau)
-                </div>
-            </div>
-            <!--xác nhan mat khau-->
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Xác nhận mật khẩu</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="password" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau" />
-                    @Html.ValidationMessageFor(model => model.XacNhanMatKhau)
-                </div>
-            </div>
-            <!--ho ten-->
-            <div class="form-group">
-                <div class="control-label col-md-4 col-sm-4">
-                    <label>Họ tên</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="text" name="HoTen" value="@Model.HoTen" />
-                    @Html.ValidationMessageFor(model => model.HoTen)
-                </div>
-            </div>
-            <!--ngay sinh-->
-            <div class="form-group">
-                <div class="control-label col-md-4 col-sm-4">
-                    <label>Ngày sinh</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control"
-                           value="@String.Format("{0:MM-dd-yyyy}", @Model.NgaySinh)"
-                           type="text" name="NgaySinh"
-                           placeholder="MM-DD-YYYY"
-                           required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}"
-                           title="Nhập đúng định dạng MM-DD-YYYY" />
-
-                    @*<input class="form-control" type="date" name="NgaySinh" value="@Model.NgaySinh" />*@
-                    @Html.ValidationMessageFor(model => model.NgaySinh)
-                </div>
-            </div>
-
-
-            <!--que quan-->
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Quê quán</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="text" name="QueQuan" value="@Model.QueQuan" />
-                    @Html.ValidationMessageFor(model => model.QueQuan)
-                </div>
-            </div>
-
-            <!--hinh anh-->
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Hình đại diện</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="file" name="HinhAnh">
-                </div>
-
-            </div>
-
-            <!--giôi tinh-->
-            <div class="form-group">
-                <!---start-->
-                <label class="col-sm-4 control-label">Giới tính</label>
-
-                <div class="col-md-8 col-sm-8">
-                    @{
-                        string check0 = string.Empty;
-                        string check1 = string.Empty;
-                        string check2 = string.Empty;
-                        switch (@Model.GioiTinh)
-                        {
-                            case 0: check0 = "checked";
-                                break;
-                            case 1: check1 = "checked";
-                                break;
-                            default: check2 = "checked";
-                                break;
-                        }
-                    }
-                    <div class="radio-inline">
-                        <label><input type="radio" name="GioiTinh" value="1" @check1>Nam</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="GioiTinh" value="0" @check0>Nữ</label>
-                    </div>
-                    <div class="radio-inline">
-                        <label><input type="radio" name="GioiTinh" value="2" @check2>Khác</label>
+                                    <div >
+                                        <h5 class="user-name" id="name">@Model.HoTen</h5>
+                                        <i id="edit-icon" class="fa fa-edit edit_name"></i>
+                                    </div>
+                                    <input class="user-name" id="name-input" name="HoTen" type="text" style="display:none;text-align:center" 
+                                           value="@Model.HoTen" />
+                                    @Html.ValidationMessageFor(model => model.HoTen)
+                                    <h6 class="user-email">yuki@Maxwell.com</h6>
+                                </div>
+                                <div class="about">
+                                    <h5>About</h5>
+                                    <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!---end--->
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div class="card h-100">
+
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.MaNhanVien)
+                        <div class="card-bodyy">
+                            <div class="row gutters" style="padding:15px">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mb-2 text-primary" style="font-size: 20px; color: #fc7321;text-align:center">Thông Tin Cá Nhân</h6>
+                                    <hr />
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="fullName">Mật Khẩu</label>
+                                        <input class="form-control" type="password" name="MatKhau" value="@Model.MatKhau" placeholder="Enter full name">
+                                        @Html.ValidationMessageFor(model => model.MatKhau)
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="eMail">Xác Nhận Mật Khẩu</label>
+                                        <input class="form-control" type="password" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau">
+                                        @Html.ValidationMessageFor(model => model.XacNhanMatKhau)
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="phone">Ngày Sinh</label>
+                                        <input class="form-control"
+                                               value="@String.Format("{0:MM-dd-yyyy}", @Model.NgaySinh)"
+                                               type="datetime" name="NgaySinh"
+                                               
+                                               required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}"
+                                               title="Nhập đúng định dạng MM-DD-YYYY" />
+
+                                        @*<input class="form-control" type="date" name="NgaySinh" value="@Model.NgaySinh" />*@
+                                        @Html.ValidationMessageFor(model => model.NgaySinh)
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="website">Quê Quán</label>
+                                        <input class="form-control" type="text" name="QueQuan" value="@Model.QueQuan" />
+                                        @Html.ValidationMessageFor(model => model.QueQuan)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters" style="padding:15px">
+                                @*<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <h6 class="mt-3 mb-2 text-primary">Address</h6>
+                                </div>*@
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group" style="display:flex;flex-direction:column">
+                                        <label for="Street">Giới Tính</label>
+                                        @{
+                                            string check0 = string.Empty;
+                                            string check1 = string.Empty;
+                                            string check2 = string.Empty;
+                                            switch (@Model.GioiTinh)
+                                            {
+                                                case 0:
+                                                    check0 = "selected";
+                                                    break;
+                                                case 1:
+                                                    check1 = "selected";
+                                                    break;
+                                                default:
+                                                    check2 = "selected";
+                                                    break;
+                                            }
+                                        }
+                                        <select name="GioiTinh" style="width:200px;height:40px;font-size:16px" >
+                                            <option name="GioiTinh" value="1" @check1>Nam</option>
+                                            <option name="GioiTinh" value="0" @check0>Nữ</option>
+                                            <option name="GioiTinh" value="1" @check2>Khác</option>
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="ciTy">Dân Tộc</label>
+                                        <input class="form-control" type="text" name="DanToc" value="@Model.DanToc" />
+                                        @Html.ValidationMessageFor(model => model.DanToc)
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="sTate">Số Điện Thoại</label>
+                                        <input class="form-control" type="text" name="sdt_NhanVien" value="@Model.sdt_NhanVien" />
+                                        @Html.ValidationMessageFor(model => model.sdt_NhanVien)
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label for="zIp">CMND</label>
+                                        <input class="form-control" type="text" name="CMND" value="@Model.CMND" />
+                                        @Html.ValidationMessageFor(model => model.CMND)
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="width: 97%;" />
+                            <div class="row gutters">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div>
+                                        <button type="submit" id="submit" name="submit" value="Cập nhật" class="btn" style="margin-left:40%">Cập Nhật</button>
+                                        <button type="button" onclick="window.location.href='@Url.Action("Index","Home")';"  class="btn" style="background-color:darkgray">Quay Lại</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <!--dan toc-->
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Dân tộc</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="text" name="DanToc" value="@Model.DanToc" />
-                    @Html.ValidationMessageFor(model => model.DanToc)
-                </div>
-            </div>
-            <!--so dien thoai-->
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Số điện thoại</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="text" name="sdt_NhanVien" value="@Model.sdt_NhanVien" />
-                    @Html.ValidationMessageFor(model => model.sdt_NhanVien)
-                </div>
-            </div>
-
-
-            @* chuyen nganh*@
-            <div class="form-group">
-                <div class="control-label  col-md-4 col-sm-4">
-                    <label>Chuyên ngành</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    @{
-                        var chuyenNganh = db.ChuyenNganhs.ToList();
-                    }
-                    <select name="MaChuyenNganh" class="form-control">
-                        @foreach (var item in chuyenNganh)
-                        {
-                            if (Model.MaChuyenNganh == item.MaChuyenNganh)
-                            {
-                                <option value="@item.MaChuyenNganh.ToString()" selected>@item.TenChuyenNganh</option>
-                            }
-                            <option value="@item.MaChuyenNganh.ToString()">@item.TenChuyenNganh</option>
-                        }
-                    </select>
-
-                </div>
-            </div>
-
-
-            <!--cmnd-->
-            <div class="form-group">
-                <div class="control-label col-md-4 col-sm-4">
-                    <label>Số CMND</label>
-                </div>
-                <div class="col-md-8 col-sm-8">
-                    <input class="form-control" type="text" name="CMND" value="@Model.CMND" />
-                    @Html.ValidationMessageFor(model => model.CMND)
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-4 col-md-4">
-                    <input type="submit" value="Cập nhật" class="btn btn-primary btn-lg" />
-                </div>
-            </div>
-
         </form>
     </div>
+</section>
+<script>
+    const nameElement = document.getElementById("name");
+    const inputElement = document.getElementById("name-input");
+    const editIcon = document.getElementById("edit-icon");
 
-</div>
+    editIcon.addEventListener("click", () => {
+        inputElement.style.display = "block";
+        nameElement.style.display = "none";
+        editIcon.style.display = "none"
+        inputElement.value = nameElement.textContent;
+        inputElement.focus();
+    });
 
+    inputElement.addEventListener("blur", () => {
+        nameElement.textContent = inputElement.value;
+        inputElement.style.display = "none";
+        nameElement.style.display = "block";
+        editIcon.style.position = "absolute";
+        editIcon.style.display = "inline-block"
+    });
+    function triggerFileUpload() {
+        document.getElementById('fileInput').click(); // Kích hoạt sự kiện click của input file
+    }
 
+</script>

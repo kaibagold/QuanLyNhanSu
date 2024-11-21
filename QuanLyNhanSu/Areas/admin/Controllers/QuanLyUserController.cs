@@ -201,10 +201,10 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
 
                     //tao bang luong
                     luong.MaNhanVien = nv.MaNhanVien;
-                    luong.LuongToiThieu = 1150000;
-                    luong.BHXH = 8;
-                    luong.BHYT = 1.5;
-                    luong.BHTN = 1;
+                    luong.LuongToiThieu = 6000000;
+                    luong.BHXH = 0.08;
+                    luong.BHYT = 0.015;
+                    luong.BHTN = 0.01;
                     var trinhdo = db.TrinhDoHocVans.Where(n => n.MaTrinhDoHocVan.Equals(nv.MaTrinhDoHocVan)).FirstOrDefault();
                     var chucvu = db.ChucVuNhanViens.Where(n => n.MaChucVuNV.Equals(nv.MaChucVuNV)).SingleOrDefault();
 

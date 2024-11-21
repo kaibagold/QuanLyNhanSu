@@ -14,11 +14,11 @@ namespace QuanLyNhanSu.Models
     
     public partial class KhenThuong
     {
-        public int Id { get; set; }
         public string MaNhanVien { get; set; }
         public System.DateTime ThangThuong { get; set; }
         public string LyDo { get; set; }
-        public Nullable<int> TienThuong { get; set; }
+        public int TienThuong { get; set; }
+        public int Id { get; set; }
     
         public virtual NhanVien NhanVien { get; set; }
     }

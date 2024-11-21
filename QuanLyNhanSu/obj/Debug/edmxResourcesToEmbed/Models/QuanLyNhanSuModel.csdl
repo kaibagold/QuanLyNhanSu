@@ -38,11 +38,7 @@
     <EntitySet Name="ChuyenNganhs" EntityType="QuanLyNhanSuModel.ChuyenNganh" />
     <EntitySet Name="HopDongs" EntityType="QuanLyNhanSuModel.HopDong" />
     <EntitySet Name="KyLuats" EntityType="QuanLyNhanSuModel.KyLuat" />
-    <EntitySet Name="KhenThuongs" EntityType="QuanLyNhanSuModel.KhenThuong" />
     <EntitySet Name="LuanChuyenNhanViens" EntityType="QuanLyNhanSuModel.LuanChuyenNhanVien" />
-    <EntitySet Name="LuongA1GV" EntityType="QuanLyNhanSuModel.LuongA1GV" />
-    <EntitySet Name="LuongA21PGS" EntityType="QuanLyNhanSuModel.LuongA21PGS" />
-    <EntitySet Name="LuongA31GS" EntityType="QuanLyNhanSuModel.LuongA31GS" />
     <EntitySet Name="Luongs" EntityType="QuanLyNhanSuModel.Luong" />
     <EntitySet Name="NhanViens" EntityType="QuanLyNhanSuModel.NhanVien" />
     <EntitySet Name="PhongBans" EntityType="QuanLyNhanSuModel.PhongBan" />
@@ -77,10 +73,6 @@
       <End Role="NhanVien" EntitySet="NhanViens" />
       <End Role="KyLuat" EntitySet="KyLuats" />
     </AssociationSet>
-    <AssociationSet Name="FK__Thuong__MaNhanVien" Association="QuanLyNhanSuModel.FK__Thuong__MaNhanVien">
-      <End Role="NhanVien" EntitySet="NhanViens" />
-      <End Role="KhenThuong" EntitySet="KhenThuongs" />
-    </AssociationSet>
     <AssociationSet Name="FK__LuanChuyen__MaNhanVien" Association="QuanLyNhanSuModel.FK__LuanChuyen__MaNhanVien">
       <End Role="NhanVien" EntitySet="NhanViens" />
       <End Role="LuanChuyenNhanVien" EntitySet="LuanChuyenNhanViens" />
@@ -100,6 +92,11 @@
     <AssociationSet Name="FK_NhanVien_TrinhDoHocVan" Association="QuanLyNhanSuModel.FK_NhanVien_TrinhDoHocVan">
       <End Role="TrinhDoHocVan" EntitySet="TrinhDoHocVans" />
       <End Role="NhanVien" EntitySet="NhanViens" />
+    </AssociationSet>
+    <EntitySet Name="KhenThuongs" EntityType="QuanLyNhanSuModel.KhenThuong" />
+    <AssociationSet Name="FK__Thuong__MaNhanVien" Association="QuanLyNhanSuModel.FK__Thuong__MaNhanVien">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="KhenThuong" EntitySet="KhenThuongs" />
     </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -199,16 +196,6 @@
     <Property Name="TienKyLuat" Type="Int32" />
     <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK_KyLuat_KyLuat" FromRole="KyLuat" ToRole="NhanVien" />
   </EntityType>
-  <EntityType Name="KhenThuong">
-    <Key>
-      <PropertyRef Name="MaNhanVien" />
-    </Key>
-    <Property Name="MaNhanVien" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-    <Property Name="ThangThuong" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="LyDo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="TienThuong" Type="Int32" />
-    <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="KhenThuong" ToRole="NhanVien" />
-  </EntityType>
   <EntityType Name="LuanChuyenNhanVien">
     <Key>
       <PropertyRef Name="MaNhanVien" />
@@ -221,27 +208,6 @@
     <Property Name="PhongBanChuyen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="PhongBanDen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK__LuanChuyen__MaNhanVien" FromRole="LuanChuyenNhanVien" ToRole="NhanVien" />
-  </EntityType>
-  <EntityType Name="LuongA1GV">
-    <Key>
-      <PropertyRef Name="BacLuong" />
-    </Key>
-    <Property Name="BacLuong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HeSo" Type="Double" />
-  </EntityType>
-  <EntityType Name="LuongA21PGS">
-    <Key>
-      <PropertyRef Name="BacLuong" />
-    </Key>
-    <Property Name="BacLuong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HeSo" Type="Double" />
-  </EntityType>
-  <EntityType Name="LuongA31GS">
-    <Key>
-      <PropertyRef Name="BacLuong" />
-    </Key>
-    <Property Name="BacLuong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HeSo" Type="Double" />
   </EntityType>
   <EntityType Name="Luong">
     <Key>
@@ -284,12 +250,13 @@
     <NavigationProperty Name="ChuyenNganh" Relationship="QuanLyNhanSuModel.FK__NhanVien__MaChuyenNganh" FromRole="NhanVien" ToRole="ChuyenNganh" />
     <NavigationProperty Name="HopDong" Relationship="QuanLyNhanSuModel.FK__NhanVien__MaHopDong" FromRole="NhanVien" ToRole="HopDong" />
     <NavigationProperty Name="KyLuat" Relationship="QuanLyNhanSuModel.FK_KyLuat_KyLuat" FromRole="NhanVien" ToRole="KyLuat" />
-    <NavigationProperty Name="KhenThuong" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="NhanVien" ToRole="KhenThuong" />
     <NavigationProperty Name="LuanChuyenNhanViens" Relationship="QuanLyNhanSuModel.FK__LuanChuyen__MaNhanVien" FromRole="NhanVien" ToRole="LuanChuyenNhanVien" />
     <NavigationProperty Name="Luong" Relationship="QuanLyNhanSuModel.FK_Luong_NhanVien" FromRole="NhanVien" ToRole="Luong" />
     <NavigationProperty Name="PhongBan" Relationship="QuanLyNhanSuModel.FK__NhanVien__MaPhongBan" FromRole="NhanVien" ToRole="PhongBan" />
     <NavigationProperty Name="ThoiViec" Relationship="QuanLyNhanSuModel.FK__ThoiViec__MaNhanVien" FromRole="NhanVien" ToRole="ThoiViec" />
     <NavigationProperty Name="TrinhDoHocVan" Relationship="QuanLyNhanSuModel.FK_NhanVien_TrinhDoHocVan" FromRole="NhanVien" ToRole="TrinhDoHocVan" />
+    <Property Name="KhuVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="KhenThuongs" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="NhanVien" ToRole="KhenThuong" />
   </EntityType>
   <EntityType Name="PhongBan">
     <Key>
@@ -423,20 +390,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Thuong__MaNhanVien">
-    <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="QuanLyNhanSuModel.KhenThuong" Role="KhenThuong" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="NhanVien">
-        <PropertyRef Name="MaNhanVien" />
-      </Principal>
-      <Dependent Role="KhenThuong">
-        <PropertyRef Name="MaNhanVien" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__LuanChuyen__MaNhanVien">
     <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -500,6 +453,31 @@
       </Principal>
       <Dependent Role="NhanVien">
         <PropertyRef Name="MaTrinhDoHocVan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="KhenThuong">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="MaNhanVien" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ThangThuong" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LyDo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TienThuong" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="KhenThuong" ToRole="NhanVien" />
+  </EntityType>
+  <Association Name="FK__Thuong__MaNhanVien">
+    <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="QuanLyNhanSuModel.KhenThuong" Role="KhenThuong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="KhenThuong">
+        <PropertyRef Name="MaNhanVien" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

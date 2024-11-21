@@ -18,6 +18,7 @@ namespace QuanLyNhanSu.Models
         {
             this.CapNhatTrinhDoHocVans = new HashSet<CapNhatTrinhDoHocVan>();
             this.LuanChuyenNhanViens = new HashSet<LuanChuyenNhanVien>();
+            this.KhenThuongs = new HashSet<KhenThuong>();
         }
     
         public string MaNhanVien { get; set; }
@@ -36,17 +37,18 @@ namespace QuanLyNhanSu.Models
         public string MaChuyenNganh { get; set; }
         public string MaTrinhDoHocVan { get; set; }
         public string CMND { get; set; }
+        public string KhuVuc { get; set; }
     
         public virtual ICollection<CapNhatTrinhDoHocVan> CapNhatTrinhDoHocVans { get; set; }
         public virtual ChucVuNhanVien ChucVuNhanVien { get; set; }
         public virtual ChuyenNganh ChuyenNganh { get; set; }
         public virtual HopDong HopDong { get; set; }
         public virtual KyLuat KyLuat { get; set; }
-        public virtual KhenThuong KhenThuong { get; set; }
         public virtual ICollection<LuanChuyenNhanVien> LuanChuyenNhanViens { get; set; }
         public virtual Luong Luong { get; set; }
         public virtual PhongBan PhongBan { get; set; }
         public virtual ThoiViec ThoiViec { get; set; }
         public virtual TrinhDoHocVan TrinhDoHocVan { get; set; }
+        public virtual ICollection<KhenThuong> KhenThuongs { get; set; }
     }
 }

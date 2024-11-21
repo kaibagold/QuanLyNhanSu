@@ -118,8 +118,8 @@ namespace QuanLyNhanSu.Controllers
                 up.GioiTinh = us.GioiTinh;
                 up.DanToc = us.DanToc;
                 up.sdt_NhanVien = us.sdt_NhanVien;
-                up.MaChuyenNganh = us.MaChuyenNganh;
-                up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
+                //up.MaChuyenNganh = us.MaChuyenNganh;
+                
                 up.CMND = us.CMND;
 
                 if (us.HinhAnh != null)
@@ -153,5 +153,32 @@ namespace QuanLyNhanSu.Controllers
             //Về trang chủ
             return Redirect("/");
         }
+        public ActionResult test()
+        {
+            UserValidate up = new UserValidate();
+            var id = Session["MaNhanVien"] as String;
+            var us = db.NhanViens.Where(n => n.MaNhanVien == id).FirstOrDefault();
+            if (us != null)
+            {
+                up.MaNhanVien = us.MaNhanVien;
+                up.HinhAnh = us.HinhAnh;
+                up.MatKhau = us.MatKhau;
+                up.XacNhanMatKhau = us.MatKhau;
+                up.HoTen = us.HoTen;
+                up.NgaySinh = us.NgaySinh;
+                up.QueQuan = us.QueQuan;
+                up.GioiTinh = us.GioiTinh;
+                up.DanToc = us.DanToc;
+                up.sdt_NhanVien = us.sdt_NhanVien;
+                up.MaChuyenNganh = us.MaChuyenNganh;
+                up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
+                up.CMND = us.CMND;
+
+                return View(up);
+            }
+            return Redirect("~/");
+        }
+
+
     }
 }

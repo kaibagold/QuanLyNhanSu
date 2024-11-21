@@ -70,15 +70,6 @@
     <Property Name="NgayKetThuc" Type="datetime" />
     <Property Name="GhiChu" Type="nvarchar(max)" />
   </EntityType>
-  <EntityType Name="KhenThuongs">
-    <Key>
-      <PropertyRef Name="MaNhanVien" />
-    </Key>
-    <Property Name="MaNhanVien" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="ThangThuong" Type="datetime" Nullable="false" />
-    <Property Name="LyDo" Type="nvarchar(max)" />
-    <Property Name="TienThuong" Type="int" />
-  </EntityType>
   <EntityType Name="KyLuats">
     <Key>
       <PropertyRef Name="MaNhanVien" />
@@ -87,6 +78,16 @@
     <Property Name="LyDo" Type="nvarchar(max)" />
     <Property Name="ThangKiLuat" Type="datetime" Nullable="false" />
     <Property Name="TienKyLuat" Type="int" />
+  </EntityType>
+  <EntityType Name="KhenThuongs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="MaNhanVien" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ThangThuong" Type="datetime" Nullable="false" />
+    <Property Name="LyDo" Type="nvarchar(max)" />
+    <Property Name="TienThuong" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
   </EntityType>
   <EntityType Name="LuanChuyenNhanViens">
     <Key>
@@ -99,27 +100,6 @@
     <Property Name="LyDoChuyen" Type="nvarchar(max)" />
     <Property Name="PhongBanChuyen" Type="varchar" MaxLength="30" />
     <Property Name="PhongBanDen" Type="varchar" MaxLength="30" />
-  </EntityType>
-  <EntityType Name="LuongA1GV">
-    <Key>
-      <PropertyRef Name="BacLuong" />
-    </Key>
-    <Property Name="BacLuong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HeSo" Type="float" />
-  </EntityType>
-  <EntityType Name="LuongA21PGS">
-    <Key>
-      <PropertyRef Name="BacLuong" />
-    </Key>
-    <Property Name="BacLuong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HeSo" Type="float" />
-  </EntityType>
-  <EntityType Name="LuongA31GS">
-    <Key>
-      <PropertyRef Name="BacLuong" />
-    </Key>
-    <Property Name="BacLuong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HeSo" Type="float" />
   </EntityType>
   <EntityType Name="Luongs">
     <Key>
@@ -154,6 +134,7 @@
     <Property Name="MaChuyenNganh" Type="varchar" MaxLength="30" />
     <Property Name="MaTrinhDoHocVan" Type="varchar" MaxLength="30" />
     <Property Name="CMND" Type="varchar" MaxLength="50" />
+    <Property Name="KhuVuc" Type="varchar" MaxLength="30" />
   </EntityType>
   <EntityType Name="PhongBans">
     <Key>
@@ -260,7 +241,7 @@
     <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="KhenThuongs" Type="Self.KhenThuongs" Multiplicity="0..1" />
+    <End Role="KhenThuongs" Type="Self.KhenThuongs" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NhanViens">
         <PropertyRef Name="MaNhanVien" />
@@ -371,12 +352,9 @@
     <EntitySet Name="ChucVuNhanViens" EntityType="Self.ChucVuNhanViens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChuyenNganhs" EntityType="Self.ChuyenNganhs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HopDongs" EntityType="Self.HopDongs" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="KhenThuongs" EntityType="Self.KhenThuongs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KyLuats" EntityType="Self.KyLuats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KhenThuongs" EntityType="Self.KhenThuongs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LuanChuyenNhanViens" EntityType="Self.LuanChuyenNhanViens" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="LuongA1GV" EntityType="Self.LuongA1GV" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="LuongA21PGS" EntityType="Self.LuongA21PGS" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="LuongA31GS" EntityType="Self.LuongA31GS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Luongs" EntityType="Self.Luongs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhanViens" EntityType="Self.NhanViens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhongBans" EntityType="Self.PhongBans" Schema="dbo" store:Type="Tables" />

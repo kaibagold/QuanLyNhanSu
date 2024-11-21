@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -56,10 +56,10 @@
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Excel">
       <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
@@ -239,15 +239,6 @@
     <Compile Include="Models\Luong.cs">
       <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LuongA1GV.cs">
-      <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LuongA21PGS.cs">
-      <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LuongA31GS.cs">
-      <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\NhanVien.cs">
       <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
     </Compile>
@@ -323,12 +314,15 @@
     <Content Include="Content\-\media\project\fpt-corporation\fpt\home\list-items-section-image\join-width-us01-mobile.jpg" />
     <Content Include="Content\-\media\project\fpt-corporation\fpt\home\list-items-section-image\join-width-us02-mobile.jpg" />
     <Content Include="Content\anh\bg_login_main.png" />
+    <Content Include="Content\anh\fpt-logo.png" />
     <Content Include="Content\anh\icon\con-nguoi.svg" />
     <Content Include="Content\anh\icon\cong-nghe.svg" />
     <Content Include="Content\anh\icon\kinh-doanh.svg" />
     <Content Include="Content\anh\icon\play.png" />
     <Content Include="Content\anh\icon\user_login.png" />
     <Content Include="Content\anh\img_avt\avt_admin.png" />
+    <Content Include="Content\anh\icon\edit_avt.png" />
+    <Content Include="Content\anh\img_avt\avt_profile_default.png" />
     <Content Include="Content\anh\img_index\cong_nghe.png" />
     <Content Include="Content\anh\img_index\cong_ty_tv.png" />
     <Content Include="Content\anh\img_index\dong_hanh_cung_chung_toi.png" />
@@ -367,13 +361,13 @@
     <Content Include="Content\anh\banner2.jpg" />
     <Content Include="Content\anh\banner3.jpg" />
     <Content Include="Content\anh\banner4.jpg" />
-    <Content Include="Content\anh\fpt-logo.svg" />
     <Content Include="Content\anh\logo_admin.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\account.css" />
+    <Content Include="Content\css\EditProfile.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\index.css" />
@@ -556,7 +550,6 @@
     <Content Include="Content\images\slide4.jpg" />
     <Content Include="Content\js\index_login.js" />
     <Content Include="Content\js\nhanvien_index.js" />
-    <Content Include="Content\login.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -771,10 +764,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\login\Login.cshtml" />
-    <Content Include="Views\login\UpDateUser.cshtml" />
     <Content Include="Views\NhanVien\Index.cshtml" />
     <Content Include="Views\Shared\test.cshtml" />
     <Content Include="Views\login\Login - Copy.cshtml" />
+    <Content Include="Views\login\UpDateUser.cshtml" />
+    <Content Include="Views\login\test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -837,10 +831,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

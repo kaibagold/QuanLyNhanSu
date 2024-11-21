@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using Antlr.Runtime;
+using DocumentFormat.OpenXml.Math;
+using System.Web;
 using System.Web.Optimization;
 
 namespace QuanLyNhanSu
@@ -44,7 +46,18 @@ namespace QuanLyNhanSu
                         "~/Content/datatables.min.css",
                         "~/Content/css/font-awesome.min.css",
                         "~/Content/sb-admin.css"));
-
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                        "~/Content/-/media/Themes/Wireframe/sass/base/fonts/fonts.scss",
+                        "~/Content/-/media/themes/fpt-corporation/fpt/component-themes/cr/styles/pre-optimized-mina18a.css",
+                        "~/Content/-/media/feature/experience-accelerator/bootstrap-4/bootstrap-4/styles/optimized-minf5f7.css",
+                        "~/Content/-/media/base-themes/core-libraries/styles/optimized-min3f37.css",
+                        "~/Content/-/media/base-themes/main-theme/styles/optimized-mind13f.css",
+                        "~/Content/-/media/themes/fpt-corporation/fpt/fptweb/styles/pre-optimized-minc050.css",
+                        "~/Content/-/media/themes/fpt-corporation/fpt/fptweb-base/styles/theme.css",
+                        "~/Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/styles/slick.css",
+                        "~/Content/css/login_index.css"));
+  
+           
         }
     }
 }

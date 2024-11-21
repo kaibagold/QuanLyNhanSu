@@ -1,168 +1,261 @@
-﻿@using QuanLyNhanSu.Models
-@model List<NhanVien>
+﻿@{
+    ViewBag.Title = "Thêm nhân viên";
+}
 
-@{
-    ViewBag.Title = "Nhân viên";
-}
-@{
-    QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
-    var td = db.TrinhDoHocVans.ToList();
-}
+@*@model QuanLyNhanSu.Models.NhanVien*@
+@using QuanLyNhanSu.Models
+@*@model NhanVien*@
+@model UserValidate
 
 <div class="">
     <div class="">
         <h1 class="page-header">
-            Nhân viên
+            Thêm nhân viên
         </h1>
         <ol class="breadcrumb">
             <li>
-                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index", "Admin")">Tổng quan</a>
             </li>
             <li>
-                <i class="fa fa-user"></i> @*<a href="@Url.Action("index","QuanLyUser")">Nhân viên</a>*@
-                Nhân viên
+                <i class="fa fa-user"></i> <a href="@Url.Action("index", "QuanLyUser")">Nhân viên</a>
+            </li>
+            <li>
+                <i class="fa fa-user"></i>Thêm nhân viên
             </li>
         </ol>
     </div>
 </div>
+<form class="form-horizontal" method="post" role="form">
+    @*@Url.Action("ThemUser", "QuanLyUser")*@
+    @*@Html.AntiForgeryToken()*@
 
-<div>
-    <div style="padding:10px">
-        <a class="btn btn-primary" href="@Url.Action("ThemUser", "QuanLyUser")">
-            Thêm nhân viên
-        </a>
+    @Html.ValidationSummary(true)
+    @*@Html.HiddenFor(model => model.MaNhanVien)*@
 
+    @* ma nhan vien *@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Mã nhân viên</label>
+        </div>
+
+        <div class="col-md-4 col-sm-8">
+            <input type="text" name="MaNhanVien"
+                   class="form-control"
+                   id="MaNhanVien"
+                   value="@Model.MaNhanVien"
+                   required />
+
+        </div>
+        <div class=" col-md-offset-5 col-sm-offset-4 col-sm-5" style="height:15px">
+            <label class="control-label text-danger">
+                @ViewBag.err
+                @Html.ValidationMessageFor(n => n.MaNhanVien)
+            </label>
+        </div>
+    </div>
+    @* mat khau *@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Mật khẩu</label>
+        </div>
+
+        <div class="col-md-4 col-sm-8">
+            <input type="password" name="MatKhau"
+                   class="form-control"
+                   id="MatKhau"
+                   value="@Model.MatKhau"
+                   required />
+        </div>
+        <div class=" col-md-offset-5 col-sm-offset-4 col-sm-5" style="height:15px">
+            <label class="control-label text-danger">
+                @Html.ValidationMessageFor(n => n.MatKhau)
+            </label>
+        </div>
+    </div>
+
+    @*xac mat khau *@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Xác nhận mật khẩu</label>
+        </div>
+
+        <div class="col-md-4 col-sm-8">
+            <input type="password" name="XacNhanMatKhau"
+                   class="form-control"
+                   id="MatKhau"
+                   value="@Model.XacNhanMatKhau"
+                   required />
+        </div>
+        <div class=" col-md-offset-5 col-sm-offset-4 col-sm-5" style="height:15px">
+            <label class="control-label text-danger">
+                @Html.ValidationMessageFor(n => n.XacNhanMatKhau)
+            </label>
+        </div>
+    </div>
+
+    @* ho ten *@
+    <div class="form-group">
+        <!---start-->
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Họ tên</label>
+        </div>
+
+        <div class="col-md-4 col-sm-8">
+            <input type="text" name="HoTen"
+                   class="form-control"
+                   id="HoTen"
+                   value="@Model.HoTen"
+                   required />
+        </div>
+
+        <div class=" col-md-offset-5 col-sm-offset-4 col-sm-5" style="height:15px">
+            <label class="control-label text-danger">
+                @Html.ValidationMessageFor(n => n.HoTen)
+            </label>
+        </div>
+        <!---end--->
+    </div>
+
+    @* gioi tinh*@
+    <div class="form-group">
+        <!---start-->
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Giới tính</label>
+        </div>
+
+        <div class="col-md-4 col-sm-8">
+            <div class="radio-inline">
+                <label><input type="radio" name="GioiTinh" value="1" checked>Nam</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="GioiTinh" value="0">Nữ</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="GioiTinh" value="2">Khác</label>
+            </div>
+        </div>
+
+        <!---end--->
 
     </div>
-</div>
+    @{QuanLyNhanSuEntities db = new QuanLyNhanSuEntities(); }
 
-
-
-@*Phân trang, tìm kiếm sử dụng datatable.min.js*@
-<div class="table-responsive">
-    <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
-        <thead>
-            <tr class="success">
-                <th>
-                    Mã nhân viên
-                </th>
-                <th>
-                    Họ tên
-                </th>
-                <th>
-                    Trình độ văn hóa
-                </th>
-                <th>
-                    Trạng Thái
-                </th>
-                <th>
-                    Ngày bắt đầu
-                </th>
-                <th>
-                    Số lượng: @Model.Count
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
+    @* phong ban*@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Phòng ban</label>
+        </div>
+        <div class="col-md-4 col-sm-8">
             @{
-                foreach (var item in Model)
+                var phongban = db.PhongBans.ToList();
+            }
+            <select name="MaPhongBan" class="form-control">
+                @foreach (var item in phongban)
                 {
-                    string tenTrinhDo = string.Empty;
-                    string gioitinh = string.Empty;
-                    switch (item.GioiTinh)
-                    {
-                        case 0:
-                            gioitinh = "Nữ";
-                            break;
-                        case 1:
-                            gioitinh = "Nam";
-                            break;
-                        default:
-                            gioitinh = "Khác";
-                            break;
-                    }
-
-
-                    foreach (var t in td)
-                    {
-                        if (t.MaTrinhDoHocVan.Equals(item.MaTrinhDoHocVan))
-                        {
-                            tenTrinhDo = t.TenTrinhDo;
-                            break;
-                        }
-                    }
-
-                    <tr>
-                        <td>@item.MaNhanVien</td>
-                        <td>@item.HoTen</td>
-                        <td>@tenTrinhDo</td>
-                        <td>
-                            @{if (item.TrangThai)
-                                {
-                                    <span class="status-text" style="color: green">Hoạt động</span>
-                                }
-                                else
-                                {
-                                    <span class="status-text" style="color: red">Thôi việc</span>
-                                }
-                            }
-                        </td>
-                        <td>
-                            @String.Format("{0:dd/MM/yyyy}", @item.HopDong.NgayBatDau)
-                            @{
-                                DateTime ngaydau = Convert.ToDateTime(@item.HopDong.NgayBatDau);
-                                DateTime ngaysau = DateTime.Now.Date;
-                                TimeSpan Times = ngaysau - ngaydau;
-
-                                int sonam = (int)Times.Days / 365;
-
-                            }
-
-                        </td>
-                        <td>
-                            <a class="btn btn-info" href="@Url.Action("QuaTrinhHoc", "QuanLyUser", new { @id = @item.MaNhanVien})">Chi Tiết</a>
-                            <a class="btn btn-warning" href="@Url.Action("UpdateUser", "QuanLyUser", new {@id = @item.MaNhanVien })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Sửa</a>
-                            <a class="btn btn-danger" style="display:none" href="@Url.Action("XoaUser", "QuanLyUser", new { @id = @item.MaNhanVien })"><i class="fa fa-trash-o"></i>Xóa</a>
-                            <a class="btn btn-success toggle-status-btn" data-user-id="@item.MaNhanVien"><i class="fa fa-lock "></i> Hoạt Động/Khóa</a>
-                        </td>
-                    </tr>
+                    <option value="@item.MaPhongBan.ToString()" selected>@item.TenPhongBan</option>
                 }
+            </select>
+            @Html.ValidationMessageFor(model => model.MaPhongBan)
+        </div>
+    </div>
+
+    @* chuc vu*@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Chức vụ</label>
+        </div>
+        <div class="col-md-4 col-sm-8">
+            @{
+                var chucvu = db.ChucVuNhanViens.ToList();
+            }
+            <select name="MaChucVuNV" class="form-control">
+                @foreach (var item in chucvu)
+                {
+                    <option value="@item.MaChucVuNV.ToString()" selected>@item.TenChucVu</option>
+                }
+            </select>
+
+            @Html.ValidationMessageFor(model => model.MaChucVuNV)
+        </div>
+    </div>
+
+    @* chuyen nganh*@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Chuyên ngành</label>
+        </div>
+        <div class="col-md-4 col-sm-8">
+            @{
+                var chuyenNganh = db.ChuyenNganhs.ToList();
+            }
+            <select name="MaChuyenNganh" class="form-control">
+                @foreach (var item in chuyenNganh)
+                {
+                    <option value="@item.MaChuyenNganh.ToString()" selected>@item.TenChuyenNganh</option>
+                }
+            </select>
+
+        </div>
+    </div>
+    @* trinh do hoc van *@
+    <div class="form-group">
+        <div class="control-label col-md-offset-1 col-md-4 col-sm-4">
+            <label>Trình độ học vấn</label>
+        </div>
+        <div class="col-md-4 col-sm-8">
+            @{
+                var hocVan = db.TrinhDoHocVans.ToList();
+            }
+            <select name="MaTrinhDoHocVan" class="form-control">
+                @foreach (var item in hocVan)
+                {
+                    <option value="@item.MaTrinhDoHocVan.ToString()" selected>@item.TenTrinhDo</option>
+                }
+            </select>
+        </div>
+    </div>
+    @* button submit*@
+    <div class="form-group">
+        <div class=" col-md-offset-5 col-sm-offset-4 col-sm-5">
+            <input type="submit" value="Thêm nhân viên" class="btn btn-primary" />
+        </div>
+    </div>
+
+</form>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var currentSelected = $("select[name=MaPhongBan]").val();
+
+            if (currentSelected != "") {
+                FetchData(currentSelected);
             }
 
-        </tbody>
-    </table>
-</div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        // Khi người dùng nhấn nút đổi trạng thái
-        $('.toggle-status-btn').click(function () {
-            const userId = $(this).data('user-id'); // Lấy ID của user
-            const $row = $(this).closest('tr'); // Dòng hiện tại
-
-            // Gửi yêu cầu Ajax đến server
-            $.ajax({
-                url: '/QuanLyUser/CapNhatTrangThai',
-                type: 'POST',
-                data: { id: userId },
-                success: function (response) {
-                    if (response.success) {
-                        // Cập nhật trạng thái trên giao diện
-                        const statusText = response.status ? "Hoạt động" : "Thôi việc";
-                        const statusTextColor = response.status ? "green" : "red";
-                        $row.find('.status-text').text(statusText);
-                        $row.find('.status-text').css('color', statusTextColor); // Thay đổi màu chữ thành màu xanh lá hoặc đỏ
-                    } else {
-                        alert("Có lỗi xảy ra khi cập nhật trạng thái.");
-                    }
-                },
-                error: function () {
-                    alert("Yêu cầu thất bại. Vui lòng thử lại.");
-                }
+            $("select[name=MaPhongBan]").on('change', function () {
+                var selected = $(this).val();
+                FetchData(selected);
             });
+
+            function FetchData(selected) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("FetchChucVu", "QuanLyUser")",
+                    data: "{ma:'" + selected + "'}",
+                    contentType: "application/json;char-set=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function Success(data) {
+                        var html = $.map(data, function (item) {
+                            return '<option value="' + item.MaCV + '">' + item.TenCV + '</option>'
+                        }).join('');
+
+                        $("select[name=MaChucVuNV]").html(html);
+                    }
+                });
+            }
         });
-    });</script>
+    </script>
+}
+
 

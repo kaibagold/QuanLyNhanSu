@@ -111,71 +111,18 @@
                 </div>
                 <div class="col-sm-8">
                     @{
-                        if (Model.NhanVien.TrinhDoHocVan.MaTrinhDoHocVan.Equals("gs"))
-                        {
-
-                            <select name="HeSoLuong" class="form-control">
-                                @foreach (var item in db.LuongA31GS)
-                                {
-                                    if (item.HeSo == Model.HeSoLuong)
-                                    {
-                                        <option value="@item.HeSo" selected>@item.HeSo</option>
-                                    }
-                                    <option value="@item.HeSo">@item.HeSo</option>
-                                }
-                                <option value="6.2">6.2</option>
-                                    <option value="6.56">6.56</option>
-                                    <option value="6.92">6.92</option>
-                                    <option value="7.28">7.28</option>
-                                    <option value="7.64">7.64</option>
-                                    <option value="8">8</option>
-                            </select>
-                        }
-                        else if (Model.NhanVien.TrinhDoHocVan.MaTrinhDoHocVan.Equals("pgs"))
-                        {
-                            <select name="HeSoLuong" class="form-control">
-                                @foreach (var item in db.LuongA21PGS)
-                                {
-                                    if (item.HeSo == Model.HeSoLuong)
-                                    {
-                                        <option value="@item.HeSo" selected>@item.HeSo</option>
-                                    }
-                                    <option value="@item.HeSo">@item.HeSo</option>
-                                }
-                                <option value="2.34">4.4</option>
-                                    <option value="2.67">4.74</option>
-                                    <option value="3">5.08</option>
-                                    <option value="3.33">5.42</option>
-                                    <option value="3.66">5.76</option>
-                                    <option value="3.99">6.1</option>
-                                    <option value="4.32">6.44</option>
-                                    <option value="4.65">6.78</option>
-                            </select>
-                        }
-                        else
-                        {
-                            <select name="HeSoLuong" class="form-control">
-                                @foreach (var item in db.LuongA1GV)
-                                {
-                                    if (item.HeSo == Model.HeSoLuong)
-                                    {
-                                        <option value="@item.HeSo" selected>@item.HeSo</option>
-                                    }
-                                    <option value="@item.HeSo">@item.HeSo</option>
-                                }
-                                <option value="2.34">2.34</option>
-                                    <option value="2.67">2.67</option>
-                                    <option value="3">3.0</option>
-                                    <option value="3.33">3.33</option>
-                                    <option value="3.66">3.66</option>
-                                    <option value="3.99">3.99</option>
-                                    <option value="4.32">4.32</option>
-                                    <option value="4.65">4.65</option>
-                                    <option value="4.98">4.98</option>
-                            </select>
-                        }
-                    }
-
+                     <select name="HeSoLuong" class="form-control">
+                         @{var listHeSo = float.Parse(Model.HeSoLuong.ToString());
+                         <option value="@(listHeSo-0.75)">@(listHeSo-0.75)</option>
+                         <option value="@(listHeSo-0.5)">@(listHeSo+0.5)</option>
+                         <option value="@(listHeSo-0.25)">@(listHeSo-0.25)</option>
+                         <option value="@Model.HeSoLuong" selected>@Model.HeSoLuong - Hiện tại</option>
+                         <option value="@(listHeSo+0.25)">@(listHeSo+0.25)</option>
+                         <option value="@(listHeSo+0.25)">@(listHeSo+0.25)</option>
+                         <option value="@(listHeSo+0.75)">@(listHeSo+0.75)</option>
+                           }
+                      </select>
+                     }
                 </div>
                 <div class="col-sm-offset-4 col-sm-5" style="height:15px">
                     <label class="control-label text-danger">
