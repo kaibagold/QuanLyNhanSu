@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/Admin/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style type="text/css">
         .edit-row {
             margin-left: 0;
@@ -50,7 +51,9 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="@Url.Action("DangXuat", "Admin")"><i class="fa fa-fw fa-power-off"></i> Đăng xuất</a>
+                            <a onclick="confirmLogout()" style="cursor:pointer">
+                                <i class="fa fa-fw fa-power-off"></i> Đăng xuất
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -120,23 +123,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
     @RenderSection("scripts", required: false)
-    <script>
+<script>
 
-        //  $('#top').hide(500);
-        $(window).on('scroll', function () {
-            var scrollTop = $(window).scrollTop();
-            if (scrollTop > 0) {
-                $('#top').show(500);
-                //$('#top').fadeIn(500);
-            } else {
-                //$('#top').fadeOut(500);
-                $('#top').hide(500);
+    //  $('#top').hide(500);
+    $(window).on('scroll', function () {
+        var scrollTop = $(window).scrollTop();
+        if (scrollTop > 0) {
+            $('#top').show(500);
+            //$('#top').fadeIn(500);
+        } else {
+            //$('#top').fadeOut(500);
+            $('#top').hide(500);
+        }
+    });
+
+    $('#top').on('click', function (e) {
+        $('html,body').animate({ scrollTop: 0 }, "slow");
+    });
+
+        function confirmLogout() {
+            // Hiển thị hộp thoại xác nhận
+            if (confirm("Bạn muốn đăng xuất?")) {
+            // Nếu chọn "OK", chuyển hướng đến action đăng xuất
+            window.location.href = "http://localhost:29496/admin/Admin/DangXuat"; // Đường dẫn đến Action Logout
             }
-        });
+            // Nếu chọn "Cancel", không làm gì
+        }
 
-        $('#top').on('click', function (e) {
-            $('html,body').animate({ scrollTop: 0 }, "slow");
-        });
     </script>
 </body>
 </html>

@@ -135,6 +135,7 @@
     <Property Name="MaTrinhDoHocVan" Type="varchar" MaxLength="30" />
     <Property Name="CMND" Type="varchar" MaxLength="50" />
     <Property Name="KhuVuc" Type="varchar" MaxLength="30" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="PhongBans">
     <Key>

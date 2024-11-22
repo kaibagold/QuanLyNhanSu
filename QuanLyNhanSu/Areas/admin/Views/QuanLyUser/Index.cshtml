@@ -121,7 +121,7 @@
 
                         </td>
                         <td>
-                            <a class="btn btn-info" href="@Url.Action("QuaTrinhHoc", "QuanLyUser", new { @id = @item.MaNhanVien})">Chi Tiết</a>
+                            <a class="btn btn-info" href="@Url.Action("DetailUser", "QuanLyUser", new { @id = @item.MaNhanVien})">Chi Tiết</a>
                             <a class="btn btn-warning" href="@Url.Action("UpdateUser", "QuanLyUser", new {@id = @item.MaNhanVien })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Sửa</a>
                             <a class="btn btn-danger" style="display:none" href="@Url.Action("XoaUser", "QuanLyUser", new { @id = @item.MaNhanVien })"><i class="fa fa-trash-o"></i>Xóa</a>
                             <a class="btn btn-success toggle-status-btn" data-user-id="@item.MaNhanVien"><i class="fa fa-lock "></i> Hoạt Động/Khóa</a>

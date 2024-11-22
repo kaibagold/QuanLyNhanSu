@@ -38,6 +38,7 @@ namespace QuanLyNhanSu.Models
         public string MaTrinhDoHocVan { get; set; }
         public string CMND { get; set; }
         public string KhuVuc { get; set; }
+        public string Email { get; set; }
     
         public virtual ICollection<CapNhatTrinhDoHocVan> CapNhatTrinhDoHocVans { get; set; }
         public virtual ChucVuNhanVien ChucVuNhanVien { get; set; }

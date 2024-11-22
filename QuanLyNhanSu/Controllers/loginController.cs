@@ -85,7 +85,11 @@ namespace QuanLyNhanSu.Controllers
             if (us != null)
             {
                 up.MaNhanVien = us.MaNhanVien;
+                up.Email = us.Email;
                 up.HinhAnh = us.HinhAnh;
+                //kiem tra trong thu muc du an co hinh anh nay chua ?
+                bool fileExists = System.IO.File.Exists(Server.MapPath($"~/Content/anh/img_avt/{us.HinhAnh}"));
+                ViewBag.FileExists = fileExists;
                 up.MatKhau = us.MatKhau;
                 up.XacNhanMatKhau = us.MatKhau;
                 up.HoTen = us.HoTen;
@@ -105,11 +109,10 @@ namespace QuanLyNhanSu.Controllers
         [HttpPost]
         public ActionResult UpDateUser(UserValidate us, HttpPostedFileBase HinhAnh)
         {
-            if (ModelState.IsValid)
+            try
             {
                 var up = db.NhanViens.Where(n => n.MaNhanVien == us.MaNhanVien).FirstOrDefault();
                 up.MaNhanVien = us.MaNhanVien;
-
                 up.MatKhau = us.MatKhau;
                 up.MatKhau = us.XacNhanMatKhau;
                 up.HoTen = us.HoTen;
@@ -119,27 +122,30 @@ namespace QuanLyNhanSu.Controllers
                 up.DanToc = us.DanToc;
                 up.sdt_NhanVien = us.sdt_NhanVien;
                 //up.MaChuyenNganh = us.MaChuyenNganh;
-                
                 up.CMND = us.CMND;
-
                 if (us.HinhAnh != null)
                 {
-                    HinhAnh.SaveAs(HttpContext.Server.MapPath("~/Content/images/")
-                                                             + HinhAnh.FileName);
+                    HinhAnh.SaveAs(HttpContext.Server.MapPath("~/Content/anh/img_avt/") + HinhAnh.FileName);
                     up.HinhAnh = HinhAnh.FileName;
                     us.HinhAnh = HinhAnh.FileName;
-                    //user.Image = userVal.Image;
                 }
                 else
                 {
-                    us.HinhAnh = up.HinhAnh;
+                    if (System.IO.File.Exists(Server.MapPath($"{up.HinhAnh}")))//Nếu nv có hình ảnh rồi
+                        us.HinhAnh = up.HinhAnh;
+                    else
+                        us.HinhAnh = "avt_profile_default.png";
                 }
-
+                us.Email = up.Email;//load lại email cũ
+                us.MaNhanVien = up.MaNhanVien;//load lại email cũ
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "Cập nhật thành công!";
+                Session["AvtNhanVien"] = us.HinhAnh;
                 return View(us);
             }
-            else
+            catch (Exception e)
             {
+                TempData["SuccessMessage"] = "Cập nhật thất bại!" + e;
                 return View(us);
             }
         }

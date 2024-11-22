@@ -115,6 +115,7 @@
     <EntitySetMapping Name="NhanViens">
       <EntityTypeMapping TypeName="IsTypeOf(QuanLyNhanSuModel.NhanVien)">
         <MappingFragment StoreEntitySet="NhanViens">
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
           <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
           <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />

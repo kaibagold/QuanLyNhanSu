@@ -140,6 +140,7 @@
           <Property Name="MaTrinhDoHocVan" Type="varchar" MaxLength="30" />
           <Property Name="CMND" Type="varchar" MaxLength="50" />
           <Property Name="KhuVuc" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="PhongBans">
           <Key>
@@ -680,6 +681,7 @@
           <NavigationProperty Name="TrinhDoHocVan" Relationship="QuanLyNhanSuModel.FK_NhanVien_TrinhDoHocVan" FromRole="NhanVien" ToRole="TrinhDoHocVan" />
           <Property Name="KhuVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="KhenThuongs" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="NhanVien" ToRole="KhenThuong" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PhongBan">
           <Key>
@@ -1024,7 +1026,8 @@
     <EntitySetMapping Name="NhanViens">
       <EntityTypeMapping TypeName="IsTypeOf(QuanLyNhanSuModel.NhanVien)">
         <MappingFragment StoreEntitySet="NhanViens">
-          <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
                 <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
           <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />

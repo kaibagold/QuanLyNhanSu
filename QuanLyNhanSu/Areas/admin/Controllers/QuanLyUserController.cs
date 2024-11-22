@@ -23,6 +23,79 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             var user = db.NhanViens.Where(x => x.MaNhanVien != "admin").ToList();
             return View(user);
         }
+        [HttpGet]
+        public ActionResult DetailUser(String id)
+        {
+            UserValidate up = new UserValidate();
+            var us = db.NhanViens.Where(n => n.MaNhanVien == id).FirstOrDefault();
+            if (us != null)
+            {
+                up.MaNhanVien = us.MaNhanVien;
+                up.Email = us.Email;
+                up.HinhAnh = us.HinhAnh;
+                //kiem tra trong thu muc du an co hinh anh nay chua ?
+                bool fileExists = System.IO.File.Exists(Server.MapPath($"~/Content/anh/img_avt/{us.HinhAnh}"));
+                ViewBag.FileExists = fileExists;
+                up.MatKhau = us.MatKhau;
+                up.XacNhanMatKhau = us.MatKhau;
+                up.HoTen = us.HoTen;
+                up.NgaySinh = us.NgaySinh;
+                up.QueQuan = us.QueQuan;
+                up.GioiTinh = us.GioiTinh;
+                up.DanToc = us.DanToc;
+                up.sdt_NhanVien = us.sdt_NhanVien;
+                up.MaChuyenNganh = us.MaChuyenNganh;
+                up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
+                up.CMND = us.CMND;
+
+                return View(up);
+            }
+            return Redirect("~/");
+        }
+        [HttpPost]
+        public ActionResult DetailUser(UserValidate us, HttpPostedFileBase HinhAnh)
+        {
+            //if (ModelState.IsValid)
+
+            try
+            {
+                var up = db.NhanViens.Where(n => n.MaNhanVien == us.MaNhanVien).FirstOrDefault();
+                up.MaNhanVien = us.MaNhanVien;
+                up.MatKhau = us.MatKhau;
+                up.MatKhau = us.XacNhanMatKhau;
+                up.HoTen = us.HoTen;
+                up.NgaySinh = us.NgaySinh;
+                up.QueQuan = us.QueQuan;
+                up.GioiTinh = us.GioiTinh;
+                up.DanToc = us.DanToc;
+                up.sdt_NhanVien = us.sdt_NhanVien;
+                //up.MaChuyenNganh = us.MaChuyenNganh;
+                up.CMND = us.CMND;
+                if (us.HinhAnh != null)
+                {
+                    HinhAnh.SaveAs(HttpContext.Server.MapPath("~/Content/anh/img_avt/") + HinhAnh.FileName);
+                    up.HinhAnh = HinhAnh.FileName;
+                    us.HinhAnh = HinhAnh.FileName;
+                }
+                else
+                {
+                    if (System.IO.File.Exists(Server.MapPath($"{up.HinhAnh}")))//Nếu nv có hình ảnh rồi
+                        us.HinhAnh = up.HinhAnh;
+                    else
+                        us.HinhAnh = "avt_profile_default.png";
+                }
+                us.Email = up.Email;//load lại email cũ
+                us.MaNhanVien = up.MaNhanVien;//load lại email cũ
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Cập nhật thành công!";
+                return View(us);
+            }
+            catch (Exception e)
+            {
+                TempData["SuccessMessage"] = "Cập nhật thất bại!"+e;
+                return View(us);
+            }
+        }
 
         [HttpPost]
         public ActionResult FetchChucVu(string ma)
@@ -181,6 +254,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                     HopDong hd = new HopDong();
                     NhanVien nvAdd = new NhanVien();
                     nvAdd.MaNhanVien = nv.MaNhanVien;
+                    nvAdd.Email = nv.Email;
                     nvAdd.MatKhau = nv.MatKhau;
                     nvAdd.HoTen = nv.HoTen;
                     nvAdd.NgaySinh = nv.NgaySinh;

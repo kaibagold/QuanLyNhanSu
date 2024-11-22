@@ -97,3 +97,9 @@
     margin-top:-27px;
     cursor: pointer;
 }
+.user-name-display {
+    width: 200px; /* Đặt chiều rộng cố định */
+    white-space: nowrap; /* Không cho nội dung xuống dòng */
+    overflow: hidden; /* Ẩn nội dung vượt quá chiều rộng */
+    text-overflow: ellipsis; /* Thêm dấu "..." nếu nội dung bị ẩn */
+}

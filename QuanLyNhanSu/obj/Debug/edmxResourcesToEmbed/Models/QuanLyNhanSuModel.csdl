@@ -257,6 +257,7 @@
     <NavigationProperty Name="TrinhDoHocVan" Relationship="QuanLyNhanSuModel.FK_NhanVien_TrinhDoHocVan" FromRole="NhanVien" ToRole="TrinhDoHocVan" />
     <Property Name="KhuVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="KhenThuongs" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="NhanVien" ToRole="KhenThuong" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="PhongBan">
     <Key>

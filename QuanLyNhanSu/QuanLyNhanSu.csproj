@@ -207,6 +207,10 @@
     <Compile Include="Migrations\202411180918065_AddIdToKhenThuongs.designer.cs">
       <DependentUpon>202411180918065_AddIdToKhenThuongs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411211616569_AddEmailToNhanVien.cs" />
+    <Compile Include="Migrations\202411211616569_AddEmailToNhanVien.designer.cs">
+      <DependentUpon>202411211616569_AddEmailToNhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CapNhatLuong.cs">
       <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
@@ -736,6 +740,7 @@
     <Content Include="Content\-\media\project\fpt-corporation\fpt\home\list-items-section-image\join-width-us02.webp" />
     <Content Include="Content\-\media\project\fpt-corporation\fpt\home\our-mission\common\FPTFFF7EF2x.webp" />
     <Content Include="Content\-\media\Themes\Wireframe\sass\base\fonts\fonts.scss" />
+    <Content Include="Areas\admin\Views\QuanLyUser\DetailUser.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -797,6 +802,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411180918065_AddIdToKhenThuongs.resx">
       <DependentUpon>202411180918065_AddIdToKhenThuongs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411211616569_AddEmailToNhanVien.resx">
+      <DependentUpon>202411211616569_AddEmailToNhanVien.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

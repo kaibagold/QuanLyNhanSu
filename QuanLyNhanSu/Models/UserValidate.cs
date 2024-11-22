@@ -13,6 +13,11 @@ namespace QuanLyNhanSu.Models
         [MaxLength(30, ErrorMessage = "Vượt quá số kí tự 30")]
         public string MaNhanVien { get; set; }
 
+        [Required(ErrorMessage = "Nhập email")]
+        [StringLength(50)]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
+        public string Email { get; set; }
+
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Nhập mật khẩu")]
         [MaxLength(50, ErrorMessage = "Vượt quá số kí tự 50")]

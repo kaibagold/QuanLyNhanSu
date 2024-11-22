@@ -215,15 +215,23 @@
                             else
                             {
                                 <div class="profile" id="profile">
-                                    <img src="~/Content/anh/img_avt/@Session["AvtNhanVien"]" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()">
-
+                                    @{
+                                        if (Session["AvtNhanVien"] != null)//Nếu nv đã có avt
+                                        {
+                                            <img src="~/Content/anh/img_avt/@Session["AvtNhanVien"]" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()" style="border:1px solid">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Content/anh/img_avt/avt_profile_default.png" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()" style="border:1px solid">
+                                        }
+                                    }
                                     <div class="dropdown" id="dropdownMenu" style="width:max-content;z-index:2">
                                         <div class="dropdown-content">
                                             <p id="employeeName">@Session["MaNhanVien"]</p>
                                             <hr />
                                             <a href="@Url.Action("UpdateUser", "login")"><i class="fa fa-fw fa-envelope"></i>Thông Tin</a>
                                             <hr />
-                                            <a href="http://localhost:29496/login/DangXuat" onclick="logout()">
+                                            <a onclick="confirmLogout()">
                                                 <i class="fa fa-fw fa-power-off"></i>Đăng Xuất
                                             </a>
                                         </div>
@@ -243,11 +251,11 @@
         </header>
         <!-- /#header -->
         <!-- #content -->
-        
-            @RenderBody()
-            <hr />
 
-        
+        @RenderBody()
+        <hr />
+
+
         <!-- #footer -->
         <footer>
             <div id="footer" class="">
@@ -562,7 +570,6 @@
 
     @*script tao chuyen dong slider*@
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/scripts/component-banner-slider-offer2.js"></script>
-
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/echartmin-theme/scripts/echartsmin.js"></script>
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/echartmin-theme/scripts/shareholding-chart.js"></script>
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/echartmin-theme/scripts/stock-quote.js"></script>
@@ -578,6 +585,17 @@
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/scripts/component-tabs.js"></script>
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/scripts/milestones-container.js"></script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8cf6f9ba08cb87c6","version":"2024.8.0","serverTiming":{"name":{"cfExtPri":true,"cfL4":true}},"token":"131e4b1342514a4ebd7d6d64ee2af1c5","b":1}' crossorigin="anonymous"></script>
+    <script>
+        function confirmLogout() {
+            // Hiển thị hộp thoại xác nhận
+            if (confirm("Bạn muốn đăng xuất?")) {
+                // Nếu chọn "OK", chuyển hướng đến action đăng xuất
+                window.location.href = "http://localhost:29496/login/DangXuat"; // Đường dẫn đến Action Logout
+            }
+            // Nếu chọn "Cancel", không làm gì
+        }
+    </script>
+
 </body>
 </html>
 
