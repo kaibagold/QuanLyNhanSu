@@ -91,9 +91,18 @@
                                 @String.Format("{0:dd/MM/yyyy}", item.NgayTaoHD)
                             </td>
                             <td style="width: 320px;">
-                                <a class="btn btn-info" href="@Url.Action("DetailUser", "QuanLyUser", new { @id = @item.Id})">Phân Ca</a>
-                                <a class="btn btn-warning" href="@Url.Action("UpdateUser", "QuanLyUser", new {@id = @item.Id })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Sửa Phiếu</a>
-                                <a class="btn btn-danger" href="@Url.Action("XoaUser", "QuanLyUser", new { @id = @item.Id })"><i class="fa fa-trash-o"></i>Xóa Phiếu</a>
+                                @{
+                                    if (item.TrangThai == 0)
+                                    {
+                                        <a class="btn btn-success" style="width:101px" href="@Url.Action("PhanCaSwap", "TrienKhaiSwap", new { @id = @item.Id})">Phân Ca</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-info">Đã Phân Ca</a>
+                                    }
+                                }
+                                <a class="btn btn-warning" href="@Url.Action("UpdateUser", "TrienKhaiSwap", new {@id = @item.Id })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Sửa Phiếu</a>
+                                <a class="btn btn-danger" href="@Url.Action("XoaUser", "TrienKhaiSwap", new { @id = @item.Id })"><i class="fa fa-trash-o"></i>Xóa Phiếu</a>
                             </td>
                         </tr>
                 }

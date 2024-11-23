@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Tạo Phiếu Swap";
+    ViewBag.Title = "Phân Ca Swap";
 }
 @using QuanLyNhanSu.Models
 @model SwapValidate
@@ -17,7 +17,7 @@
                 <i class="fa fa-user"></i> <a href="@Url.Action("index", "QuanLyUser")">Triển Khai</a>
             </li>
             <li>
-                <i class="fa fa-user"></i>Tạo Phiếu Swap
+                <i class="fa fa-user"></i>Phân Ca Swap
             </li>
         </ol>
     </div>
@@ -27,21 +27,21 @@
     <div class="container">
         <form class="swap-form" method="post" role="form">
             @Html.ValidationSummary(true)
-            <h2 class="section-title">Tạo phiếu Swap mới</h2>
+            <h2 class="section-title">Phân Ca Swap</h2>
             <div class="form-section">
                 <h4 class="section-subtitle">Thông tin khách hàng</h4>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Mã hợp đồng<span class="required-mark">*</span></label>
-                            <input type="text" class="form-control" name="MaHopDong" maxlength="30" required>
+                            <input type="text" class="form-control" value="@Model.MaHopDong" name="MaHopDong" maxlength="30" readonly required>
                             <div class="">@ViewBag.err @Html.ValidationMessageFor(n => n.MaHopDong)</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Tên khách hàng<span class="required-mark">*</span></label>
-                            <input type="text" class="form-control" name="TenKhachHang" maxlength="30">
+                            <input type="text" class="form-control" value="@Model.TenKhachHang" name="TenKhachHang" maxlength="30">
                             <div class="">@Html.ValidationMessageFor(n => n.TenKhachHang)</div>
                         </div>
                     </div>
@@ -51,17 +51,20 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Số điện thoại</label>
-                            <input type="text" class="form-control" name="SdtKhachHang" maxlength="11">
+                            <input type="text" class="form-control" value="@Model.SdtKhachHang" name="SdtKhachHang" maxlength="11">
                             <div class="">@Html.ValidationMessageFor(n => n.SdtKhachHang)</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Địa chỉ</label>
-                            <input type="text" class="form-control" name="DiaChiKH" maxlength="70">
-                            <div class="">@Html.ValidationMessageFor(n => n.DiaChiKH)</div>
+                            <label>Phí dịch vụ</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" value="@Model.PhiDichVu" name="PhiDichVu">
+                                <span class="currency">VNĐ</span>
+                            </div>
+                            <div class="">@Html.ValidationMessageFor(n => n.PhiDichVu)</div>
                         </div>
-                    </div>
+                    </div>    
                 </div>
             </div>
 
@@ -91,44 +94,17 @@
                                 var listNv = db.NhanViens.Where(n => n.MaPhongBan == "kythuat" && n.KhuVuc != "Tan Hanh").ToList();
                             }
                             <label>Mã nhân viên triển khai</label>
-                            <select name="MaNVTrienKhai" class="form-control" id="nhanVienSelect">                             
+                            <select name="MaNVTrienKhai" class="form-control" id="nhanVienSelect">
                             </select>
-                            <div class="">@Html.ValidationMessageFor(n => n.MaNVTrienKhai)</div>
+                            <div class="">@Html.ValidationMessageFor(n => n.MaNVTrienKhai) @ViewBag.Error</div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Số Điện Thoại Sale</label>
-                            <input type="text" class="form-control" name="SdtSale">
-                            <div class="">@Html.ValidationMessageFor(n => n.SdtSale)</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Phí dịch vụ</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" name="PhiDichVu">
-                                <span class="currency">VNĐ</span>
-                            </div>
-                            <div class="">@Html.ValidationMessageFor(n => n.PhiDichVu)</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Ghi chú (SaleNote)</label>
-                    <textarea class="form-control" name="SaleNote" maxlength="70"></textarea>
-                    <div class="">@Html.ValidationMessageFor(n => n.SaleNote)</div>
-                </div>
-            </div>
 
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-submit">
                     <i class="fa fa-plus-square"></i>
-                    Tạo Đơn
+                    Hoàn Tất
                 </button>
             </div>
         </form>

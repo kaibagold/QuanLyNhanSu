@@ -8,6 +8,8 @@ namespace QuanLyNhanSu.Models
 {
     public class SwapValidate
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Nhập mã hợp đồng")]
         [RegularExpression(@"[A-Za-z0-9]*$", ErrorMessage = "Tài khoản chứa kí tự đặc biệt")]
         [MaxLength(30, ErrorMessage = "Vượt quá số kí tự 30")]
