@@ -98,6 +98,16 @@
       <End Role="NhanVien" EntitySet="NhanViens" />
       <End Role="KhenThuong" EntitySet="KhenThuongs" />
     </AssociationSet>
+    <EntitySet Name="ChiTietSwaps" EntityType="QuanLyNhanSuModel.ChiTietSwap" />
+    <EntitySet Name="Swaps" EntityType="QuanLyNhanSuModel.Swap" />
+    <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="Swap" EntitySet="Swaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="Swap" EntitySet="Swaps" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -258,6 +268,8 @@
     <Property Name="KhuVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="KhenThuongs" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="NhanVien" ToRole="KhenThuong" />
     <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Swaps" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" FromRole="NhanVien" ToRole="Swap" />
+    <NavigationProperty Name="Swaps1" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" FromRole="NhanVien" ToRole="Swap" />
   </EntityType>
   <EntityType Name="PhongBan">
     <Key>
@@ -479,6 +491,72 @@
       </Principal>
       <Dependent Role="KhenThuong">
         <PropertyRef Name="MaNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ChiTietSwap">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaHopDong" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaHopDong" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="TenKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SdtKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChiKH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="KhuVuc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaNVLenPhieu" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MaNVTrienKhai" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SdtSale" Type="Int32" Nullable="false" />
+    <Property Name="SaleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhiDichVu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ThoiGianNhanCa" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ThoiGianHoanTat" Type="DateTime" Precision="3" />
+    <Property Name="DanhGia" Type="Int32" />
+    <Property Name="TrangThai" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Swap">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaHopDong" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaHopDong" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="TenKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SdtKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChiKH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="KhuVuc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaNVLenPhieu" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MaNVTrienKhai" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="SdtSale" Type="Int32" Nullable="false" />
+    <Property Name="SaleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhiDichVu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" FromRole="Swap" ToRole="NhanVien" />
+    <NavigationProperty Name="NhanVien1" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" FromRole="Swap" ToRole="NhanVien" />
+    <Property Name="NgayTaoHD" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
+    <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1" />
+    <End Type="QuanLyNhanSuModel.Swap" Role="Swap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="Swap">
+        <PropertyRef Name="MaNVLenPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
+    <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.Swap" Role="Swap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="Swap">
+        <PropertyRef Name="MaNVTrienKhai" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

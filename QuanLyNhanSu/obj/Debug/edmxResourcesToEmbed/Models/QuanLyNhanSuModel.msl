@@ -186,5 +186,45 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietSwaps">
+      <EntityTypeMapping TypeName="QuanLyNhanSuModel.ChiTietSwap">
+        <MappingFragment StoreEntitySet="ChiTietSwaps">
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+          <ScalarProperty Name="ThoiGianHoanTat" ColumnName="ThoiGianHoanTat" />
+          <ScalarProperty Name="ThoiGianNhanCa" ColumnName="ThoiGianNhanCa" />
+          <ScalarProperty Name="PhiDichVu" ColumnName="PhiDichVu" />
+          <ScalarProperty Name="SaleNote" ColumnName="SaleNote" />
+          <ScalarProperty Name="SdtSale" ColumnName="SdtSale" />
+          <ScalarProperty Name="MaNVTrienKhai" ColumnName="MaNVTrienKhai" />
+          <ScalarProperty Name="MaNVLenPhieu" ColumnName="MaNVLenPhieu" />
+          <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
+          <ScalarProperty Name="DiaChiKH" ColumnName="DiaChiKH" />
+          <ScalarProperty Name="SdtKhachHang" ColumnName="SdtKhachHang" />
+          <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
+          <ScalarProperty Name="MaHopDong" ColumnName="MaHopDong" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Swaps">
+      <EntityTypeMapping TypeName="QuanLyNhanSuModel.Swap">
+        <MappingFragment StoreEntitySet="Swaps">
+          <ScalarProperty Name="NgayTaoHD" ColumnName="NgayTaoHD" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="PhiDichVu" ColumnName="PhiDichVu" />
+          <ScalarProperty Name="SaleNote" ColumnName="SaleNote" />
+          <ScalarProperty Name="SdtSale" ColumnName="SdtSale" />
+          <ScalarProperty Name="MaNVTrienKhai" ColumnName="MaNVTrienKhai" />
+          <ScalarProperty Name="MaNVLenPhieu" ColumnName="MaNVLenPhieu" />
+          <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
+          <ScalarProperty Name="DiaChiKH" ColumnName="DiaChiKH" />
+          <ScalarProperty Name="SdtKhachHang" ColumnName="SdtKhachHang" />
+          <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
+          <ScalarProperty Name="MaHopDong" ColumnName="MaHopDong" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

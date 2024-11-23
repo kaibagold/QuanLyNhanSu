@@ -1,0 +1,215 @@
+﻿@{
+    ViewBag.Title = "Tạo Phiếu Swap";
+}
+@using QuanLyNhanSu.Models
+@model SwapValidate
+
+<div class="">
+    <div class="">
+        <h1 class="page-header">
+            Tạo Phiếu Swap
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index", "Admin")">Tổng quan</a>
+            </li>
+            <li>
+                <i class="fa fa-user"></i> <a href="@Url.Action("index", "QuanLyUser")">Triển Khai</a>
+            </li>
+            <li>
+                <i class="fa fa-user"></i>Tạo Phiếu Swap
+            </li>
+        </ol>
+    </div>
+</div>
+
+    <div class="bg-light">
+        <div class="container">
+
+            <form class="swap-form"  method="post" role="form" >
+                @Html.ValidationSummary(true)
+                <h2 class="section-title">Tạo đơn Swap mới</h2>
+                <div class="form-section">
+                    <h4 class="section-subtitle">Thông tin khách hàng</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mã hợp đồng<span class="required-mark">*</span></label>
+                                <input type="text" class="form-control" name="MaHopDong" maxlength="30" required>
+                                <div class="">@ViewBag.err @Html.ValidationMessageFor(n => n.MaHopDong)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tên khách hàng<span class="required-mark">*</span></label>
+                                <input type="text" class="form-control" name="TenKhachHang" maxlength="30">
+                                <div class="">@Html.ValidationMessageFor(n => n.TenKhachHang)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" name="SdtKhachHang" maxlength="11">
+                                <div class="">@Html.ValidationMessageFor(n => n.SdtKhachHang)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" class="form-control" name="DiaChiKH" maxlength="70">
+                                <div class="">@Html.ValidationMessageFor(n => n.DiaChiKH)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4 class="section-subtitle">Thông tin dịch vụ</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Khu vực<span class="required-mark">*</span></label>
+                                <select class="form-control" name="khuVuc">
+                                    <option value="KV1" selected>Tân Hạnh</option>
+                                    <option value="KV2">Hóa An</option>
+                                    <option value="KV3">Tân Hòa</option>
+                                    <option value="KV3">Tân Hiệp</option>
+                                    <option value="KV3">Thống Nhất</option>
+                                    <option value="KV3">Trảng Dài</option>
+                                </select>
+                                <div class="">@Html.ValidationMessageFor(n => n.KhuVuc)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Mã nhân viên triển khai</label>
+                                <input type="text" class="form-control" name="MaNVTrienKhai" maxlength="30">
+                                <div class="">@Html.ValidationMessageFor(n => n.MaNVTrienKhai)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Số Điện Thoại Sale</label>
+                                <input type="text" class="form-control" name="SdtSale">
+                                <div class="">@Html.ValidationMessageFor(n => n.SdtSale)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Phí dịch vụ</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="PhiDichVu">
+                                    <span class="currency">VNĐ</span>
+                                </div>
+                                <div class="">@Html.ValidationMessageFor(n => n.PhiDichVu)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ghi chú (SaleNote)</label>
+                        <textarea class="form-control" name="SaleNote" maxlength="70"></textarea>
+                        <div class="">@Html.ValidationMessageFor(n => n.SaleNote)</div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fa fa-plus-square"></i>
+                        Tạo Đơn
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var currentSelected = $("select[name=MaPhongBan]").val();
+
+            if (currentSelected != "") {
+                FetchData(currentSelected);
+            }
+
+            $("select[name=MaPhongBan]").on('change', function () {
+                var selected = $(this).val();
+                FetchData(selected);
+            });
+
+            function FetchData(selected) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("FetchChucVu", "QuanLyUser")",
+                    data: "{ma:'" + selected + "'}",
+                    contentType: "application/json;char-set=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success: function Success(data) {
+                        var html = $.map(data, function (item) {
+                            return '<option value="' + item.MaCV + '">' + item.TenCV + '</option>'
+                        }).join('');
+
+                        $("select[name=MaChucVuNV]").html(html);
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Validate form khi submit
+            $('#swapForm').on('submit', function (e) {
+                e.preventDefault();
+                let isValid = true;
+
+                // Validate mã hợp đồng
+                const maHopDong = $('input[name="maHopDong"]').val();
+                if (!maHopDong || !/^[A-Za-z0-9]*$/.test(maHopDong)) {
+                    $('input[name="maHopDong"]').addClass('error');
+                    isValid = false;
+                }
+
+                // Validate tên khách hàng
+                if (!$('input[name="tenKhachHang"]').val()) {
+                    $('input[name="tenKhachHang"]').addClass('error');
+                    isValid = false;
+                }
+
+                // Validate số điện thoại
+                const sdt = $('input[name="sdtKhachHang"]').val();
+                if (sdt && !/^[0-9]*$/.test(sdt)) {
+                    $('input[name="sdtKhachHang"]').addClass('error');
+                    isValid = false;
+                }
+
+                // Validate khu vực
+                if (!$('select[name="khuVuc"]').val()) {
+                    $('select[name="khuVuc"]').addClass('error');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Xử lý submit form
+                    console.log('Form submitted successfully');
+                }
+            });
+
+            // Remove error class khi input thay đổi
+            $('.form-control').on('input', function () {
+                $(this).removeClass('error');
+            });
+        });
+    </script>
+}
+
+

@@ -49,6 +49,27 @@
           <Property Name="NgayNhanLuong" Type="datetime" Nullable="false" />
           <Property Name="TongTienLuong" Type="varchar" MaxLength="30" />
         </EntityType>
+        <EntityType Name="ChiTietSwaps">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MaHopDong" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaHopDong" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="TenKhachHang" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SdtKhachHang" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DiaChiKH" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="KhuVuc" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MaNVLenPhieu" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MaNVTrienKhai" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SdtSale" Type="int" Nullable="false" />
+          <Property Name="SaleNote" Type="nvarchar(max)" />
+          <Property Name="PhiDichVu" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ThoiGianNhanCa" Type="datetime" Nullable="false" />
+          <Property Name="ThoiGianHoanTat" Type="datetime" />
+          <Property Name="DanhGia" Type="int" />
+          <Property Name="TrangThai" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ChucVuNhanViens">
           <Key>
             <PropertyRef Name="MaChucVuNV" />
@@ -150,6 +171,25 @@
           <Property Name="TenPhongBan" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
           <Property Name="sdt_PhongBan" Type="varchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="Swaps">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MaHopDong" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaHopDong" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="TenKhachHang" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SdtKhachHang" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DiaChiKH" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="KhuVuc" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MaNVLenPhieu" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MaNVTrienKhai" Type="varchar" MaxLength="30" />
+          <Property Name="SdtSale" Type="int" Nullable="false" />
+          <Property Name="SaleNote" Type="nvarchar(max)" />
+          <Property Name="PhiDichVu" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NgayTaoHD" Type="datetime" Nullable="false" />
+          <Property Name="TrangThai" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -299,6 +339,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
+          <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1" />
+          <End Role="Swaps" Type="Self.Swaps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanViens">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="Swaps">
+              <PropertyRef Name="MaNVLenPhieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
+          <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="0..1" />
+          <End Role="Swaps" Type="Self.Swaps" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanViens">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="Swaps">
+              <PropertyRef Name="MaNVTrienKhai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KyLuat_KyLuat">
           <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -355,6 +419,7 @@
           <EntitySet Name="CapNhatLuongs" EntityType="Self.CapNhatLuongs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CapNhatTrinhDoHocVans" EntityType="Self.CapNhatTrinhDoHocVans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChiTietLuongs" EntityType="Self.ChiTietLuongs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChiTietSwaps" EntityType="Self.ChiTietSwaps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChucVuNhanViens" EntityType="Self.ChucVuNhanViens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuyenNganhs" EntityType="Self.ChuyenNganhs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HopDongs" EntityType="Self.HopDongs" Schema="dbo" store:Type="Tables" />
@@ -364,6 +429,7 @@
           <EntitySet Name="Luongs" EntityType="Self.Luongs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhanViens" EntityType="Self.NhanViens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhongBans" EntityType="Self.PhongBans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Swaps" EntityType="Self.Swaps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThoiViecs" EntityType="Self.ThoiViecs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrinhDoHocVans" EntityType="Self.TrinhDoHocVans" Schema="dbo" store:Type="Tables" />
@@ -402,6 +468,14 @@
           <AssociationSet Name="FK_ChiTietLuong_Luong" Association="Self.FK_ChiTietLuong_Luong">
             <End Role="Luongs" EntitySet="Luongs" />
             <End Role="ChiTietLuongs" EntitySet="ChiTietLuongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" Association="Self.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
+            <End Role="NhanViens" EntitySet="NhanViens" />
+            <End Role="Swaps" EntitySet="Swaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" Association="Self.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
+            <End Role="NhanViens" EntitySet="NhanViens" />
+            <End Role="Swaps" EntitySet="Swaps" />
           </AssociationSet>
           <AssociationSet Name="FK_KyLuat_KyLuat" Association="Self.FK_KyLuat_KyLuat">
             <End Role="NhanViens" EntitySet="NhanViens" />
@@ -521,6 +595,16 @@
           <AssociationSet Name="FK__Thuong__MaNhanVien" Association="QuanLyNhanSuModel.FK__Thuong__MaNhanVien">
             <End Role="NhanVien" EntitySet="NhanViens" />
             <End Role="KhenThuong" EntitySet="KhenThuongs" />
+          </AssociationSet>
+          <EntitySet Name="ChiTietSwaps" EntityType="QuanLyNhanSuModel.ChiTietSwap" />
+          <EntitySet Name="Swaps" EntityType="QuanLyNhanSuModel.Swap" />
+          <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="Swap" EntitySet="Swaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="Swap" EntitySet="Swaps" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -682,6 +766,8 @@
           <Property Name="KhuVuc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="KhenThuongs" Relationship="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" FromRole="NhanVien" ToRole="KhenThuong" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Swaps" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" FromRole="NhanVien" ToRole="Swap" />
+          <NavigationProperty Name="Swaps1" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" FromRole="NhanVien" ToRole="Swap" />
         </EntityType>
         <EntityType Name="PhongBan">
           <Key>
@@ -906,6 +992,72 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ChiTietSwap">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MaHopDong" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaHopDong" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SdtKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiKH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KhuVuc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaNVLenPhieu" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MaNVTrienKhai" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SdtSale" Type="Int32" Nullable="false" />
+          <Property Name="SaleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhiDichVu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThoiGianNhanCa" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ThoiGianHoanTat" Type="DateTime" Precision="3" />
+          <Property Name="DanhGia" Type="Int32" />
+          <Property Name="TrangThai" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Swap">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="MaHopDong" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaHopDong" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TenKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SdtKhachHang" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiKH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KhuVuc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaNVLenPhieu" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MaNVTrienKhai" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SdtSale" Type="Int32" Nullable="false" />
+          <Property Name="SaleNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhiDichVu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" FromRole="Swap" ToRole="NhanVien" />
+          <NavigationProperty Name="NhanVien1" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" FromRole="Swap" ToRole="NhanVien" />
+          <Property Name="NgayTaoHD" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
+          <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1" />
+          <End Type="QuanLyNhanSuModel.Swap" Role="Swap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="Swap">
+              <PropertyRef Name="MaNVLenPhieu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
+          <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="QuanLyNhanSuModel.Swap" Role="Swap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="Swap">
+              <PropertyRef Name="MaNVTrienKhai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1094,6 +1246,46 @@
                 <ScalarProperty Name="LyDo" ColumnName="LyDo" />
                 <ScalarProperty Name="ThangThuong" ColumnName="ThangThuong" />
                 <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChiTietSwaps">
+            <EntityTypeMapping TypeName="QuanLyNhanSuModel.ChiTietSwap">
+              <MappingFragment StoreEntitySet="ChiTietSwaps">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+                <ScalarProperty Name="ThoiGianHoanTat" ColumnName="ThoiGianHoanTat" />
+                <ScalarProperty Name="ThoiGianNhanCa" ColumnName="ThoiGianNhanCa" />
+                <ScalarProperty Name="PhiDichVu" ColumnName="PhiDichVu" />
+                <ScalarProperty Name="SaleNote" ColumnName="SaleNote" />
+                <ScalarProperty Name="SdtSale" ColumnName="SdtSale" />
+                <ScalarProperty Name="MaNVTrienKhai" ColumnName="MaNVTrienKhai" />
+                <ScalarProperty Name="MaNVLenPhieu" ColumnName="MaNVLenPhieu" />
+                <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
+                <ScalarProperty Name="DiaChiKH" ColumnName="DiaChiKH" />
+                <ScalarProperty Name="SdtKhachHang" ColumnName="SdtKhachHang" />
+                <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
+                <ScalarProperty Name="MaHopDong" ColumnName="MaHopDong" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Swaps">
+            <EntityTypeMapping TypeName="QuanLyNhanSuModel.Swap">
+              <MappingFragment StoreEntitySet="Swaps">
+                <ScalarProperty Name="NgayTaoHD" ColumnName="NgayTaoHD" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="PhiDichVu" ColumnName="PhiDichVu" />
+                <ScalarProperty Name="SaleNote" ColumnName="SaleNote" />
+                <ScalarProperty Name="SdtSale" ColumnName="SdtSale" />
+                <ScalarProperty Name="MaNVTrienKhai" ColumnName="MaNVTrienKhai" />
+                <ScalarProperty Name="MaNVLenPhieu" ColumnName="MaNVLenPhieu" />
+                <ScalarProperty Name="KhuVuc" ColumnName="KhuVuc" />
+                <ScalarProperty Name="DiaChiKH" ColumnName="DiaChiKH" />
+                <ScalarProperty Name="SdtKhachHang" ColumnName="SdtKhachHang" />
+                <ScalarProperty Name="TenKhachHang" ColumnName="TenKhachHang" />
+                <ScalarProperty Name="MaHopDong" ColumnName="MaHopDong" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

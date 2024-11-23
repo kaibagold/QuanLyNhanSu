@@ -33,6 +33,10 @@
         <AssociationConnector Association="QuanLyNhanSuModel.FK_NhanVien_TrinhDoHocVan" />
         <EntityTypeShape EntityType="QuanLyNhanSuModel.KhenThuong" Width="1.5" PointX="5.25" PointY="5.75" />
         <AssociationConnector Association="QuanLyNhanSuModel.FK__Thuong__MaNhanVien" />
+        <EntityTypeShape EntityType="QuanLyNhanSuModel.ChiTietSwap" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyNhanSuModel.Swap" Width="1.5" PointX="5.625" PointY="25.25" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

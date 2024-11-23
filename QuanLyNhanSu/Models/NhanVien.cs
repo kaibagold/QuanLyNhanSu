@@ -19,6 +19,8 @@ namespace QuanLyNhanSu.Models
             this.CapNhatTrinhDoHocVans = new HashSet<CapNhatTrinhDoHocVan>();
             this.LuanChuyenNhanViens = new HashSet<LuanChuyenNhanVien>();
             this.KhenThuongs = new HashSet<KhenThuong>();
+            this.Swaps = new HashSet<Swap>();
+            this.Swaps1 = new HashSet<Swap>();
         }
     
         public string MaNhanVien { get; set; }
@@ -51,5 +53,7 @@ namespace QuanLyNhanSu.Models
         public virtual ThoiViec ThoiViec { get; set; }
         public virtual TrinhDoHocVan TrinhDoHocVan { get; set; }
         public virtual ICollection<KhenThuong> KhenThuongs { get; set; }
+        public virtual ICollection<Swap> Swaps { get; set; }
+        public virtual ICollection<Swap> Swaps1 { get; set; }
     }
 }

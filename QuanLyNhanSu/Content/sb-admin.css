@@ -219,3 +219,16 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+.treeview > a:hover {
+    background-color: #1e282c !important; /* Màu n?n khi hover */
+    color: #ffffff !important; /* Màu ch? khi hover */
+}
+
+/* Hover cho menu con */
+.treeview-menu > li > a:hover {
+    background-color: #2c3b41 !important;
+    color: #ffffff !important;
+}
+.treeview-menu > li > a {
+    background-color: #222222;
+}

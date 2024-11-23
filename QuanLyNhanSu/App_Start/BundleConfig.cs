@@ -45,7 +45,10 @@ namespace QuanLyNhanSu
                         "~/Content/boostrap.min.css.map",
                         "~/Content/datatables.min.css",
                         "~/Content/css/font-awesome.min.css",
-                        "~/Content/sb-admin.css"));
+                        "~/Content/sb-admin.css",
+                        "~/Content/admin-lte/css/AdminLTE.min.css",
+                        "~/Content/admin-lte/css/skins/_all-skins.min.css",
+                        "~/Content/css/CreateSwap.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/-/media/Themes/Wireframe/sass/base/fonts/fonts.scss",
                         "~/Content/-/media/themes/fpt-corporation/fpt/component-themes/cr/styles/pre-optimized-mina18a.css",
@@ -56,8 +59,7 @@ namespace QuanLyNhanSu
                         "~/Content/-/media/themes/fpt-corporation/fpt/fptweb-base/styles/theme.css",
                         "~/Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/styles/slick.css",
                         "~/Content/css/login_index.css"));
-  
-           
+          
         }
     }
 }
