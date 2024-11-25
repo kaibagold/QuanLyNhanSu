@@ -878,6 +878,9 @@
     <Content Include="Views\login\Login - Copy.cshtml" />
     <Content Include="Views\login\UpDateUser.cshtml" />
     <Content Include="Views\login\test.cshtml" />
+    <Content Include="Views\NhanVien\NhanCaSwap.cshtml" />
+    <Content Include="Views\NhanVien\ChiTietSwap.cshtml" />
+    <Content Include="Views\NhanVien\TrienKhaiSwap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

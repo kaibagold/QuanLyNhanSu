@@ -41,6 +41,7 @@ namespace QuanLyNhanSu.Models
         public string PhiDichVu  { get; set; }
 
         public int TrangThai { get; set; }
+        public DateTime NgayTaoHD { get; set; }
        
     }
 }

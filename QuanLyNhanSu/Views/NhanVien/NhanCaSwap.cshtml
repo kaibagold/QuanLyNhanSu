@@ -1,0 +1,227 @@
+﻿@*@model QuanLyNhanSu.Models.NhanVien*@
+@using QuanLyNhanSu.Models
+@using System.IO;
+@{
+    ViewBag.Title = "thông tin swap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+
+}
+
+<link rel="stylesheet" href="~/Content/css/EditProfile.css" />
+<link rel="stylesheet" href="~/Content/admin-lte/css/AdminLTE.min.css" />
+<link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+<link rel="stylesheet" href="~/Content/datatables.min.css" />
+@*Css Table data*@
+@section Styles{
+    @Styles.Render("~/bundles/datatables/css")
+}
+
+
+
+<section class="editProfile" style="height:550px">
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    @{
+                                        string maNV = Session["MaNhanVien"].ToString();
+                                        var nv = db.NhanViens.FirstOrDefault(n => n.MaNhanVien == maNV);
+                                        if (nv.HinhAnh == null)
+                                        {
+                                            <img style="" src="~/Content/anh/img_avt/avt_profile_default.png" alt="Maxwell Admin">
+                                        }
+                                        else
+                                        {
+                                            <img style="border: 1px solid; background: linear-gradient(to right, orange, #ffe0b3) border-box;" src="~/Content/anh/img_avt/@nv.HinhAnh" alt="Maxwell Admin">
+                                        }
+                                    }
+                                </div>
+
+                                <div>
+                                    <h5 class="user-name" id="name">@nv.HoTen</h5>
+                                </div>
+                                <h6 class="user-email">@nv.Email</h6>
+                            </div>
+                            <div class="about">
+                                <h5>@nv.MaNhanVien</h5>
+                                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                @{
+                                    if (TempData["SuccessMessage"] != null)
+                                    {
+                                        <div class="alert alert-success thong_bao_update">
+                                            @TempData["SuccessMessage"]
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card h-100" style="height:500px">
+                    <div style="margin:5px">
+                            <ol style="">
+                                    <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Home")">Trang Chủ ></a>
+                                    <i class="fa fa-user"></i><a href="#"> Thông tin swap</a>
+                                   
+
+                            </ol>
+                    </div>
+                    <hr />
+                    <div class="table-responsive" style="margin:10px;border: 1px solid">
+                        <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        Mã Hợp Đồng
+                                    </th>
+                                    <th>
+                                        Khu Vực
+                                    </th>
+                                    <th>
+                                        Trạng Thái
+                                    </th>
+                                    <th>
+                                        Phí Dịch Vụ
+                                    </th>
+                                    <th>
+                                        Ngày Tạo
+                                    </th>
+                                    <th>
+                                        Số lượng: @Model.Count
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.MaHopDong</td>
+                                            <td>@item.KhuVuc</td>>
+                                            <td>
+                                                @{if (item.TrangThai == 1)
+                                                    {
+                                                        <span class="status-text" style="color: green">Đang Chờ</span>
+                                                    }
+                                                    if (item.TrangThai == 2)
+                                                    {
+                                                        <span class="status-text" style="color: red">Đang Triển Khai</span>
+                                                    }
+                                                }
+                                            </td>
+                                            <td>@item.PhiDichVu</td>
+                                            <td>
+                                                @String.Format("{0:dd/MM/yyyy}", item.NgayTaoHD)
+                                            </td>
+                                            <td style="width: 320px;">
+                                                @{
+                                                    if (item.TrangThai == 1)
+                                                    {
+                                                        <a class="btn btn-success toggle-status-btn status-btn" data-user-id="@item.Id" style="width:101px" >Nhận Ca</a>
+                                                    }
+                                                    if (item.TrangThai == 2)
+                                                    {
+                                                        <a class="btn btn-info">Đã Nhận Ca</a>
+                                                    }
+                                                }
+                                                <a class="btn btn-warning" href="@Url.Action("ChiTietSwap", "NhanVien", new {@id = @item.Id })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Chi Tiết</a>
+                                                <a class="btn btn-danger" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = @item.Id })"><i class="fa fa-check-square"></i>Check In</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts{
+    @Scripts.Render("~/bundles/adminlte/js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/datatable") @*Css tìm kiếm ,phân trang Table data*@
+    @Scripts.Render("~/bundles/bootstrap")@*Phân trang*@
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    //Nhận ca - Thay đổi trạng thái button
+    $(document).ready(function () {
+        // Khi người dùng nhấn nút đổi trạng thái
+        $('.toggle-status-btn').click(function () {
+            const userId = $(this).data('user-id'); // Lấy ID của user
+            const $row = $(this).closest('tr'); // Dòng hiện tại
+
+            // Gửi yêu cầu Ajax đến server
+            $.ajax({
+                url: '/NhanVien/CapNhatTrangThai',
+                type: 'POST',
+                data: { id: userId },
+                success: function (response) {
+                    if (response.success) {
+                        // Cập nhật trạng thái trên giao diện
+                        $row.find('.status-btn').text("Đã Nhận Ca")
+                            .closest('tr')
+                            .find('.btn-success')
+                            .removeClass('btn-success')
+                            .addClass('btn btn-info')
+                            .prop('readonly', true);
+                        $row.find('.status-text').text("Đang Triển Khai")
+                        $row.find('.status-text').css('color', "red"); // Thay đổi màu chữ thành màu đỏ
+
+                    } else {
+                        alert("Có lỗi xảy ra khi cập nhật trạng thái.");
+                    }
+                },
+                error: function () {
+                    alert("Yêu cầu thất bại. Vui lòng thử lại.");
+                }
+            });
+        });
+    });
+</script>
+<script>
+    const nameElement = document.getElementById("name");
+    const inputElement = document.getElementById("name-input");
+    const editIcon = document.getElementById("edit-icon");
+
+    editIcon.addEventListener("click", () => {
+        inputElement.style.display = "block";
+        nameElement.style.display = "none";
+        editIcon.style.display = "none"
+        inputElement.value = nameElement.textContent;
+        inputElement.focus();
+    });
+
+    inputElement.addEventListener("blur", () => {
+        nameElement.textContent = inputElement.value;
+        inputElement.style.display = "none";
+        nameElement.style.display = "block";
+        editIcon.style.position = "absolute";
+        editIcon.style.display = "inline-block"
+    });
+    function triggerFileUpload() {
+        document.getElementById('fileInput').click(); // Kích hoạt sự kiện click của input file
+    }
+    //hiển thị thông báo trong vòng 2s
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('.thong_bao_update').fadeOut('slow');
+        }, 2000); // Ẩn thông báo sau 2 giây
+    });
+
+</script>

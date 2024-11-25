@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Chi Tiết Ca";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using QuanLyNhanSu.Models
+@model SwapValidate
+<link rel="stylesheet" href="~/Content/css/CreateSwap.css" />
+<style>
+    input,select{
+        width:312px;
+        margin-left:0px;
+    }
+</style>
+<div class="">
+    <div class="">
+        <h1 class="page-header"></h1>
+        <ol class="breadcrumb" style="list-style:none;display:flex;margin:20px 0px 20px 15%">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index", "Home")">Trang Chủ ></a>
+            </li>
+            <li>
+                <i class="fa fa-user"></i> <a href="@Url.Action("NhanCaSwap", "NhanVien")">Thông Tin Swap ></a>
+            </li>
+            <li>
+                <i class="fa fa-user"></i>Chi Tiết Ca Swap
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="bg-light" style="margin-top:-20px">
+    <div class="container">
+        <form class="swap-form">
+            <h2 class="section-title">Thông Tin Triển Khai Swap</h2>
+            <div class="form-section">
+                <h4 class="section-subtitle">Thông tin khách hàng</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Mã hợp đồng<span class="required-mark">*</span></label>
+                            <input type="text" class="form-control" value="@Model.MaHopDong" maxlength="30" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tên khách hàng<span class="required-mark">*</span></label>
+                            <input type="text" class="form-control" value="@Model.TenKhachHang"  maxlength="30">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="text" class="form-control" value="@Model.SdtKhachHang"  maxlength="11">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <input type="text" class="form-control" value="@Model.DiaChiKH"  >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h4 class="section-subtitle">Thông tin dịch vụ</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Khu vực<span class="required-mark">*</span></label>
+                            <select class="form-control"  id="khuVucSelect">
+                                <option>@Model.KhuVuc</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Ngày lên hợp đồng</label>
+                            <input class="form-control"
+                                   value="@String.Format("{0:MM-dd-yyyy}", @Model.NgayTaoHD)"
+                                   type="datetime" 
+                                   required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Số Điện Thoại Sale</label>
+                            <input type="text" value="@Model.SdtKhachHang" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Phí dịch vụ</label>
+                            <div class="input-group">
+                                @{var PhiDichVu = Convert.ToString(Model.PhiDichVu) + " VNĐ";}
+                                <input type="text" value="@PhiDichVu" class="form-control" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ghi chú (SaleNote)</label>
+                    <textarea class="form-control" value="@Model.SaleNote" maxlength="70"></textarea>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button  class="btn btn-submit" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = Model.Id })">
+                    <i class="fa fa-id-card"></i>
+                    Triển Khai
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
