@@ -226,14 +226,14 @@
                                             <img src="~/Content/anh/img_avt/avt_profile_default.png" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()" style="border:1px solid">
                                         }
                                     }
-                                    <div class="dropdown" id="dropdownMenu" style="width:max-content;z-index:2">
+                                    <div class="dropdown" id="dropdownMenu" style="width:max-content;z-index:2;position:absolute">
                                         <div class="dropdown-content">
                                             <p id="employeeName">@Session["MaNhanVien"]</p>
-                                            <hr />
-                                            <a href="@Url.Action("UpdateUser", "login")"><i class="fa fa-fw fa-envelope"></i>Thông Tin</a>
-                                            <hr />
+                                            <hr style="margin-top:5px;margin-bottom:5px"/>
+                                            <a href="@Url.Action("UpdateUser", "login")"><i class="fa fa-cog fa-envelope"></i> Thông Tin</a>
+                                            <hr style="margin-top:5px;margin-bottom:5px"/>
                                             <a onclick="confirmLogout()">
-                                                <i class="fa fa-fw fa-power-off"></i>Đăng Xuất
+                                                <i class="fa fa-fw fa-power-off"></i> Đăng Xuất
                                             </a>
                                         </div>
                                     </div>

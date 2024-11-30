@@ -124,8 +124,9 @@ namespace QuanLyNhanSu.Controllers
             CTsw.ThoiGianHoanTat = DateTime.Now;
             CTsw.DanhGia = null;
             CTsw.TrangThai = 1; //Hoan tat ca swap trong table ChiTietSwap
+            db.Swaps.Remove(sw);
             db.SaveChanges();
-            return Redirect("/admin/TrienKhaiSwap");
+            return Redirect("/NhanVien/NhanCaSwap/" + Session["MaNhanVien"]);
         }
     }   //end lass
 }

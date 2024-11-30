@@ -76,7 +76,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             foreach (var item in luong)
             {
                 ChiTietLuong ct = new ChiTietLuong();
-                ct.MaChiTietBangLuong = "t" + thang.ToString();
+                ct.MaChiTietBangLuong = "t" + thang.ToString()+"n"+DateTime.Now.Year;
                 ct.MaNhanVien = item.MaNhanVien;
                 var ctl = db.ChiTietLuongs.Where(n => n.MaNhanVien == ct.MaNhanVien
                     && n.MaChiTietBangLuong == ct.MaChiTietBangLuong).FirstOrDefault();

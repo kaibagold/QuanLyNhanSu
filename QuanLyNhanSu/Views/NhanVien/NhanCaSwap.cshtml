@@ -136,7 +136,16 @@
                                                     }
                                                 }
                                                 <a class="btn btn-warning" href="@Url.Action("ChiTietSwap", "NhanVien", new {@id = @item.Id })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Chi Tiết</a>
-                                                <a class="btn btn-danger" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = @item.Id })"><i class="fa fa-check-square"></i>Check In</a>
+                                                @{
+                                                    if (item.TrangThai == 1)
+                                                    {
+                                                        <a class="btn btn-danger status-btn-checkin" style="pointer-events:none" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = @item.Id })"><i class="fa fa-check-square"></i>Check In</a>
+                                                    }
+                                                    if(item.TrangThai == 2)
+                                                    {
+                                                        <a class="btn btn-danger" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = @item.Id })"><i class="fa fa-check-square"></i>Check In</a>
+                                                    }
+                                                }
                                             </td>
                                         </tr>
                                     }
@@ -181,7 +190,8 @@
                             .addClass('btn btn-info')
                             .prop('readonly', true);
                         $row.find('.status-text').text("Đang Triển Khai")
-                        $row.find('.status-text').css('color', "red"); // Thay đổi màu chữ thành màu đỏ
+                        $row.find('.status-text').css('color', "red") // Thay đổi màu chữ thành màu đỏ
+                        $row.find('.status-btn-checkin').css('pointer-events', "auto");
 
                     } else {
                         alert("Có lỗi xảy ra khi cập nhật trạng thái.");
