@@ -4,6 +4,7 @@
     ViewBag.Title = "Chi tiết lương";
 }
 <link rel="stylesheet" href="~/Content/css/nhanvien_index.css" />
+@Styles.Render("~/Content/Luong/css")
 <div class="detail_nv" style=" background-image: url('/Content/anh/bg_login_main.png'); background-size: cover; /* Hình nền bao phủ toàn bộ div */ background-repeat: no-repeat; /* Không lặp lại */ background-position: center center; /* Đặt ảnh ở giữa */">
     <div class="salary-form">
         <h2>CHI TIẾT THÔNG TIN LƯƠNG</h2>
@@ -30,7 +31,8 @@
         <div class="time-selection">
             <label for="month">Chọn tháng:</label>
             <input class="calendar" type="month" id="month" name="month">
-            <p id="displayMonth">@Session["selectedMonth"]</p>
+            <p id="displayMonth" style="margin-top:5px">@Session["selectedMonth"]</p>
+            <a class="btn btn-primary" href="@Url.Action("LichSuLuong","login")" style="height: 33px; background-color: #e76f51">Lịch sử nhận lương</a>
         </div>
 
         <!-- Bảng thông tin lương -->
@@ -41,7 +43,7 @@
                 <th>BHYT</th>
                 <th>Phụ Cấp</th>
             </tr>
-            @foreach (var item in Model.Where(nv => nv.MaChiTietBangLuong == "t" + Session["selectedMonth"]))
+            @foreach (var item in Model.Where(nv => nv.MaChiTietBangLuong == "t" + Session["selectedMonth"] + "n" + DateTime.Now.Year))
             {
                 <tr>
                     <td id="basicSalary">@String.Format("{0:#,#}", @item.LuongCoBan).Replace(",", ",")</td>
@@ -56,7 +58,7 @@
                 <th>Tiền Phạt</th>
                 <th>Tổng Tiền</th>
             </tr>
-            @foreach (var item in Model.Where(nv => nv.MaChiTietBangLuong == "t" + Session["selectedMonth"]))
+            @foreach (var item in Model.Where(nv => nv.MaChiTietBangLuong == "t" + Session["selectedMonth"] + "n" + DateTime.Now.Year))
             {
                 <tr>
                     <td id="ttncn">@String.Format("{0:#,#}", @item.ThueThuNhap).Replace(",", ",")</td>

@@ -59,7 +59,13 @@ namespace QuanLyNhanSu
                         "~/Content/-/media/themes/fpt-corporation/fpt/fptweb-base/styles/theme.css",
                         "~/Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/styles/slick.css",
                         "~/Content/css/login_index.css"));
-          
+            bundles.Add(new StyleBundle("~/Content/Luong/css").Include(
+                        "~/Content/bootstrap.css",
+                        "~/Content/bootstrap.min.css",
+                        "~/Content/bootstrap.css.map",
+                        "~/Content/boostrap.min.css.map",
+                        "~/Content/datatables.min.css",
+                        "~/Content/css/font-awesome.min.css"));
         }
     }
 }

@@ -7,6 +7,10 @@ using QuanLyNhanSu.Models;
 using System.Web.Security;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using System.Globalization;
+using System.Data;
+using System.IO;
+using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace QuanLyNhanSu.Controllers
 {
@@ -159,32 +163,84 @@ namespace QuanLyNhanSu.Controllers
             //Về trang chủ
             return Redirect("/");
         }
-        public ActionResult test()
+        public ActionResult LichSuLuong()
         {
             UserValidate up = new UserValidate();
             var id = Session["MaNhanVien"] as String;
-            var us = db.NhanViens.Where(n => n.MaNhanVien == id).FirstOrDefault();
-            if (us != null)
-            {
-                up.MaNhanVien = us.MaNhanVien;
-                up.HinhAnh = us.HinhAnh;
-                up.MatKhau = us.MatKhau;
-                up.XacNhanMatKhau = us.MatKhau;
-                up.HoTen = us.HoTen;
-                up.NgaySinh = us.NgaySinh;
-                up.QueQuan = us.QueQuan;
-                up.GioiTinh = us.GioiTinh;
-                up.DanToc = us.DanToc;
-                up.sdt_NhanVien = us.sdt_NhanVien;
-                up.MaChuyenNganh = us.MaChuyenNganh;
-                up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
-                up.CMND = us.CMND;
-
-                return View(up);
-            }
-            return Redirect("~/");
+            var ctL = db.ChiTietLuongs.Where(n => n.MaNhanVien == id).ToList();
+        
+            return View(ctL);
         }
+        public static string FormatPeriodString(string input)
+        {
+            try
+            {
+                // Loại bỏ ký tự 't' và 'n'
+                string formatted = input.ToLower()
+                    .Replace("t", "")
+                    .Replace("n", "/");
 
+                return formatted;
+            }
+            catch
+            {
+                return input; // Trả về chuỗi gốc nếu có lỗi
+            }
+        }
+        public ActionResult XuatFileLuong()
+        {
+            var id = Session["MaNhanVien"] as string;
+            var ds = db.ChiTietLuongs.Where(n => n.MaNhanVien == id).ToList();
+            //===================================================
+            DataTable dt = new DataTable();
+            //Add Datacolumn
+            DataColumn workCol = dt.Columns.Add("Tháng", typeof(String));
+            dt.Columns.Add("Lương cơ bản", typeof(String));
+            dt.Columns.Add("BHXH", typeof(String));
+            dt.Columns.Add("Phụ cấp", typeof(String));
+            dt.Columns.Add("Thuế thu nhập", typeof(String));
+            dt.Columns.Add("Ngày nhận lương", typeof(String));
+            dt.Columns.Add("Thực lãnh", typeof(String));
+
+            //Add in the datarow
+
+
+            foreach (var item in ds)
+            {
+                DataRow newRow = dt.NewRow();
+                newRow["Tháng"] = item.MaChiTietBangLuong;
+                newRow["Lương cơ bản"] = item.LuongCoBan;
+                newRow["BHXH"] = item.BHXH;
+                newRow["Phụ cấp"] = item.PhuCap;
+                newRow["Thuế thu nhập"] = item.ThueThuNhap;
+                newRow["Ngày nhận lương"] = item.NgayNhanLuong;
+                newRow["Thực lãnh"] = item.TongTienLuong;
+
+
+                dt.Rows.Add(newRow);
+            }
+
+            //====================================================
+            var gv = new GridView();
+            //gv.DataSource = ds;
+            gv.DataSource = dt;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            string fileName = "lich-su-nhan-luong-" + id + ".xls";
+            Response.AddHeader("content-disposition", $"attachment; filename={fileName}");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter objStringWriter = new StringWriter();
+            HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
+
+            gv.RenderControl(objHtmlTextWriter);
+            Response.Output.Write(objStringWriter.ToString());
+            Response.Flush();
+            Response.End();
+            return Redirect("/login/LichSuLuong");
+        }
 
     }
 }

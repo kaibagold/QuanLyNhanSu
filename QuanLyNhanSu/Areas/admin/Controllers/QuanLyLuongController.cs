@@ -88,13 +88,13 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 ct.LuongCoBan = item.LuongToiThieu * (double)item.HeSoLuong;
 
                 item.BHXH = item.BHXH == null ? 0 : item.BHXH;
-                ct.BHXH = item.BHXH * item.LuongToiThieu / 100;
+                ct.BHXH = item.BHXH * item.LuongToiThieu;
 
                 item.BHYT = item.BHYT == null ? 0 : item.BHYT;
-                ct.BHYT = item.BHYT * item.LuongToiThieu / 100;
+                ct.BHYT = item.BHYT * item.LuongToiThieu;
 
                 item.BHTN = item.BHTN == null ? 0 : item.BHTN;
-                ct.BHTN = item.BHTN * item.LuongToiThieu / 100;
+                ct.BHTN = item.BHTN * item.LuongToiThieu;
 
 
                 item.PhuCap = item.PhuCap == null ? 0 : item.PhuCap;
@@ -115,7 +115,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 {
                     db.ChiTietLuongs.Add(ct);
                 }
-                ViewBag.ok = "thanh toán thành công";
+                TempData["ThongBao"] = "thanh toán thành công";
                 db.SaveChanges();
             }
             return Redirect("/admin/QuanLyLuong");
@@ -127,7 +127,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             var nv = db.NhanViens.Where(n => n.MaNhanVien == id).FirstOrDefault();
             if (nv != null)
             {
-                var maChiTietBangLuong = "t" + thang.ToString();
+                var maChiTietBangLuong = "t" + thang.ToString() + "n" + DateTime.Now.Year;
                 //tim xem da co trong chi tiet lương chưa
                 var ctl = db.ChiTietLuongs.Where(n => n.MaNhanVien == id
                     && n.MaChiTietBangLuong == maChiTietBangLuong).FirstOrDefault();
@@ -143,13 +143,13 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 ct.LuongCoBan = luongthang.LuongToiThieu * (double)luongthang.HeSoLuong;
 
                 luongthang.BHXH = luongthang.BHXH == null ? 0 : luongthang.BHXH;
-                ct.BHXH = luongthang.BHXH * luongthang.LuongToiThieu / 100;
+                ct.BHXH = luongthang.BHXH * luongthang.LuongToiThieu;
 
                 luongthang.BHYT = luongthang.BHYT == null ? 0 : luongthang.BHYT;
-                ct.BHYT = luongthang.BHYT * luongthang.LuongToiThieu / 100;
+                ct.BHYT = luongthang.BHYT * luongthang.LuongToiThieu;
 
                 luongthang.BHTN = luongthang.BHTN == null ? 0 : luongthang.BHTN;
-                ct.BHTN = luongthang.BHTN * luongthang.LuongToiThieu / 100;
+                ct.BHTN = luongthang.BHTN * luongthang.LuongToiThieu;
 
                 luongthang.PhuCap = luongthang.PhuCap == null ? 0 : luongthang.PhuCap;
                 phucap = luongthang.LuongToiThieu * (double)luongthang.PhuCap;
@@ -166,7 +166,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 ct.TongTienLuong = tong.ToString();
                 if (ctl == null)
                 {
-                    ViewBag.ok = "thanh toán thành công";
+                    TempData["ThongBao"] = "thanh toán nhân viên " + luongthang.MaNhanVien+" thành công";
                     db.ChiTietLuongs.Add(ct);
                 }
                 db.SaveChanges();
@@ -175,15 +175,31 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             return Redirect("/admin/QuanLyLuong");
         }
 
-        public ActionResult DanhSachNhanLuong()
+        public ActionResult DanhSachNhanLuong(String month)
         {
-            var list = db.ChiTietLuongs.ToList();
-            return View(list);
+            if (month == null) //Neu nguoi dung chua chon thang
+            {
+                string thang = "t" + DateTime.Now.Month + "n" + DateTime.Now.Year;
+                var list = db.ChiTietLuongs.Where(n => n.MaChiTietBangLuong == thang).ToList();
+                return View(list);
+            }
+            string selectedMonth = "t"+ month + "n" + DateTime.Now.Year;
+            Session["selectedMonth"] = "t" + month + "n" + DateTime.Now.Year;
+            var listt = db.ChiTietLuongs.Where(n => n.MaChiTietBangLuong == selectedMonth).ToList();
+            return View(listt);
         }
         public ActionResult XuatFileLuong(String id)
         {
-            //var l = db.ChiTietLuongs.Where(n => n.MaChiTietBangLuong == id).ToList();
             var ds = db.ChiTietLuongs.ToList();
+            if(id != null)
+            {
+                ds = db.ChiTietLuongs.Where(n => n.MaChiTietBangLuong == id).ToList();
+                Session.Remove("selectedMonth");
+            }    
+            else
+            {
+                ds = db.ChiTietLuongs.ToList();
+            }    
             //===================================================
             DataTable dt = new DataTable();
             //Add Datacolumn
@@ -220,8 +236,8 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;
-
-            Response.AddHeader("content-disposition", "attachment; filename=danh-sach-luong.xls");
+            string fileName = "danh-sach-luong-"+id+".xls";
+            Response.AddHeader("content-disposition", $"attachment; filename={fileName}");
             Response.ContentType = "application/ms-excel";
 
             Response.Charset = "";

@@ -1,14 +1,14 @@
-﻿@*@model QuanLyNhanSu.Models.NhanVien*@
+﻿
+@*@model QuanLyNhanSu.Models.NhanVien*@
 @using QuanLyNhanSu.Models
 @using System.IO;
 @{
-    ViewBag.Title = "thông tin swap";
+    ViewBag.Title = "Lịch sử nhận lương";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @{
     QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
-
 }
 
 <link rel="stylesheet" href="~/Content/css/EditProfile.css" />
@@ -68,84 +68,55 @@
             </div>
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="card h-100" style="height:500px">
-                    <div style="padding-top: 15px; padding-left: 15px">
+                    <div style="padding-top: 15px; padding-left: 15px ">
                         <ol style="">
                             <i class="fa fa-dashboard"></i>
                             <a href="@Url.Action("index","Home")" style="font-size:15px">Trang Chủ / </a>
-                            <a style="font-size:15px"> Thông Tin Swap</a>
+                            <a style="font-size:15px"> Lịch sử nhận lương</a>
+                            <a class="btn btn-success" style="margin-right:15px;float:right" href="@Url.Action("XuatFileLuong", "login")"> Xuất file Excel</a>
+
                         </ol>
                     </div>
                     <hr />
-                    <div class="table-responsive" style="margin:10px;border: 1px solid">
+                    <div class="table-responsive" style="margin:10px;border: 1px solid">                   
                         <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr class="success">
                                     <th>
-                                        Mã Hợp Đồng
+                                        Tháng
                                     </th>
                                     <th>
-                                        Khu Vực
+                                        Lương cơ bản
                                     </th>
                                     <th>
-                                        Trạng Thái
+                                        Phụ cấp
                                     </th>
                                     <th>
-                                        Phí Dịch Vụ
+                                        Thuế TNCN
                                     </th>
                                     <th>
-                                        Ngày Tạo
+                                        Ngày Nhận Lương
                                     </th>
                                     <th>
-                                        Số lượng: @Model.Count
+                                        Tổng tiền
                                     </th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 @{
+
                                     foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td>@item.MaHopDong</td>
-                                            <td>@item.KhuVuc</td>>
+                                            <td>@QuanLyNhanSu.Controllers.loginController.FormatPeriodString(@item.MaChiTietBangLuong)</td>
+                                            <td>@item.LuongCoBan</td>>
+                                            <td>@item.PhuCap</td>
+                                            <td>@item.ThueThuNhap</td>
                                             <td>
-                                                @{if (item.TrangThai == 1)
-                                                    {
-                                                        <span class="status-text" style="color: green">Đang Chờ</span>
-                                                    }
-                                                    if (item.TrangThai == 2)
-                                                    {
-                                                        <span class="status-text" style="color: red">Đang Triển Khai</span>
-                                                    }
-                                                }
+                                                @String.Format("{0:dd/MM/yyyy}", item.NgayNhanLuong)
                                             </td>
-                                            <td>@item.PhiDichVu</td>
-                                            <td>
-                                                @String.Format("{0:dd/MM/yyyy}", item.NgayTaoHD)
-                                            </td>
-                                            <td style="width: 320px;">
-                                                @{
-                                                    if (item.TrangThai == 1)
-                                                    {
-                                                        <a class="btn btn-success toggle-status-btn status-btn" data-user-id="@item.Id" style="width:101px" >Nhận Ca</a>
-                                                    }
-                                                    if (item.TrangThai == 2)
-                                                    {
-                                                        <a class="btn btn-info">Đã Nhận Ca</a>
-                                                    }
-                                                }
-                                                <a class="btn btn-warning" href="@Url.Action("ChiTietSwap", "NhanVien", new {@id = @item.Id })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Chi Tiết</a>
-                                                @{
-                                                    if (item.TrangThai == 1)
-                                                    {
-                                                        <a class="btn btn-danger status-btn-checkin" style="pointer-events:none" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = @item.Id })"><i class="fa fa-check-square"></i>Check In</a>
-                                                    }
-                                                    if(item.TrangThai == 2)
-                                                    {
-                                                        <a class="btn btn-danger" href="@Url.Action("TrienKhaiSwap", "NhanVien", new { @id = @item.Id })"><i class="fa fa-check-square"></i>Check In</a>
-                                                    }
-                                                }
-                                            </td>
+                                            <td>@item.TongTienLuong</td>
                                         </tr>
                                     }
                                 }
@@ -234,3 +205,4 @@
     });
 
 </script>
+
