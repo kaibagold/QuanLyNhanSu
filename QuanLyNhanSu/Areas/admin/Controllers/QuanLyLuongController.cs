@@ -71,7 +71,6 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
         public ActionResult ThanhToanLuong(int thang)
         {
             var luong = db.Luongs.ToList();
-
             DateTime now = DateTime.Now;
             foreach (var item in luong)
             {
@@ -107,9 +106,16 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 ct.ThueThuNhap = tienthue;
                 // Ngày nhận lương là ngày cuối cùng của tháng
                 ct.NgayNhanLuong = new DateTime(now.Year, thang, DateTime.DaysInMonth(now.Year, thang));
-                ct.TienThuong = 0;
+                if(db.ChiTietSwaps.Any(n => n.MaNVTrienKhai == item.MaNhanVien)) //lương swap chỉ áp dụng cho nv kỹ thuật
+                    {
+                    var TienThuong = db.ChiTietSwaps.Where(n => n.MaNVTrienKhai == item.MaNhanVien && n.ThoiGianHoanTat.Value.Month == thang && n.TrangThai == 1)
+                                    .ToList().Count * 60000;
+                    ct.TienThuong = TienThuong;
+                }
+                else
+                    ct.TienThuong = 0;
                 ct.TienPhat = 0;
-                tong = tong + ct.LuongCoBan - (double)(ct.BHXH + ct.BHYT + ct.BHTN) - (double)ct.ThueThuNhap + (double)ct.PhuCap;
+                tong = tong + ct.LuongCoBan - (double)(ct.BHXH + ct.BHYT + ct.BHTN) - (double)ct.ThueThuNhap + (double)ct.PhuCap + (double)ct.TienThuong;
                 ct.TongTienLuong = tong.ToString();
                 if (ctl == null)
                 {
@@ -122,12 +128,14 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
         }
 
 
-        public ActionResult ThanhToanMotNhanVien(String id, int thang)
+        public ActionResult ThanhToanMotNhanVien(String id)
         {
+
+            var month = DateTime.Now.Month.ToString();
             var nv = db.NhanViens.Where(n => n.MaNhanVien == id).FirstOrDefault();
             if (nv != null)
             {
-                var maChiTietBangLuong = "t" + thang.ToString() + "n" + DateTime.Now.Year;
+                var maChiTietBangLuong = "t" + month + "n" + DateTime.Now.Year;
                 //tim xem da co trong chi tiet lương chưa
                 var ctl = db.ChiTietLuongs.Where(n => n.MaNhanVien == id
                     && n.MaChiTietBangLuong == maChiTietBangLuong).FirstOrDefault();
@@ -159,10 +167,19 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 luongthang.ThueThuNhap = luongthang.ThueThuNhap == null ? 0 : luongthang.ThueThuNhap;
                 tienthue = (double)luongthang.LuongToiThieu * (double)luongthang.ThueThuNhap / 100;
                 ct.ThueThuNhap = (double)tienthue;
-                ct.NgayNhanLuong = new DateTime(now.Year, thang, DateTime.DaysInMonth(now.Year, thang));
-                ct.TienThuong = 0;
+                ct.NgayNhanLuong = new DateTime(now.Year, Convert.ToInt32(month), DateTime.DaysInMonth(now.Year, Convert.ToInt32(month)));
+                var checkNvKyThuat = db.ChiTietSwaps.Any(n => n.MaNVTrienKhai == id);
+                var thang = Convert.ToInt32(month);
+                if (checkNvKyThuat == true) //lương swap chỉ áp dụng cho nv kỹ thuật
+                {
+                    var TienThuong = db.ChiTietSwaps.Where(n => n.MaNVTrienKhai == id && n.ThoiGianHoanTat.Value.Month == thang &&  n.TrangThai == 1)
+                                    .ToList().Count;
+                    ct.TienThuong = TienThuong * 60000;
+                }
+                else
+                    ct.TienThuong = 0;
                 ct.TienPhat = 0;
-                tong = tong + ct.LuongCoBan - (double)(ct.BHXH + ct.BHYT + ct.BHTN) - (double)ct.ThueThuNhap + (double)ct.PhuCap;
+                tong = tong + ct.LuongCoBan - (double)(ct.BHXH + ct.BHYT + ct.BHTN) - (double)ct.ThueThuNhap + (double)ct.PhuCap + (double)ct.TienThuong;
                 ct.TongTienLuong = tong.ToString();
                 if (ctl == null)
                 {

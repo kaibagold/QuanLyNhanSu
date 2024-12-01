@@ -11,6 +11,7 @@ using System.Data;
 using System.IO;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace QuanLyNhanSu.Controllers
 {
@@ -165,7 +166,6 @@ namespace QuanLyNhanSu.Controllers
         }
         public ActionResult LichSuLuong()
         {
-            UserValidate up = new UserValidate();
             var id = Session["MaNhanVien"] as String;
             var ctL = db.ChiTietLuongs.Where(n => n.MaNhanVien == id).ToList();
         
@@ -241,6 +241,19 @@ namespace QuanLyNhanSu.Controllers
             Response.End();
             return Redirect("/login/LichSuLuong");
         }
-
+        public ActionResult LuongSwap(String month)
+        {
+            var id = Session["MaNhanVien"] as String;
+            if (month == null) //Neu nguoi dung chua chon thang
+            {
+                var ctW = db.ChiTietSwaps.Where(n => n.MaNVTrienKhai == id && n.TrangThai == 1).ToList();
+                return View(ctW);
+            }
+            var selectedMonth = Convert.ToInt32(month);
+            Session["selectedMonth"] = month;
+            var ctWW = db.ChiTietSwaps.Where(n => n.ThoiGianHoanTat.Value.Month == selectedMonth
+                        && n.MaNVTrienKhai == id && n.TrangThai == 1).ToList();
+            return View(ctWW);
+        }
     }
 }

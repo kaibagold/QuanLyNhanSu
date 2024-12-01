@@ -882,6 +882,7 @@
     <Content Include="Views\NhanVien\ChiTietSwap.cshtml" />
     <Content Include="Views\NhanVien\TrienKhaiSwap.cshtml" />
     <Content Include="Views\login\LichSuLuong.cshtml" />
+    <Content Include="Views\login\LuongSwap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
