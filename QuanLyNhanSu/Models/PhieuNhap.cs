@@ -12,22 +12,22 @@ namespace QuanLyNhanSu.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Swap
+    public partial class PhieuNhap
     {
-        public int Id { get; set; }
-        public string MaHopDong { get; set; }
-        public string TenKhachHang { get; set; }
-        public string SdtKhachHang { get; set; }
-        public string DiaChiKH { get; set; }
-        public string KhuVuc { get; set; }
-        public string MaNVLenPhieu { get; set; }
-        public string MaNVTrienKhai { get; set; }
-        public int SdtSale { get; set; }
-        public string SaleNote { get; set; }
-        public string PhiDichVu { get; set; }
-        public int TrangThai { get; set; }
-        public System.DateTime NgayTaoHD { get; set; }
+        public PhieuNhap()
+        {
+            this.ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
+        }
     
+        public int Id { get; set; }
+        public string MaNVLenPhieu { get; set; }
+        public System.DateTime ThoiGianTaoPhieu { get; set; }
+        public string MaNVDuyetPhieu { get; set; }
+        public Nullable<System.DateTime> ThoiGianDuyetPhieu { get; set; }
+        public string GhiChu { get; set; }
+        public int TrangThai { get; set; }
+    
+        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
         public virtual NhanVien NhanVien { get; set; }
         public virtual NhanVien NhanVien1 { get; set; }
     }

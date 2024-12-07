@@ -44,6 +44,16 @@
     <Property Name="NgayNhanLuong" Type="datetime" Nullable="false" />
     <Property Name="TongTienLuong" Type="varchar" MaxLength="30" />
   </EntityType>
+  <EntityType Name="ChiTietPhieuNhaps">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaPhieu" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaPhieu" Type="int" Nullable="false" />
+    <Property Name="MaVatTu" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="ChiTietSwaps">
     <Key>
       <PropertyRef Name="Id" />
@@ -158,6 +168,18 @@
     <Property Name="KhuVuc" Type="varchar" MaxLength="30" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <EntityType Name="PhieuNhaps">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaNVLenPhieu" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="ThoiGianTaoPhieu" Type="datetime" Nullable="false" />
+    <Property Name="MaNVDuyetPhieu" Type="varchar" MaxLength="30" />
+    <Property Name="ThoiGianDuyetPhieu" Type="datetime" />
+    <Property Name="GhiChu" Type="nvarchar(max)" />
+    <Property Name="TrangThai" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="PhongBans">
     <Key>
       <PropertyRef Name="MaPhongBan" />
@@ -211,6 +233,17 @@
     <Property Name="MaTrinhDoHocVan" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="TenTrinhDo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="HeSoBac" Type="float" />
+  </EntityType>
+  <EntityType Name="VatTus">
+    <Key>
+      <PropertyRef Name="MaVatTu" />
+    </Key>
+    <Property Name="MaVatTu" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="TenVatTu" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SdtKhachHang" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DonViTinh" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="TrangThai" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK__LuanChuyen__MaNhanVien">
     <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1">
@@ -334,6 +367,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_dbo_ChiTietPhieuNhaps_dbo_PhieuNhaps_MaPhieu">
+    <End Role="PhieuNhaps" Type="Self.PhieuNhaps" Multiplicity="1" />
+    <End Role="ChiTietPhieuNhaps" Type="Self.ChiTietPhieuNhaps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhieuNhaps">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ChiTietPhieuNhaps">
+        <PropertyRef Name="MaPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ChiTietPhieuNhaps_dbo_VatTus_MaVatTu">
+    <End Role="VatTus" Type="Self.VatTus" Multiplicity="1" />
+    <End Role="ChiTietPhieuNhaps" Type="Self.ChiTietPhieuNhaps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VatTus">
+        <PropertyRef Name="MaVatTu" />
+      </Principal>
+      <Dependent Role="ChiTietPhieuNhaps">
+        <PropertyRef Name="MaVatTu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVDuyetPhieu">
+    <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="0..1" />
+    <End Role="PhieuNhaps" Type="Self.PhieuNhaps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanViens">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="PhieuNhaps">
+        <PropertyRef Name="MaNVDuyetPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu">
+    <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1" />
+    <End Role="PhieuNhaps" Type="Self.PhieuNhaps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanViens">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="PhieuNhaps">
+        <PropertyRef Name="MaNVLenPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
     <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1" />
     <End Role="Swaps" Type="Self.Swaps" Multiplicity="*" />
@@ -414,6 +495,7 @@
     <EntitySet Name="CapNhatLuongs" EntityType="Self.CapNhatLuongs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CapNhatTrinhDoHocVans" EntityType="Self.CapNhatTrinhDoHocVans" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChiTietLuongs" EntityType="Self.ChiTietLuongs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietPhieuNhaps" EntityType="Self.ChiTietPhieuNhaps" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChiTietSwaps" EntityType="Self.ChiTietSwaps" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChucVuNhanViens" EntityType="Self.ChucVuNhanViens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChuyenNganhs" EntityType="Self.ChuyenNganhs" Schema="dbo" store:Type="Tables" />
@@ -423,11 +505,13 @@
     <EntitySet Name="LuanChuyenNhanViens" EntityType="Self.LuanChuyenNhanViens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Luongs" EntityType="Self.Luongs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhanViens" EntityType="Self.NhanViens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhieuNhaps" EntityType="Self.PhieuNhaps" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhongBans" EntityType="Self.PhongBans" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Swaps" EntityType="Self.Swaps" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThoiViecs" EntityType="Self.ThoiViecs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrinhDoHocVans" EntityType="Self.TrinhDoHocVans" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VatTus" EntityType="Self.VatTus" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__LuanChuyen__MaNhanVien" Association="Self.FK__LuanChuyen__MaNhanVien">
       <End Role="NhanViens" EntitySet="NhanViens" />
       <End Role="LuanChuyenNhanViens" EntitySet="LuanChuyenNhanViens" />
@@ -463,6 +547,22 @@
     <AssociationSet Name="FK_ChiTietLuong_Luong" Association="Self.FK_ChiTietLuong_Luong">
       <End Role="Luongs" EntitySet="Luongs" />
       <End Role="ChiTietLuongs" EntitySet="ChiTietLuongs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ChiTietPhieuNhaps_dbo_PhieuNhaps_MaPhieu" Association="Self.FK_dbo_ChiTietPhieuNhaps_dbo_PhieuNhaps_MaPhieu">
+      <End Role="PhieuNhaps" EntitySet="PhieuNhaps" />
+      <End Role="ChiTietPhieuNhaps" EntitySet="ChiTietPhieuNhaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ChiTietPhieuNhaps_dbo_VatTus_MaVatTu" Association="Self.FK_dbo_ChiTietPhieuNhaps_dbo_VatTus_MaVatTu">
+      <End Role="VatTus" EntitySet="VatTus" />
+      <End Role="ChiTietPhieuNhaps" EntitySet="ChiTietPhieuNhaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVDuyetPhieu" Association="Self.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVDuyetPhieu">
+      <End Role="NhanViens" EntitySet="NhanViens" />
+      <End Role="PhieuNhaps" EntitySet="PhieuNhaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu" Association="Self.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu">
+      <End Role="NhanViens" EntitySet="NhanViens" />
+      <End Role="PhieuNhaps" EntitySet="PhieuNhaps" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" Association="Self.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu">
       <End Role="NhanViens" EntitySet="NhanViens" />

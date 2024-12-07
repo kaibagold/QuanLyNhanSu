@@ -226,5 +226,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietPhieuNhaps">
+      <EntityTypeMapping TypeName="QuanLyNhanSuModel.ChiTietPhieuNhap">
+        <MappingFragment StoreEntitySet="ChiTietPhieuNhaps">
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="MaVatTu" ColumnName="MaVatTu" />
+          <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhieuNhaps">
+      <EntityTypeMapping TypeName="QuanLyNhanSuModel.PhieuNhap">
+        <MappingFragment StoreEntitySet="PhieuNhaps">
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="ThoiGianDuyetPhieu" ColumnName="ThoiGianDuyetPhieu" />
+          <ScalarProperty Name="MaNVDuyetPhieu" ColumnName="MaNVDuyetPhieu" />
+          <ScalarProperty Name="ThoiGianTaoPhieu" ColumnName="ThoiGianTaoPhieu" />
+          <ScalarProperty Name="MaNVLenPhieu" ColumnName="MaNVLenPhieu" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VatTus">
+      <EntityTypeMapping TypeName="QuanLyNhanSuModel.VatTu">
+        <MappingFragment StoreEntitySet="VatTus">
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+          <ScalarProperty Name="SdtKhachHang" ColumnName="SdtKhachHang" />
+          <ScalarProperty Name="TenVatTu" ColumnName="TenVatTu" />
+          <ScalarProperty Name="MaVatTu" ColumnName="MaVatTu" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

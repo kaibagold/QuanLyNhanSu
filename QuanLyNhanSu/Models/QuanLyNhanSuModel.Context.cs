@@ -44,6 +44,9 @@ namespace QuanLyNhanSu.Models
         public virtual DbSet<KhenThuong> KhenThuongs { get; set; }
         public virtual DbSet<ChiTietSwap> ChiTietSwaps { get; set; }
         public virtual DbSet<Swap> Swaps { get; set; }
+        public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+        public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; }
+        public virtual DbSet<VatTu> VatTus { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

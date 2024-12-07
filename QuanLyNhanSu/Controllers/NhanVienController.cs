@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using QuanLyNhanSu.Models;
 
 namespace QuanLyNhanSu.Controllers
@@ -36,7 +37,7 @@ namespace QuanLyNhanSu.Controllers
         [HttpGet]
         public ActionResult NhanCaSwap(string id)
         {
-            if(Session["MaNhanVien"] != null)
+            if (Session["MaNhanVien"] != null)
             {
                 var sw = db.Swaps.Where(n => n.MaNVTrienKhai == id).ToList();
                 //SwapValidate swVal = new SwapValidate();
@@ -127,6 +128,76 @@ namespace QuanLyNhanSu.Controllers
             db.Swaps.Remove(sw);
             db.SaveChanges();
             return Redirect("/NhanVien/NhanCaSwap/" + Session["MaNhanVien"]);
+        }
+        public ActionResult TamUngVatTu()
+        {
+            if (Session["MaNhanVien"] == null)
+            {
+                return RedirectToAction("Login", "login");
+            }
+                db.Configuration.ProxyCreationEnabled = false; //tránh lỗi lặp truy vấn trong js
+                var vattu = db.VatTus.ToList();
+                return View(vattu);
+        }
+        public class VatTus
+        {
+            public int Id { get; set; }
+            public int MaPhieu { get; set; }
+            public string MaVatTu { get; set; }
+            public int SoLuong { get; set; }
+        }
+        [HttpPost]
+        public ActionResult TamUngVatTu(List<VatTus> dsTamUng)
+        {
+            if (dsTamUng == null || dsTamUng.Count == 0 )
+            {
+                return Json(new { success = false, message = "Mảng rỗng!" });
+            }
+            else
+            {
+                var Phieu = new PhieuNhap();
+                var MaNVLenPhieu = Convert.ToString(Session["MaNhanVien"]);
+                Phieu.MaNVLenPhieu = MaNVLenPhieu;
+                Phieu.ThoiGianTaoPhieu = DateTime.Now;
+                Phieu.TrangThai = 0;
+                db.PhieuNhaps.Add(Phieu);
+                db.SaveChanges();
+
+                var ctPhieu = new ChiTietPhieuNhap();
+                var latestPhieuNhap = db.PhieuNhaps.OrderByDescending(p => p.Id).FirstOrDefault();
+                foreach (var vatTu in dsTamUng)
+                {
+                    ctPhieu.MaPhieu = latestPhieuNhap.Id;
+                    ctPhieu.MaVatTu = vatTu.MaVatTu;
+                    ctPhieu.SoLuong = vatTu.SoLuong;
+                    db.ChiTietPhieuNhaps.Add(ctPhieu);
+                    db.SaveChanges();
+                }
+
+                return Json(new { success = true, message = "Đã lưu thành công!" });
+            }
+            // Lưu dữ liệu vào database
+            // _context.YourTable.AddRange(vatTus);
+            // _context.SaveChanges();
+        }
+        [HttpGet]
+        public ActionResult GetChiTietPhieuNhap(int id)
+        {
+            // Truy vấn dữ liệu từ bảng ChiTietPhieuNhaps theo id
+            var chiTiet = db.ChiTietPhieuNhaps.Where(c => c.MaPhieu == id).ToList();
+            if (chiTiet == null)
+            {
+                return Content("<p>Không tìm thấy dữ liệu.</p>");
+            }
+
+            // Trả về nội dung chi tiết
+            string body = null;
+            foreach(var item in chiTiet)
+            {
+                body += $"<tr><td> {item.MaVatTu}</td><td> {item.SoLuong}</td></tr>";
+            }
+            var content = "<div class=\"table-responsive\"><table id=\"table-taikhoan\" class=\"table table-bordered table-striped table-hover\"><thead><tr class=\"success\"> <th>Mã vật tư</th><th>Số lượng</th></tr></thead>  <tbody>" + body+"</tbody></table></div>";
+            return Content(content);
         }
     }   //end lass
 }

@@ -10,6 +10,7 @@
     <title>FPT Telecom</title>
     @RenderSection("Styles", required: false)
     @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/cr/scripts/optimized-min51e3.js?t=20240504T193950Z"></script>
@@ -114,20 +115,20 @@
                                         <li class=" level1 submenu item1 even rel-level1">
                                             <div class="navigation-title field-navigationtitle">
 
-                                                <a href="vi/he-sinh-thai-fpt.html" target="">Quản Lý Thiết Bị</a>
+                                                <a href="#" target="">Vật Tư</a>
 
                                             </div><ul class="clearfix">
                                                 <li class=" level2 item0 odd first rel-level2">
                                                     <div class="navigation-title field-navigationtitle">
 
-                                                        <a href="vi/he-sinh-thai-fpt/cong-nghe.html" target="">Xem Nợ Vật Tư</a>
+                                                        <a href="@Url.Action("TamUngVatTu","NhanVien")" target="">Xuất Vật Tư</a>
 
                                                     </div>
                                                 </li>
                                                 <li class=" level2 item1 even rel-level2">
                                                     <div class="navigation-title field-navigationtitle">
 
-                                                        <a href="vi/he-sinh-thai-fpt/vien-thong.html" target="">Quản Lý Vật Tư</a>
+                                                        <a href="@Url.Action("QuanLyVatTu","NhanVien")" target="">Quản Lý Vật Tư</a>
 
                                                     </div>
                                                 </li>
@@ -196,7 +197,7 @@
                                                 <li class=" level2 item1 even rel-level2">
                                                     <div class="navigation-title field-navigationtitle">
 
-                                                        <a href="@Url.Action("LuongSwap","login")" target="">Lương Thực Tập Sinh</a>
+                                                        <a href="@Url.Action("LuongSwap","login")" target="">Lương Cộng Tác Viên</a>
 
                                                     </div>
                                                 </li>

@@ -1,0 +1,372 @@
+﻿@using QuanLyNhanSu.Models;
+@{
+    ViewBag.Title = "TamUngVatTu";
+}
+@*Css Table data*@
+@section Styles{
+    @Styles.Render("~/bundles/datatables/css")
+}
+<link rel="stylesheet" href="~/Content/datatables.min.css" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<style>
+    #searchResults {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+        cursor: pointer;
+    }
+
+    .dropdown-menu {
+        margin-left: 15px;
+        width: 359px
+    }
+
+    .dropdown-item {
+        font-size: 18px;
+    }
+    /* CSS cho tabs */
+    .tab {
+        display: none; /* Ẩn tất cả các tab */
+    }
+
+        .tab.active {
+            display: block; /* Hiển thị tab đang active */
+        }
+
+    .tab-links {
+        display: flex;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .tab-link {
+        padding: 10px 20px;
+        background-color: #f1f1f1; /* Màu nền mặc định */
+        border: 1px solid #ccc;
+        border-bottom: none;
+        margin-right: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .tab-link.active {
+            background-color: #fc7321; /* Màu nền cho tab active */
+            color: white; /* Màu chữ cho tab active */
+            font-weight: bold;
+            border-top: 2px solid #0056b3; /* Đường viền cho tab active */
+        }
+
+    .tab-content {
+        border: 1px solid #ccc;
+        padding: 20px;
+        background-color: #fff;
+    }
+</style>
+<div style="padding-top: 15px; padding-left: 15px; background-color: #f1f1f1;">
+    <ol style="">
+        <i class="fa fa-dashboard"></i>
+        <a href="@Url.Action("index","Home")" style="font-size:15px">Trang Chủ / </a>
+        <a style="font-size:15px"> Xuất vật tư</a>
+    </ol>
+</div>
+<div class="tab-links" >
+    <div class="tab-link active" onclick="showTab('tab1')">Xuất Vật Tư</div>
+    <div class="tab-link" onclick="showTab('tab2')">Xem Phiếu</div>
+</div>
+<div>
+    <div id="tab1" class="tab active tab-content">
+        <div class="container mt-4" style="border:1px solid;min-height:318px">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <label style="font-size: 16px; float: right; margin-top: 6px;">Tìm vật tư :</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="searchVatTu" class="form-control" placeholder="Nhập tên vật tư...">
+                    <input type="hidden" id="selectedMaVatTu">
+                    <div id="searchResults" class="dropdown-menu w-100" style="display: none; flex-direction: column;"></div>
+                </div>
+                <div class="col-md-1">
+                    <label style="font-size: 16px; float: right; margin-top: 6px;">SL :</label>
+                </div>
+                <div class="col-md-1">
+                    <input type="number" id="soLuong" value="1" class="form-control" placeholder="Số lượng">
+                </div>
+                <div class="col-md-2">
+                    <button id="btnAdd" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:100px">
+                <div class="col-12">
+                    <table class="table" id="selectedItems">
+                        <thead>
+                            <tr>
+                                <th>Mã vật tư</th>
+                                <th>Tên vật tư</th>
+                                <th>Đơn vị tính</th>
+                                <th>Số lượng</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button id="btnDeNghi" class="btn btn-success" style="margin:10px 50% 0px 50%">Đề Nghị</button>
+    </div>
+
+    <div id="tab2" class="tab tab-content">
+        <div class="container mt-4" style="border: 1px solid;  min-height: 318px;">
+            <div class="row mt-3">
+                <div class="col-8 text-center">
+                    <div>
+                        <div class="card h-100">
+                            <div class="table-responsive" style="margin:10px;border: 1px solid">
+                                <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        @{
+                                            QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+                                            var MaNVLenPhieu = Convert.ToString(Session["MaNhanVien"]);
+                                            var PhieuNhap = db.PhieuNhaps.Where(n => n.MaNVLenPhieu == MaNVLenPhieu).OrderBy(n => n.Id).ToList();
+                                        }
+                                        <tr class="success">
+                                            <th>
+                                                Mã Phiếu
+                                            </th>
+                                            <th>
+                                                Tình Trạng
+                                            </th>
+                                            <th>
+                                                Ngày Tạo
+                                            </th>
+                                            <th>
+                                                Trạng Thái
+                                            </th>
+                                            <th>
+                                                Số lượng: @PhieuNhap.Count
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var item in PhieuNhap)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    <td>Mới</td>>
+                                                    <td>
+                                                        @String.Format("{0:HH:mm dd/MM/yyyy}", item.ThoiGianTaoPhieu)
+                                                    </td>
+                                                    <td>
+                                                        @{if (item.TrangThai == 0)
+                                                            {
+                                                                <span class="status-text" style="color: green">Đã Đề Nghị</span>
+                                                            }
+                                                            if (item.TrangThai == 2)
+                                                            {
+                                                                <span class="status-text" style="color: red">Đã Duyệt</span>
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                    <td style="">
+                                                        <a class="btn btn-warning detail-phieu" data-id="@item.Id"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Chi Tiết</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4" style="border:1px solid">
+                    <h4>Chi Tiết Phiếu</h4>
+                    <div id="detailContent">
+                        <p>Vui lòng chọn một phiếu nhập để xem chi tiết.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/datatable") @*Css tìm kiếm ,phân trang Table data*@
+    @Scripts.Render("~/bundles/bootstrap")@*Phân trang*@
+<script>
+        $(document).ready(function () {
+            var vatTuList = @Html.Raw(Json.Encode(Model));
+            var selectedItems = [];
+            var MaVatTu = null;
+
+            // Xử lý tìm kiếm
+            $("#searchVatTu").on("input", function () {
+                var searchText = $(this).val().toLowerCase();
+                var results = vatTuList.filter(function (item) {
+                    return item.TenVatTu.toLowerCase().includes(searchText);
+                });
+
+                var resultsHtml = "";
+                results.forEach(function (item) {
+                    resultsHtml += `<a class="dropdown-item"
+                        data-ma="${item.MaVatTu}"
+                        data-ten="${item.TenVatTu}"
+                        data-dvt="${item.SoLuong}">
+                        ${item.TenVatTu}
+                    </a>`;
+                });
+
+                $("#searchResults").html(resultsHtml).show();
+            });
+
+            // Xử lý chọn vật tư
+            $(document).on("click", "#searchResults a", function () {
+                var maVatTu = $(this).data("ma");
+                var tenVatTu = $(this).data("ten");
+                $("#searchVatTu").val(tenVatTu);
+                $("#selectedMaVatTu").val(maVatTu);
+                $("#searchResults").hide();
+            });
+
+            // Xử lý thêm vật tư
+            $("#btnAdd").click(function () {
+                var maVatTu = $("#selectedMaVatTu").val();
+                var soLuong = $("#soLuong").val();
+
+                if (!maVatTu || !soLuong) {
+                    alert("Vui lòng chọn vật tư và nhập số lượng!");
+                    return;
+                }
+
+                var vatTu = vatTuList.find(x => x.MaVatTu === maVatTu);
+                var newRow = `
+                    <tr>
+                        <td>${vatTu.MaVatTu}</td>
+                        <td>${vatTu.TenVatTu}</td>
+                        <td>${vatTu.DonViTinh}</td>
+                        <td>${soLuong}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm btn-delete">Xóa</button>
+                        </td>
+                    </tr>`;
+
+                $("#selectedItems tbody").append(newRow);
+                selectedItems.push({
+                    Id: 1,
+                    MaPhieu:1,
+                    MaVatTu: vatTu.MaVatTu,
+                    SoLuong: parseInt(soLuong),
+
+                });
+                // Reset form
+                $("#searchVatTu").val("");
+                $("#selectedMaVatTu").val("");
+                $("#soLuong").val("");
+            });
+
+            // Xử lý xóa item
+            $(document).on("click", ".btn-delete", function () {
+                var row = $(this).closest("tr");
+                var maVatTu = row.find("td:first").text();
+                selectedItems = selectedItems.filter(x => x.MaVatTu !== maVatTu);
+                row.remove();
+            });
+
+            // Xử lý đề nghị
+            $("#btnDeNghi").click(function () {
+                if (selectedItems.length === 0) {
+                    alert("Chưa có vật tư nào được chọn!");
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("TamUngVatTu", "NhanVien")',
+                    type: 'POST',
+                    contentType: 'application/json', // Đặt content type là JSON
+                    data: JSON.stringify(selectedItems),
+                    success: function (result) {
+                        if (result.success) {
+                            alert(result.message);
+                            // Reset trang
+                            $("#selectedItems tbody").empty();
+                            selectedItems = [];
+                            window.location.href = "@Url.Action("TamUngVatTu", "NhanVien")";
+                        } else {
+                            alert(result.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra!");
+                    }
+                });
+            });
+            console.log(selectedItems);
+        });
+        //Ẩn thẻ dropdown
+        document.addEventListener('click', function (event) {
+            var searchResults = document.getElementById('searchResults');
+            var searchVatTu = document.getElementById('searchVatTu');
+
+            // Kiểm tra nếu nhấp chuột không nằm trong thẻ searchResults
+            if (!searchResults.contains(event.target)) {
+                searchResults.style.display = 'none'; // Ẩn thẻ
+            }
+            if (searchVatTu.contains(event.target)) {
+                searchResults.style.display = 'flex';
+            }
+        });
+        //Tabs
+        function showTab(tabId) {
+            // Ẩn tất cả các tab
+            var tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+
+            // Ẩn tất cả các tab link
+            var tabLinks = document.querySelectorAll('.tab-link');
+            tabLinks.forEach(function (link) {
+                link.classList.remove('active'); // Đặt lại trạng thái active cho tất cả tab link
+            });
+
+            // Hiển thị tab được chọn
+            document.getElementById(tabId).classList.add('active');
+
+            // Đánh dấu tab link là active
+            var activeLink = Array.from(tabLinks).find(link => link.innerText === (tabId === 'tab1' ? 'Xuất Vật Tư' : 'Xem Phiếu'));
+            activeLink.classList.add('active'); // Đánh dấu tab link đang active
+        }
+        //Hiển thị chi tiết phiếu nhập thông qua id phiếu
+         $(document).ready(function() {
+        // Khi người dùng nhấp vào một item trong danh sách
+             $('.detail-phieu').click(function() {
+                 const id = $(this).data('id'); // Lấy ID của user
+            // Gọi Ajax để lấy dữ liệu từ controller
+            $.ajax({
+                url: '@Url.Action("GetChiTietPhieuNhap", "NhanVien")',
+                type: 'GET',
+                data: { id: id }, // Gửi id đến controller
+                success: function(result) {
+                    // Hiển thị dữ liệu nhận được từ controller
+                    $('#detailContent').html(result);
+                },
+                error: function() {
+                    $('#detailContent').html('<p>Có lỗi xảy ra khi tải dữ liệu.</p>');
+                }
+            });
+        });
+    });
+</script>
+}
+

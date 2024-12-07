@@ -37,6 +37,13 @@
         <EntityTypeShape EntityType="QuanLyNhanSuModel.Swap" Width="1.5" PointX="5.625" PointY="25.25" />
         <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVLenPhieu" />
         <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" />
+        <EntityTypeShape EntityType="QuanLyNhanSuModel.ChiTietPhieuNhap" Width="1.5" PointX="7.5" PointY="31.25" />
+        <EntityTypeShape EntityType="QuanLyNhanSuModel.PhieuNhap" Width="1.5" PointX="5.25" PointY="30.875" />
+        <EntityTypeShape EntityType="QuanLyNhanSuModel.VatTu" Width="1.5" PointX="5.25" PointY="35.125" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_ChiTietPhieuNhaps_dbo_PhieuNhaps_MaPhieu" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_ChiTietPhieuNhaps_dbo_VatTus_MaVatTu" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVDuyetPhieu" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

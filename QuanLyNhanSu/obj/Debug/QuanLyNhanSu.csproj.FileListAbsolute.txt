@@ -651,3 +651,4 @@ D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.AddIdToKhenThuongs.resources
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.AddEmailToNhanVien.resources
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.CreateSwapsAndChiTietSwaps.resources
+D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.AddVatTusAndPhieuNhapsAndChiTietPhieuNhaps.resources
