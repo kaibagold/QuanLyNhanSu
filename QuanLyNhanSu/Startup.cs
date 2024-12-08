@@ -1,6 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
-
+using Microsoft.AspNet.SignalR;
 [assembly: OwinStartupAttribute(typeof(QuanLyNhanSu.Startup))]
 namespace QuanLyNhanSu
 {
@@ -9,6 +9,8 @@ namespace QuanLyNhanSu
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            // Cấu hình SignalR
+            app.MapSignalR();
         }
     }
 }

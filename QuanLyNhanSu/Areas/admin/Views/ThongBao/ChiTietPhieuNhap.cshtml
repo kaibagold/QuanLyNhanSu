@@ -1,0 +1,64 @@
+﻿@using QuanLyNhanSu.Models;
+@{
+    ViewBag.Title = "ChiTietPhieuNhap";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div style="margin-top:10px">
+        <h1 class="page-header">
+            Thông Báo
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li>
+                <i class="fa fa-bell"></i> <a href="@Url.Action("index","ThongBao")">Thông Báo</a>
+            </li>
+            <li>
+                <i class="fa fa-bell">Chi tiết thông báo</i>
+            </li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-lg-9 right">
+            <div class="box shadow-sm rounded bg-white mb-3" style="background-color: aliceblue">
+                <div class="box-title border-bottom p-3">
+                    <h6 class="m-0">Mã phiếu: @Model.MaPhieu / Mã Nhân Viên : @Model.MaNVGuiTB</h6>
+                </div>
+                <div class="box-body p-0">                                                     
+                    <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>
+                                    Mã Vật Tư
+                                </th>
+                                <th>
+                                    Số Lượng
+                                </th>                           
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+                                int id = Model.MaPhieu;
+                                var ListVatTu = db.ChiTietPhieuNhaps.Where(n=>n.MaPhieu == id).ToList();
+                                foreach (var item in ListVatTu)
+                                {
+                                    <tr>
+                                        <td>@item.MaVatTu</td>
+                                        <td>@item.SoLuong</td>>                                                                          
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>   
+                    <a class="btn btn-success"  href="@Url.Action()">Duyệt Phiếu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

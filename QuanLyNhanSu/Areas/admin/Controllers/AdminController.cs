@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLyNhanSu.Models;
 using System.Web.Security;
+using Microsoft.AspNet.SignalR;
 
 namespace QuanLyNhanSu.Areas.admin.Controllers
 {
@@ -27,6 +28,15 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             Session.RemoveAll();
             Session.Abandon();
             return Redirect("/");
+        }
+        public int GetNotificationCount()
+        {
+            // Truy vấn số lượng thông báo chưa đọc từ bảng ThongBaos
+            var count = db.ThongBaos.Where(n=>n.MaNVNhanTB == "admin" && n.TrangThai == 0).Count();
+            // Gửi số lượng thông báo đến client
+            var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+            context.Clients.All.updateNotificationCount(count);
+            return count;
         }
     }
 }

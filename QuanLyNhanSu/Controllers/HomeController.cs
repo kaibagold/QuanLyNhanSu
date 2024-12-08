@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using QuanLyNhanSu.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace QuanLyNhanSu.Controllers
 {
     public class HomeController : Controller
     {
+        QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
         public ActionResult Index()
         {
             return View();

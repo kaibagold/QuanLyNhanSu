@@ -127,6 +127,15 @@
       <End Role="NhanVien" EntitySet="NhanViens" />
       <End Role="PhieuNhap" EntitySet="PhieuNhaps" />
     </AssociationSet>
+    <EntitySet Name="ThongBaos" EntityType="QuanLyNhanSuModel.ThongBao" />
+    <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" Association="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="ThongBao" EntitySet="ThongBaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" Association="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="ThongBao" EntitySet="ThongBaos" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -291,6 +300,8 @@
     <NavigationProperty Name="Swaps1" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" FromRole="NhanVien" ToRole="Swap" />
     <NavigationProperty Name="PhieuNhaps" Relationship="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVDuyetPhieu" FromRole="NhanVien" ToRole="PhieuNhap" />
     <NavigationProperty Name="PhieuNhaps1" Relationship="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu" FromRole="NhanVien" ToRole="PhieuNhap" />
+    <NavigationProperty Name="ThongBaos" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" FromRole="NhanVien" ToRole="ThongBao" />
+    <NavigationProperty Name="ThongBaos1" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" FromRole="NhanVien" ToRole="ThongBao" />
   </EntityType>
   <EntityType Name="PhongBan">
     <Key>
@@ -665,6 +676,46 @@
       </Principal>
       <Dependent Role="PhieuNhap">
         <PropertyRef Name="MaNVLenPhieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ThongBao">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LoaiThongBao" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="MaPhieu" Type="Int32" />
+    <Property Name="TieuDe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaNVGuiTB" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ThoiGianGuiTB" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MaNVNhanTB" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ThoiGianDuyetTB" Type="DateTime" Precision="3" />
+    <Property Name="TrangThai" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" FromRole="ThongBao" ToRole="NhanVien" />
+    <NavigationProperty Name="NhanVien1" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" FromRole="ThongBao" ToRole="NhanVien" />
+  </EntityType>
+  <Association Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB">
+    <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1" />
+    <End Type="QuanLyNhanSuModel.ThongBao" Role="ThongBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="ThongBao">
+        <PropertyRef Name="MaNVGuiTB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
+    <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+    <End Type="QuanLyNhanSuModel.ThongBao" Role="ThongBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="ThongBao">
+        <PropertyRef Name="MaNVNhanTB" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

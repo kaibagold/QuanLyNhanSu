@@ -261,5 +261,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ThongBaos">
+      <EntityTypeMapping TypeName="QuanLyNhanSuModel.ThongBao">
+        <MappingFragment StoreEntitySet="ThongBaos">
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="ThoiGianDuyetTB" ColumnName="ThoiGianDuyetTB" />
+          <ScalarProperty Name="MaNVNhanTB" ColumnName="MaNVNhanTB" />
+          <ScalarProperty Name="ThoiGianGuiTB" ColumnName="ThoiGianGuiTB" />
+          <ScalarProperty Name="MaNVGuiTB" ColumnName="MaNVGuiTB" />
+          <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+          <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+          <ScalarProperty Name="LoaiThongBao" ColumnName="LoaiThongBao" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

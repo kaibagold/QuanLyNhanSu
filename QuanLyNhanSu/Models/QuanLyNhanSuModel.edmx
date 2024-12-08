@@ -231,6 +231,20 @@
           <Property Name="Lydo" Type="nvarchar(max)" />
           <Property Name="NgayThoiViec" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="ThongBaos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoaiThongBao" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MaPhieu" Type="int" />
+          <Property Name="TieuDe" Type="nvarchar(max)" />
+          <Property Name="MaNVGuiTB" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ThoiGianGuiTB" Type="datetime" Nullable="false" />
+          <Property Name="MaNVNhanTB" Type="varchar" MaxLength="30" />
+          <Property Name="ThoiGianDuyetTB" Type="datetime" />
+          <Property Name="TrangThai" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="TrinhDoHocVans">
           <Key>
             <PropertyRef Name="MaTrinhDoHocVan" />
@@ -444,6 +458,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB">
+          <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1" />
+          <End Role="ThongBaos" Type="Self.ThongBaos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanViens">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="ThongBaos">
+              <PropertyRef Name="MaNVGuiTB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
+          <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="0..1" />
+          <End Role="ThongBaos" Type="Self.ThongBaos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanViens">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="ThongBaos">
+              <PropertyRef Name="MaNVNhanTB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KyLuat_KyLuat">
           <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -515,6 +553,7 @@
           <EntitySet Name="Swaps" EntityType="Self.Swaps" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ThoiViecs" EntityType="Self.ThoiViecs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThongBaos" EntityType="Self.ThongBaos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrinhDoHocVans" EntityType="Self.TrinhDoHocVans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VatTus" EntityType="Self.VatTus" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__LuanChuyen__MaNhanVien" Association="Self.FK__LuanChuyen__MaNhanVien">
@@ -576,6 +615,14 @@
           <AssociationSet Name="FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" Association="Self.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai">
             <End Role="NhanViens" EntitySet="NhanViens" />
             <End Role="Swaps" EntitySet="Swaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" Association="Self.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB">
+            <End Role="NhanViens" EntitySet="NhanViens" />
+            <End Role="ThongBaos" EntitySet="ThongBaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" Association="Self.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
+            <End Role="NhanViens" EntitySet="NhanViens" />
+            <End Role="ThongBaos" EntitySet="ThongBaos" />
           </AssociationSet>
           <AssociationSet Name="FK_KyLuat_KyLuat" Association="Self.FK_KyLuat_KyLuat">
             <End Role="NhanViens" EntitySet="NhanViens" />
@@ -724,6 +771,15 @@
           <AssociationSet Name="FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu" Association="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu">
             <End Role="NhanVien" EntitySet="NhanViens" />
             <End Role="PhieuNhap" EntitySet="PhieuNhaps" />
+          </AssociationSet>
+          <EntitySet Name="ThongBaos" EntityType="QuanLyNhanSuModel.ThongBao" />
+          <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" Association="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="ThongBao" EntitySet="ThongBaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" Association="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="ThongBao" EntitySet="ThongBaos" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -889,6 +945,8 @@
           <NavigationProperty Name="Swaps1" Relationship="QuanLyNhanSuModel.FK_dbo_Swaps_dbo_NhanViens_MaNVTrienKhai" FromRole="NhanVien" ToRole="Swap" />
           <NavigationProperty Name="PhieuNhaps" Relationship="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVDuyetPhieu" FromRole="NhanVien" ToRole="PhieuNhap" />
           <NavigationProperty Name="PhieuNhaps1" Relationship="QuanLyNhanSuModel.FK_dbo_PhieuNhaps_dbo_NhanViens_MaNVLenPhieu" FromRole="NhanVien" ToRole="PhieuNhap" />
+          <NavigationProperty Name="ThongBaos" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" FromRole="NhanVien" ToRole="ThongBao" />
+          <NavigationProperty Name="ThongBaos1" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" FromRole="NhanVien" ToRole="ThongBao" />
         </EntityType>
         <EntityType Name="PhongBan">
           <Key>
@@ -1266,6 +1324,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ThongBao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoaiThongBao" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MaPhieu" Type="Int32" />
+          <Property Name="TieuDe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaNVGuiTB" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ThoiGianGuiTB" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaNVNhanTB" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ThoiGianDuyetTB" Type="DateTime" Precision="3" />
+          <Property Name="TrangThai" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NhanVien" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" FromRole="ThongBao" ToRole="NhanVien" />
+          <NavigationProperty Name="NhanVien1" Relationship="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" FromRole="ThongBao" ToRole="NhanVien" />
+        </EntityType>
+        <Association Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB">
+          <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="1" />
+          <End Type="QuanLyNhanSuModel.ThongBao" Role="ThongBao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="ThongBao">
+              <PropertyRef Name="MaNVGuiTB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
+          <End Type="QuanLyNhanSuModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="QuanLyNhanSuModel.ThongBao" Role="ThongBao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNhanVien" />
+            </Principal>
+            <Dependent Role="ThongBao">
+              <PropertyRef Name="MaNVNhanTB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1529,6 +1627,21 @@
                 <ScalarProperty Name="SdtKhachHang" ColumnName="SdtKhachHang" />
                 <ScalarProperty Name="TenVatTu" ColumnName="TenVatTu" />
                 <ScalarProperty Name="MaVatTu" ColumnName="MaVatTu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThongBaos">
+            <EntityTypeMapping TypeName="QuanLyNhanSuModel.ThongBao">
+              <MappingFragment StoreEntitySet="ThongBaos">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="ThoiGianDuyetTB" ColumnName="ThoiGianDuyetTB" />
+                <ScalarProperty Name="MaNVNhanTB" ColumnName="MaNVNhanTB" />
+                <ScalarProperty Name="ThoiGianGuiTB" ColumnName="ThoiGianGuiTB" />
+                <ScalarProperty Name="MaNVGuiTB" ColumnName="MaNVGuiTB" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+                <ScalarProperty Name="LoaiThongBao" ColumnName="LoaiThongBao" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
