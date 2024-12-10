@@ -1,4 +1,5 @@
 ﻿@using QuanLyNhanSu.Models
+@using QuanLyNhanSu.Areas.admin.Controllers;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
@@ -26,6 +27,7 @@
         background-color: #e5f7f0;
         border-color: #d8f7eb;
     }
+
     .notification-item {
         cursor: pointer;
         display: flex;
@@ -34,8 +36,13 @@
         margin: 5px;
     }
 
-    .notification-item :hover {
-        
+        .notification-item :hover {
+        }
+
+    .TimeSinceNotification {
+        margin: 8px auto auto -14px;
+        width: 130px;
+        opacity: 0.5;
     }
 </style>
 <div class="container">
@@ -60,10 +67,13 @@
                 </div>
                 <div class="box-body p-0">
                     @{
+                        QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+                        var nv = db.NhanViens.ToList();
                         foreach (var item in Model)
                         {
-                            string colorThongBao,loaiThongBao = "";
-                            if (item.TrangThai == 0)
+                            string colorThongBao, loaiThongBao = "";
+                            string avtNhanVien = nv.Where(n => n.MaNhanVien == item.MaNVGuiTB).Select(n=>n.HinhAnh).FirstOrDefault();
+                            if (item.MaPhieu == 0)
                             {
                                 colorThongBao = "floralwhite";//chưa đọc
                             }
@@ -79,15 +89,16 @@
                             {
                                 loaiThongBao = item.MaNVGuiTB + " đề nghị cấp lại mật khẩu";
                             }
-                            <a href="@Url.Action("ChiTietPhieuNhap", "ThongBao", new {@id = @item.Id })" style="color:black">
+                            <a href="@Url.Action("ChiTietPhieuNhap", "ThongBao", new {@id = @item.Id })" style="color:black;display:flex">
                                 <div class="p-3 notification-item" style="background-color:@colorThongBao">
                                     <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" style="border-radius: 50%;" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
+                                        <img class="rounded-circle" style="border-radius: 50%;border:1px solid " src="~/Content/anh/img_avt/@avtNhanVien" alt="" />
                                     </div>
                                     <div class="font-weight-bold mr-3" style="margin-left: 10px;width:500px">
                                         <div class="text-truncate" style="font-weight: bold; text-transform: uppercase;">TIÊU ĐỀ: @item.TieuDe</div>
                                         <div class="small">@loaiThongBao</div>
                                     </div>
+                                    <div class="TimeSinceNotification">@ThongBaoController.GetTimeSinceNotification(item.ThoiGianGuiTB)</div>
                                     <span class="ml-auto mb-auto" style="margin-right:0px">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-light btn-sm rounded" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,11 +106,11 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <button class="dropdown-item" type="button"><i class="mdi mdi-delete"></i> Xóa thông báo</button>
-                                                <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> Đánh dấu chưa đọc</button>
+                                                <button class="dropdown-item" type="button"><i class="mdi mdi-close"></i> <a href="@Url.Action("DanhDauChuaDoc","ThongBao")">Đánh dấu chưa đọc</a></button>
                                             </div>
                                         </div>
                                         <br />
-                                        <div class="text-right text-muted pt-1">2 giờ 5 phút trước</div>
+
                                     </span>
                                 </div>
                             </a>

@@ -196,6 +196,7 @@
     <Compile Include="Areas\admin\Controllers\QuanLyLuongController.cs" />
     <Compile Include="Areas\admin\Controllers\QuanLyPhongBanController.cs" />
     <Compile Include="Areas\admin\Controllers\QuanLyUserController.cs" />
+    <Compile Include="Areas\admin\Controllers\QuanLyVatTuController.cs" />
     <Compile Include="Areas\admin\Controllers\ThongBaoController.cs" />
     <Compile Include="Areas\admin\Controllers\ThongKeController.cs" />
     <Compile Include="Areas\admin\Controllers\TrienKhaiSwapController.cs" />
@@ -230,6 +231,10 @@
     <Compile Include="Migrations\202412071653368_AddThongBao.cs" />
     <Compile Include="Migrations\202412071653368_AddThongBao.designer.cs">
       <DependentUpon>202412071653368_AddThongBao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202412100257364_VatTuCaNhans.cs" />
+    <Compile Include="Migrations\202412100257364_VatTuCaNhans.designer.cs">
+      <DependentUpon>202412100257364_VatTuCaNhans.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CapNhatLuong.cs">
@@ -319,6 +324,9 @@
     <Compile Include="Models\SwapValidate.cs" />
     <Compile Include="Models\UserValidate.cs" />
     <Compile Include="Models\VatTu.cs">
+      <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VatTuCaNhan.cs">
       <DependentUpon>QuanLyNhanSuModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -865,6 +873,7 @@
     <Content Include="Areas\admin\Views\TrienKhaiSwap\PhanCaSwap.cshtml" />
     <Content Include="Areas\admin\Views\ThongBao\Index.cshtml" />
     <Content Include="Areas\admin\Views\ThongBao\ChiTietPhieuNhap.cshtml" />
+    <Content Include="Areas\admin\Views\QuanLyVatTu\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -955,6 +964,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202412071653368_AddThongBao.resx">
       <DependentUpon>202412071653368_AddThongBao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202412100257364_VatTuCaNhans.resx">
+      <DependentUpon>202412100257364_VatTuCaNhans.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

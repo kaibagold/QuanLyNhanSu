@@ -173,7 +173,17 @@ namespace QuanLyNhanSu.Controllers
                     db.ChiTietPhieuNhaps.Add(ctPhieu);
                     db.SaveChanges();
                 }
-
+                //Tạo thông báo đến admin
+                var ThongBao = new ThongBao();
+                ThongBao.LoaiThongBao = "xuatvattu";
+                ThongBao.MaPhieu = latestPhieuNhap.Id;
+                ThongBao.TieuDe = "xuất vật tư";
+                ThongBao.MaNVGuiTB = MaNVLenPhieu;
+                ThongBao.MaNVNhanTB = "admin";
+                ThongBao.ThoiGianGuiTB = DateTime.Now;
+                ThongBao.TrangThai = 0;
+                db.ThongBaos.Add(ThongBao);
+                db.SaveChanges();
                 return Json(new { success = true, message = "Đã lưu thành công!" });
             }
             // Lưu dữ liệu vào database

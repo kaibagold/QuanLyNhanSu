@@ -48,6 +48,7 @@ namespace QuanLyNhanSu.Models
         public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; }
         public virtual DbSet<VatTu> VatTus { get; set; }
         public virtual DbSet<ThongBao> ThongBaos { get; set; }
+        public virtual DbSet<VatTuCaNhan> VatTuCaNhans { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

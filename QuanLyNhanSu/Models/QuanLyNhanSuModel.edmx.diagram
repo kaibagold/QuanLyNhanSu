@@ -47,6 +47,9 @@
         <EntityTypeShape EntityType="QuanLyNhanSuModel.ThongBao" Width="1.5" PointX="5.25" PointY="38.875" />
         <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVGuiTB" />
         <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" />
+        <EntityTypeShape EntityType="QuanLyNhanSuModel.VatTuCaNhan" Width="1.5" PointX="7.5" PointY="21.5" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_VatTuCaNhans_dbo_NhanViens_MaNhanVien" />
+        <AssociationConnector Association="QuanLyNhanSuModel.FK_dbo_VatTuCaNhans_dbo_VatTus_MaVatTu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

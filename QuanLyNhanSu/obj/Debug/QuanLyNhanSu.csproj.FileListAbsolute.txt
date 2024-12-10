@@ -659,3 +659,4 @@ D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\bin\Microsoft.AspNet.SignalR.Core.xml
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
 D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Tai_Lieu\Lap_Trinh_Web\DoAnTotNghiep\QuanTriNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.Migrations.VatTuCaNhans.resources

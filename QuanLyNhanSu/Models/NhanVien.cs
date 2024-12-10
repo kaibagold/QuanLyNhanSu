@@ -25,6 +25,7 @@ namespace QuanLyNhanSu.Models
             this.PhieuNhaps1 = new HashSet<PhieuNhap>();
             this.ThongBaos = new HashSet<ThongBao>();
             this.ThongBaos1 = new HashSet<ThongBao>();
+            this.VatTuCaNhans = new HashSet<VatTuCaNhan>();
         }
     
         public string MaNhanVien { get; set; }
@@ -63,5 +64,6 @@ namespace QuanLyNhanSu.Models
         public virtual ICollection<PhieuNhap> PhieuNhaps1 { get; set; }
         public virtual ICollection<ThongBao> ThongBaos { get; set; }
         public virtual ICollection<ThongBao> ThongBaos1 { get; set; }
+        public virtual ICollection<VatTuCaNhan> VatTuCaNhans { get; set; }
     }
 }

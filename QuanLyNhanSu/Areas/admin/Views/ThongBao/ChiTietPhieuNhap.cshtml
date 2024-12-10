@@ -25,40 +25,103 @@
         <div class="col-lg-9 right">
             <div class="box shadow-sm rounded bg-white mb-3" style="background-color: aliceblue">
                 <div class="box-title border-bottom p-3">
-                    <h6 class="m-0">Mã phiếu: @Model.MaPhieu / Mã Nhân Viên : @Model.MaNVGuiTB</h6>
+                    @{
+                        string trangthai = "";
+                        if (Model.TrangThai == 2)
+                        {
+                            trangthai = "Đã Duyệt";
+                        }
+                        else
+                        {
+                            trangthai = "Chưa Duyệt";
+                        }
+                    }
+                    <h6 class="m-0">Mã phiếu: @Model.MaPhieu / Mã Nhân Viên : @Model.MaNVGuiTB / Trạng Thái : @trangthai</h6>
+                    <input type="text" id="MaNhanVien" value="@Model.MaNVGuiTB" style="display:none" />
+                    <input type="number" id="MaPhieu" value="@Model.MaPhieu" style="display:none" />
                 </div>
-                <div class="box-body p-0">                                                     
+                <div class="box-body p-0">
                     <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr class="success">
                                 <th>
                                     Mã Vật Tư
                                 </th>
-                                <th>
+                                <th style=" width: 120px;">
                                     Số Lượng
-                                </th>                           
+                                </th>
+                                <th>
+                                    SL Tồn
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @{
                                 QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
                                 int id = Model.MaPhieu;
-                                var ListVatTu = db.ChiTietPhieuNhaps.Where(n=>n.MaPhieu == id).ToList();
+                                var ListVatTu = db.ChiTietPhieuNhaps.Where(n => n.MaPhieu == id).ToList();
+                                var VatTu = db.VatTus.ToList();
                                 foreach (var item in ListVatTu)
                                 {
+                                    var slTon = VatTu.FirstOrDefault(v => v.MaVatTu == item.MaVatTu).SoLuong;
                                     <tr>
                                         <td>@item.MaVatTu</td>
-                                        <td>@item.SoLuong</td>>                                                                          
+                                        <td>
+                                            <input type="number" name="SoLuong_@item.MaVatTu" value="@item.SoLuong" min="0" style=" border: 1px solid; text-align: center; font-weight: bold; }"/>
+                                        </td>>
+                                        <td>@slTon</td>
                                     </tr>
                                 }
                             }
 
                         </tbody>
-                    </table>   
-                    <a class="btn btn-success"  href="@Url.Action()">Duyệt Phiếu</a>
+                    </table>
+                    @{
+                        if (Model.TrangThai != 2)
+                        {
+                            <a class="btn btn-success" id="submitButton"  @*href="@Url.Action("DuyetPhieuNhap", "ThongBao",new{@id = @Model.MaPhieu})"*@>Duyệt Phiếu</a>
+                        }
+                    }
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<script>
+    document.getElementById("submitButton").addEventListener("click", function () {
+        var data = [];
+        var inputs = document.querySelectorAll('input[type="number"]');
+        var MaNhanVien = $("#MaNhanVien").val();
+        var MaPhieu = $("#MaPhieu").val();
+        inputs.forEach(function (input) {
+            var maVatTu = input.name.split('_')[1]; // Lấy mã vật tư từ tên input
+            var soLuong = input.value; // Lấy giá trị số lượng
+            data.push({ MaVatTu: maVatTu, SoLuong: soLuong }); // Thêm vào danh sách
+        });
+        console.log(data);
+        $.ajax({
+                    url: '@Url.Action("DuyetPhieuNhap", "ThongBao")',
+                    type: 'POST',
+                    contentType: 'application/json', // Đặt content type là JSON
+                    data: JSON.stringify({
+                        dsVatTu: data,
+                        MaNhanVien: MaNhanVien,
+                        MaPhieu: MaPhieu
+                    }),
+                    success: function (result) {
+                        if (result.success) {
+                            alert(result.message);
+                            // Reset trang
+                            window.location.href = "@Url.Action("index", "ThongBao")";
+                        } else {
+                            alert(result.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra!");
+                    }
+                });
+     
+    });
+</script>

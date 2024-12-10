@@ -12,22 +12,15 @@ namespace QuanLyNhanSu.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class VatTu
+    public partial class VatTuCaNhan
     {
-        public VatTu()
-        {
-            this.ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
-            this.VatTuCaNhans = new HashSet<VatTuCaNhan>();
-        }
-    
+        public int Id { get; set; }
+        public string MaNhanVien { get; set; }
         public string MaVatTu { get; set; }
-        public string TenVatTu { get; set; }
-        public string SdtKhachHang { get; set; }
-        public string DonViTinh { get; set; }
         public int SoLuong { get; set; }
-        public int TrangThai { get; set; }
+        public int TinhTrang { get; set; }
     
-        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
-        public virtual ICollection<VatTuCaNhan> VatTuCaNhans { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
+        public virtual VatTu VatTu { get; set; }
     }
 }

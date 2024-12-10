@@ -248,6 +248,17 @@
     <Property Name="TenTrinhDo" Type="nvarchar(max)" Nullable="false" />
     <Property Name="HeSoBac" Type="float" />
   </EntityType>
+  <EntityType Name="VatTuCaNhans">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="MaNhanVien" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaNhanVien" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="MaVatTu" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+    <Property Name="TinhTrang" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="VatTus">
     <Key>
       <PropertyRef Name="MaVatTu" />
@@ -477,6 +488,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_dbo_VatTuCaNhans_dbo_NhanViens_MaNhanVien">
+    <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1" />
+    <End Role="VatTuCaNhans" Type="Self.VatTuCaNhans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanViens">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="VatTuCaNhans">
+        <PropertyRef Name="MaNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_VatTuCaNhans_dbo_VatTus_MaVatTu">
+    <End Role="VatTus" Type="Self.VatTus" Multiplicity="1" />
+    <End Role="VatTuCaNhans" Type="Self.VatTuCaNhans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VatTus">
+        <PropertyRef Name="MaVatTu" />
+      </Principal>
+      <Dependent Role="VatTuCaNhans">
+        <PropertyRef Name="MaVatTu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_KyLuat_KyLuat">
     <End Role="NhanViens" Type="Self.NhanViens" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -550,6 +585,7 @@
     <EntitySet Name="ThoiViecs" EntityType="Self.ThoiViecs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThongBaos" EntityType="Self.ThongBaos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TrinhDoHocVans" EntityType="Self.TrinhDoHocVans" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VatTuCaNhans" EntityType="Self.VatTuCaNhans" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VatTus" EntityType="Self.VatTus" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__LuanChuyen__MaNhanVien" Association="Self.FK__LuanChuyen__MaNhanVien">
       <End Role="NhanViens" EntitySet="NhanViens" />
@@ -618,6 +654,14 @@
     <AssociationSet Name="FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB" Association="Self.FK_dbo_ThongBaos_dbo_NhanViens_MaNVNhanTB">
       <End Role="NhanViens" EntitySet="NhanViens" />
       <End Role="ThongBaos" EntitySet="ThongBaos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_VatTuCaNhans_dbo_NhanViens_MaNhanVien" Association="Self.FK_dbo_VatTuCaNhans_dbo_NhanViens_MaNhanVien">
+      <End Role="NhanViens" EntitySet="NhanViens" />
+      <End Role="VatTuCaNhans" EntitySet="VatTuCaNhans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_VatTuCaNhans_dbo_VatTus_MaVatTu" Association="Self.FK_dbo_VatTuCaNhans_dbo_VatTus_MaVatTu">
+      <End Role="VatTus" EntitySet="VatTus" />
+      <End Role="VatTuCaNhans" EntitySet="VatTuCaNhans" />
     </AssociationSet>
     <AssociationSet Name="FK_KyLuat_KyLuat" Association="Self.FK_KyLuat_KyLuat">
       <End Role="NhanViens" EntitySet="NhanViens" />
