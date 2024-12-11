@@ -14,7 +14,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
         // GET: admin/ThongBao
         public ActionResult Index()
         {
-            var tb = db.ThongBaos.Where(n => n.MaNVNhanTB == "admin").ToList();
+            var tb = db.ThongBaos.Where(n => n.MaNVNhanTB == "admin").OrderByDescending(n=>n.Id).ToList();
             return View(tb);
         }
         public ActionResult ChiTietPhieuNhap(int id)
@@ -46,22 +46,21 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                     {
                         int slTon = vatTu.Where(n => n.MaVatTu == item.MaVatTu).Select(n => n.SoLuong).FirstOrDefault();
                         var vatTuUpdate = vatTu.Where(n => n.MaVatTu == item.MaVatTu).FirstOrDefault();
-                        bool exists = db.VatTuCaNhans.Any(nv => nv.MaVatTu == item.MaVatTu);
-                        bool exists1 = db.NhanViens.Any(nv => nv.MaNhanVien == MaNhanVien);
+                        bool exists = db.VatTuCaNhans.Any(nv => nv.MaVatTu == item.MaVatTu && nv.MaNhanVien == MaNhanVien);
                         if (slTon >= item.SoLuong)//kiểm tra số lượng tồn còn đủ để xuất hay không
                         {
-                            if(!exists && !exists1)//nếu nhân viên chưa có vật tư trong kho thì thêm mới, ngược lại thì update sl vật tư đó
+                            if(exists)//nếu nhân viên chưa có vật tư trong kho thì thêm mới, ngược lại thì update sl vật tư đó
+                            {
+                                var vatTuCaNhanUpdate = db.VatTuCaNhans.Where(n => n.MaNhanVien == MaNhanVien && n.MaVatTu == item.MaVatTu).FirstOrDefault();
+                                vatTuCaNhanUpdate.SoLuong += item.SoLuong;
+                            }
+                            else
                             {
                                 vatTuCaNhan.MaNhanVien = MaNhanVien;
                                 vatTuCaNhan.MaVatTu = item.MaVatTu;
                                 vatTuCaNhan.SoLuong = item.SoLuong;
-                                vatTuCaNhan.TinhTrang = 0;
+                                vatTuCaNhan.TinhTrang = 1;
                                 db.VatTuCaNhans.Add(vatTuCaNhan);
-                            }
-                            else
-                            {
-                                var vatTuCaNhanUpdate = db.VatTuCaNhans.Where(n => n.MaNhanVien == MaNhanVien && n.MaVatTu == item.MaVatTu).FirstOrDefault();
-                                vatTuCaNhanUpdate.SoLuong += item.SoLuong;
                             }
                             //Cập nhật vật tư trong kho
                             vatTuUpdate.SoLuong -= item.SoLuong;
@@ -105,9 +104,9 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             TimeSpan timeElapsed = currentTime - notificationTime;
 
             // Kiểm tra xem thời gian đã trôi qua có âm không
-            if (timeElapsed.TotalSeconds < 0)
+            if (timeElapsed.TotalSeconds <= 0)
             {
-                return "Thời gian thông báo chưa đến.";
+                return "vài giây trước.";
             }
 
             // Tạo chuỗi kết quả

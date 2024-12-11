@@ -11,14 +11,14 @@
 <div class="">
     <div class="">
         <h1 class="page-header">
-            Nhân viên
+            Danh sách vật tư
         </h1>
         <ol class="breadcrumb">
             <li>
                 <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
             </li>
             <li>
-                <i class="fa fa-user"></i> @*<a href="@Url.Action("index","QuanLyUser")">Nhân viên</a>*@
+                <i class="fa fa-user"></i>
                 Vật tư
             </li>
         </ol>
@@ -27,11 +27,12 @@
 
 <div>
     <div style="padding:10px">
-        <a class="btn btn-primary" href="@Url.Action("ThemUser", "QuanLyUser")">
+        <a class="btn btn-primary" href="@Url.Action("ThemVatTu", "QuanLyVatTu")">
             Thêm vật tư
         </a>
-
-
+        <a class="btn btn-info" href="@Url.Action("VatTuCaNhan", "QuanLyVatTu")">
+            Vật tư cá nhân
+        </a>
     </div>
 </div>
 
@@ -88,7 +89,7 @@
                                 }
                             </td>
                             <td>
-                                <a class="btn btn-warning" href="@Url.Action("UpdateUser", "QuanLyUser", new {@id = @item.MaVatTu })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Sửa</a>
+                                <a class="btn btn-warning" href="@Url.Action("SuaVatTu", "QuanLyVatTu", new {@id = @item.MaVatTu })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Sửa</a>
                                 <a class="btn btn-success toggle-status-btn" data-user-id="@item.MaVatTu"><i class="fa fa-lock "></i> Hoạt Động/Khóa</a>
                             </td>
                         </tr>

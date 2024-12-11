@@ -1,0 +1,81 @@
+﻿@using QuanLyNhanSu.Models;
+@{
+    ViewBag.Title = "Chi tiết vật tư cá nhân";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div style="margin-top:10px">
+        <h1 class="page-header">
+            Chi tiết
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li>
+                <i class="fa fa-cog"></i> <a href="@Url.Action("index","QuanLyVatTu")">Vật tư</a>
+            </li>
+            <li>
+                <i class="fa fa-cog"></i> <a href="@Url.Action("VatTuCaNhan","QuanLyVatTu")">Vật tư cá nhân</a>
+            </li>
+            <li>
+                <i class="fa fa-tasks">Chi tiết</i> 
+            </li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-lg-9 right">
+            <div class="box shadow-sm rounded bg-white mb-3" style="background-color: aliceblue">
+                <div class="box-title border-bottom p-3">
+                    <h6 class="m-0"> Mã Nhân Viên : @ViewBag.MaNhanVien / Phòng ban : kỹ thuật</h6>
+                </div>
+                <div class="box-body p-0">
+                    <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>
+                                    Mã Vật Tư
+                                </th>
+                                <th style=" width: 120px;">
+                                    Số Lượng
+                                </th>
+                                <th>
+                                    Tình Trạng
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.MaVatTu</td>
+                                        <td>@item.SoLuong</td>>
+                                        <td>
+                                            @{if (item.TinhTrang == 0)
+                                                {
+                                                    <span class="status-text" style="color: green">Cũ</span>
+                                                }
+                                                if (item.TinhTrang == 1)
+                                                {
+                                                    <span class="status-text" style="color: green">Mới</span>
+                                                }
+                                                if (item.TinhTrang == 2)
+                                                {
+                                                    <span class="status-text" style="color: red">Ngừng hđ</span>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

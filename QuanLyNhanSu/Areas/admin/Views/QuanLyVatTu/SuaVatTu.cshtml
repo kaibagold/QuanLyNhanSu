@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Cập nhật thông tin vật tư";
+}
+@*@using QuanLyNhanSu.Models
+    @model VatTu*@
+
+
+
+<div class="">
+    <div class="">
+        <h1 class="page-header">
+            Cập nhật thông tin vật tư
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li>
+                <i class="fa fa-cog"></i><a href="@Url.Action("index","QuanLyVatTu")"> Vật tư</a>
+            </li>
+            <li>
+                <i class="fa fa-cog"></i> Cập nhật thông tin vật tư
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="">
+    <div class=" col-md-6 col-md-offset-3">
+        @Html.AntiForgeryToken()
+        <form class="form-horizontal" method="post" role="form">
+            <div class="form-group ">
+                <div class="col-sm-4 control-label">
+                    <label>Mã vật tư</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" name="MaVatTu"
+                           class="form-control"
+                           maxlength="20"
+                           value="@Model.MaVatTu"
+                           required readonly />
+                </div>
+                <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                    <label class="control-label text-danger">
+                        @*@Html.ValidationMessageFor(n => n.MaVatTu)*@
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4 control-label">
+                    <label>Tên vật tư</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" name="TenVatTu"
+                           class="form-control"
+                           maxlength="20"
+                           value="@Model.TenVatTu.Trim()"
+                           required />
+                </div>
+                <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                    <label class="control-label text-danger">
+                        @*@Html.ValidationMessageFor(n => n.TenVatTu)*@
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 control-label">
+                    <label>Số lượng</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" name="SoLuong"
+                           class="form-control"
+                           maxlength="20"
+                           value="@Model.SoLuong"
+                           required />
+                </div>
+                <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                    <label class="control-label text-danger">
+                        @*@Html.ValidationMessageFor(n => n.TenVatTu)*@
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 control-label">
+                    <label>Đơn vị tính</label>
+                </div>
+                <select class="col-sm-8" style="margin-left: 15px; width: 309px; height: 34px;" name="DonViTinh" required>
+                    <option value="Bộ" @(Model.DonViTinh == "Bộ" ? "selected" : "")>Bộ</option>
+                    <option value="Chiếc" @(Model.DonViTinh == "Chiếc" ? "selected" : "")>Chiếc</option>
+                    <option value="Sợi" @(Model.DonViTinh == "Sợi" ? "selected" : "")>Sợi</option>
+                    <option value="Cuộn" @(Model.DonViTinh == "Cuộn" ? "selected" : "")>Cuộn</option>
+                </select>
+                <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                    <label class="control-label text-danger">
+                        @*@Html.ValidationMessageFor(model => model.DiaChi)*@
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4 control-label">
+                    <label>Tình Trạng</label>
+                </div>
+                <select class="col-sm-8" style="margin-left: 15px; width: 309px; height: 34px;" name="TrangThai" required>
+                    <option value="0" @(Model.TrangThai == 0 ? "selected" : "")>Cũ</option>
+                    <option value="1" @(Model.TrangThai == 1 ? "selected" : "")>Mới</option>
+                    <option value="2" @(Model.TrangThai == 2 ? "selected" : "")>Ngừng hđ</option>
+                </select>
+                <div class="col-sm-offset-4 col-sm-5" style="height:15px">
+                    <label class="control-label text-danger">
+                        @*@Html.ValidationMessageFor(model => model.sdt_VatTu)*@
+                    </label>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class=" col-sm-offset-4 col-sm-5">
+                    <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="clearfix"></div>
+

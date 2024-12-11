@@ -136,7 +136,7 @@ namespace QuanLyNhanSu.Controllers
                 return RedirectToAction("Login", "login");
             }
                 db.Configuration.ProxyCreationEnabled = false; //tránh lỗi lặp truy vấn trong js
-                var vattu = db.VatTus.ToList();
+                var vattu = db.VatTus.Where(n=>n.TrangThai!=2).ToList();
                 return View(vattu);
         }
         public class VatTus
@@ -208,6 +208,16 @@ namespace QuanLyNhanSu.Controllers
             }
             var content = "<div class=\"table-responsive\"><table id=\"table-taikhoan\" class=\"table table-bordered table-striped table-hover\"><thead><tr class=\"success\"> <th>Mã vật tư</th><th>Số lượng</th></tr></thead>  <tbody>" + body+"</tbody></table></div>";
             return Content(content);
+        }
+        public ActionResult QuanLyVatTu()
+        {
+            if (Session["MaNhanVien"] == null)
+            {
+                return RedirectToAction("Login", "login");
+            }
+            var id = Session["MaNhanVien"] as string;
+            var vt = db.VatTuCaNhans.Where(n => n.MaNhanVien == id).ToList();
+            return View(vt);
         }
     }   //end lass
 }

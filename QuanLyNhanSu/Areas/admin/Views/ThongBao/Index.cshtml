@@ -73,7 +73,7 @@
                         {
                             string colorThongBao, loaiThongBao = "";
                             string avtNhanVien = nv.Where(n => n.MaNhanVien == item.MaNVGuiTB).Select(n=>n.HinhAnh).FirstOrDefault();
-                            if (item.MaPhieu == 0)
+                            if (item.TrangThai == 0)
                             {
                                 colorThongBao = "floralwhite";//chưa đọc
                             }

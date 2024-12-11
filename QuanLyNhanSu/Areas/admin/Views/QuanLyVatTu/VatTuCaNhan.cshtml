@@ -1,0 +1,76 @@
+﻿@using QuanLyNhanSu.Models
+@model List<NhanVien>
+
+@{
+    ViewBag.Title = "Vật tư cá nhân";
+}
+@{
+    QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+}
+
+<div class="">
+    <div class="">
+        <h1 class="page-header">
+            Vật tư cá nhân
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li>
+                <i class="fa fa-cog"></i> <a href="@Url.Action("index","QuanLyVatTu")">Vật tư</a>               
+            </li>
+            <li>
+                <i class="fa fa-tasks"></i> Vật tư cá nhân
+            </li>
+        </ol>
+    </div>
+</div>
+
+@*Phân trang, tìm kiếm sử dụng datatable.min.js*@
+<div class="table-responsive">
+    <table id="table-taikhoan" class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr class="success">
+                <th>
+                    Mã nhân viên
+                </th>
+                <th>
+                    Tên nhân viên
+                </th>
+                <th>
+                    Chức vụ
+                </th>
+                <th>
+                    Khu vực
+                </th>
+                <th>
+                    Số lượng: @Model.Count
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MaNhanVien</td>
+                        <td>@item.HoTen</td>
+                        <td>@item.MaChucVuNV</td>
+                        <td>@item.KhuVuc</td>                    
+                        <td>
+                            <a class="btn btn-info" href="@Url.Action("ChiTietVatTuCaNhan", "QuanLyVatTu", new {@id = @item.MaNhanVien })"><i class="fa fa-pencil-square-o x5" aria-hidden="true"></i>Chi tiết vật tư</a>
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+

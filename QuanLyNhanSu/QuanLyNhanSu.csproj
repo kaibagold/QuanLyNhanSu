@@ -874,6 +874,10 @@
     <Content Include="Areas\admin\Views\ThongBao\Index.cshtml" />
     <Content Include="Areas\admin\Views\ThongBao\ChiTietPhieuNhap.cshtml" />
     <Content Include="Areas\admin\Views\QuanLyVatTu\Index.cshtml" />
+    <Content Include="Areas\admin\Views\QuanLyVatTu\SuaVatTu.cshtml" />
+    <Content Include="Areas\admin\Views\QuanLyVatTu\ThemVatTu.cshtml" />
+    <Content Include="Areas\admin\Views\QuanLyVatTu\VatTuCaNhan.cshtml" />
+    <Content Include="Areas\admin\Views\QuanLyVatTu\ChiTietVatTuCaNhan.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -924,6 +928,7 @@
     <Content Include="Views\login\LichSuLuong.cshtml" />
     <Content Include="Views\login\LuongSwap.cshtml" />
     <Content Include="Views\NhanVien\TamUngVatTu.cshtml" />
+    <Content Include="Views\NhanVien\QuanLyVatTu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
