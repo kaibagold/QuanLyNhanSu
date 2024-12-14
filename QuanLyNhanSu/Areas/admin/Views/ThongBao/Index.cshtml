@@ -1,7 +1,7 @@
 ﻿@using QuanLyNhanSu.Models
 @using QuanLyNhanSu.Areas.admin.Controllers;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Thông báo";
     Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
 }
 
@@ -58,6 +58,34 @@
                 <i class="fa fa-bell"></i> Thông Báo
             </li>
         </ol>
+        <style>
+            /* Định dạng cho thẻ thông báo */
+            #notification {
+                position: fixed;
+                top: 170px;
+                right: 80px;
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.5s ease, visibility 0.5s ease;
+            }
+
+                /* Khi thông báo hiển thị */
+                #notification.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+        </style>
+        @{
+            if (TempData["ThongBao"] != null)
+            {
+                <div id="notification">@TempData["ThongBao"]</div>
+            }
+        }
     </div>
     <div class="row">
         <div class="col-lg-9 right">
@@ -71,7 +99,7 @@
                         var nv = db.NhanViens.ToList();
                         foreach (var item in Model)
                         {
-                            string colorThongBao, loaiThongBao = "";
+                            string colorThongBao, loaiThongBao,controller = "";
                             string avtNhanVien = nv.Where(n => n.MaNhanVien == item.MaNVGuiTB).Select(n=>n.HinhAnh).FirstOrDefault();
                             if (item.TrangThai == 0)
                             {
@@ -84,12 +112,14 @@
                             if (item.LoaiThongBao == "xuatvattu")
                             {
                                 loaiThongBao = item.MaNVGuiTB + " đề nghị xuất vật tư";
+                                controller = "ChiTietPhieuNhap";
                             }
                             else
                             {
                                 loaiThongBao = item.MaNVGuiTB + " đề nghị cấp lại mật khẩu";
+                                controller = "CapLaiMatKhau";
                             }
-                            <a href="@Url.Action("ChiTietPhieuNhap", "ThongBao", new {@id = @item.Id })" style="color:black;display:flex">
+                            <a href="@Url.Action(controller, "ThongBao", new {@id = @item.Id })" style="color:black;display:flex">
                                 <div class="p-3 notification-item" style="background-color:@colorThongBao">
                                     <div class="dropdown-list-image mr-3">
                                         <img class="rounded-circle" style="border-radius: 50%;border:1px solid " src="~/Content/anh/img_avt/@avtNhanVien" alt="" />
@@ -301,4 +331,16 @@
         </div>
     </div>
 </div>
+<script>
+    window.onload = function () {
+        const notification = document.getElementById('notification');
 
+        // Hiển thị thông báo
+        notification.classList.add('show');
+
+        // Ẩn thông báo sau 3 giây
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    };
+</script>

@@ -133,3 +133,23 @@ button {
     .search-box.active .search-input {
         display: block; /* Hiện input khi mở rộng */
     }
+.notification-badge {
+    position: absolute;
+    background-color: red; /* Màu n?n c?a thông báo */
+    color: white; /* Màu ch? */
+    border-radius: 50%; /* Bo tròn */
+    padding: 2px 5px; /* Padding cho thông báo */
+    font-size: 12px; /* Kích th??c ch? */
+    font-weight: bold; /* ??m ch? */
+    animation: blink 1s infinite; /* Thêm animation nh?p nháy */
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1; /* Hi?n */
+    }
+
+    50% {
+        opacity: 0; /* ?n */
+    }
+}

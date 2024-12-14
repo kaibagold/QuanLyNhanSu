@@ -135,6 +135,15 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             {
                 sw.MaNVTrienKhai = swVal.MaNVTrienKhai;
                 sw.TrangThai = 1;
+                //tạo thông báo nhận ca mới đến nvkythuat
+                var tb = new ThongBao();
+                tb.LoaiThongBao = "nhanca";
+                tb.TieuDe = "nhận ca mới";
+                tb.MaNVGuiTB = "admin";
+                tb.ThoiGianGuiTB = DateTime.Now;
+                tb.MaNVNhanTB = swVal.MaNVTrienKhai;
+                tb.TrangThai = 0;
+                db.ThongBaos.Add(tb);
                 db.SaveChanges();
                 return Redirect("/admin/TrienKhaiSwap");
             }

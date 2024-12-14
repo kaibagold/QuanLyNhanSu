@@ -94,7 +94,16 @@
                         <div class="form-group">
                             <label>Vật tư triển khai<span class="required-mark">*</span></label>
                             <select class="form-control" id="khuVucSelect">
-                                <option>AP3000CV2</option>
+                                <option>AX3000CV2</option>
+                                @{ 
+                                    QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
+                                    string MaNV = Session["MaNhanVien"].ToString();
+                                    var vtCaNhan = db.VatTuCaNhans.Where(n => n.MaNhanVien == MaNV).ToList();
+                                    foreach(var item in vtCaNhan)
+            {
+                                                                <option>@item.MaVatTu</option>
+            }
+                                }
                             </select>
                         </div>
                     </div>

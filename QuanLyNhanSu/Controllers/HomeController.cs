@@ -29,5 +29,18 @@ namespace QuanLyNhanSu.Controllers
 
             return View();
         }
+        public int GetNotificationCount()
+        {
+            if (Session["MaNhanVien"] != null)
+            { // Truy vấn số lượng thông báo chưa đọc từ bảng ThongBaos
+                string MaNV= Session["MaNhanVien"].ToString();
+                var count = db.ThongBaos.Where(n => n.MaNVNhanTB == MaNV && n.TrangThai == 0).Count();
+                // Gửi số lượng thông báo đến client
+                var context = GlobalHost.ConnectionManager.GetHubContext<NotificationHubToUser>();
+                context.Clients.All.updateNotificationCountUser(count);
+                return count;
+            }
+            return 0;
+        }
     }
 }

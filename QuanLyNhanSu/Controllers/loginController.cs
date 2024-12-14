@@ -20,11 +20,6 @@ namespace QuanLyNhanSu.Controllers
         QuanLyNhanSuEntities db = new QuanLyNhanSuEntities();
         //
         // GET: /login/
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Login()
         {
@@ -254,6 +249,41 @@ namespace QuanLyNhanSu.Controllers
             var ctWW = db.ChiTietSwaps.Where(n => n.ThoiGianHoanTat.Value.Month == selectedMonth
                         && n.MaNVTrienKhai == id && n.TrangThai == 1).ToList();
             return View(ctWW);
+        }
+        public ActionResult QuenMatKhau()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult QuenMatKhau(NhanVien user)
+        {
+            //check email va MaNhanVien da ton tai chua
+            Console.WriteLine(user);
+            var checkaccount = db.NhanViens.Any(x => x.MaNhanVien == user.MaNhanVien &&
+                x.Email == user.MatKhau && x.TrangThai == true);
+            Console.WriteLine(checkaccount);
+
+            if (checkaccount)
+            {
+                var tb = new ThongBao();
+                tb.LoaiThongBao = "quenmatkhau";
+                tb.TieuDe = "quên mật khẩu";
+                tb.MaNVGuiTB = user.MaNhanVien;
+                tb.ThoiGianGuiTB = DateTime.Now;
+                tb.MaNVNhanTB = "admin";
+                tb.TrangThai = 0;
+                db.ThongBaos.Add(tb);
+                db.SaveChanges();
+                ViewBag.err = "Đã yêu cầu, vui lòng kiểm tra Email";
+                return View();
+            }
+
+            else
+            {
+                ViewBag.err = "Thông tin không hợp lệ";
+                return View();
+            }
+
         }
     }
 }

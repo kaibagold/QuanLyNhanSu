@@ -7,20 +7,11 @@
 <html class="no-js" lang="vi-VN">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
-    <title>FPT Telecom</title>
+    <title>@ViewBag.Title</title>
     @RenderSection("Styles", required: false)
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/cr/scripts/optimized-min51e3.js?t=20240504T193950Z"></script>
-    <script defer src="Content/-/media/base-themes/core-libraries/scripts/optimized-min3f37.js?t=20241007T080052Z"></script>
-    <script defer src="Content/-/media/base-themes/xa-api/scripts/optimized-min99b1.js?t=20240703T201452Z"></script>
-    <script defer src="Content/-/media/base-themes/main-theme/scripts/optimized-mind13f.js?t=20240418T214620Z"></script>
-    <script defer src="Content/-/media/base-themes/components-theme/scripts/optimized-minf986.js?t=20231106T151444Z"></script>
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/fptweb/scripts/optimized-min8e51.js?t=20231107T030925Z"></script>
-
-    <link rel="canonical" href="vi.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 
@@ -104,7 +95,7 @@
                                                 <li class=" level2 item1 even rel-level2">
                                                     <div class="navigation-title field-navigationtitle">
 
-                                                        <a href="@Url.Action("NhanCaSwap","NhanVien", new { @id = Session["MaNhanVien"] })" target="">Swap Wifi 6</a>
+                                                        <a href="@Url.Action("NhanCaSwap","NhanVien")" target="">Swap Wifi 6</a>
 
                                                     </div>
                                                 </li>
@@ -243,12 +234,13 @@
                                             <img src="~/Content/anh/img_avt/avt_profile_default.png" alt="Profile" class="" id="profileImg" onclick="toggleDropdown()" style="border:1px solid">
                                         }
                                     }
+                                    <span class="notification-badge" id="notificationCount" style="display: none"></span> <!-- Số lượng thông báo -->
                                     <div class="dropdown" id="dropdownMenu" style="width:max-content;z-index:2;position:absolute">
                                         <div class="dropdown-content">
                                             <p id="employeeName">@Session["MaNhanVien"]</p>
-                                            <hr style="margin-top:5px;margin-bottom:5px"/>
-                                            <a href="@Url.Action("UpdateUser", "login")"><i class="fa fa-cog fa-envelope"></i> Thông Tin</a>
-                                            <hr style="margin-top:5px;margin-bottom:5px"/>
+                                            <hr style="margin-top:5px;margin-bottom:5px" />                           
+                                            <a href="@Url.Action("index", "ThongBaoUser")"><i class="fa fa-bell fa-envelope"></i> Thông Báo<i style="color:red" id="notificationCount1"></i></a>
+                                            <hr style="margin-top:5px;margin-bottom:5px" />
                                             <a onclick="confirmLogout()">
                                                 <i class="fa fa-fw fa-power-off"></i> Đăng Xuất
                                             </a>
@@ -575,17 +567,6 @@
         <!-- /#footer -->
     </div>
     <!-- /#wrapper -->
-
-    @RenderSection("Scripts", required: false)  <!-- Thêm dòng này -->
-    <script type="text/javascript">
-        var lang = 'vi-VN';
-        var script = document.createElement("script");
-        if (lang == 'vi-VN') {
-            script.src = "sitecore%20modules/Web/ExperienceForms/scripts/localization/messages_vi.js";
-            $("head").append(script);
-        }
-    </script>
-
     @*script tao chuyen dong slider*@
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/scripts/component-banner-slider-offer2.js"></script>
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/echartmin-theme/scripts/echartsmin.js"></script>
@@ -603,6 +584,12 @@
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/scripts/component-tabs.js"></script>
     <script defer src="Content/-/media/themes/fpt-corporation/fpt/component-themes/slick-theme/scripts/milestones-container.js"></script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8cf6f9ba08cb87c6","version":"2024.8.0","serverTiming":{"name":{"cfExtPri":true,"cfL4":true}},"token":"131e4b1342514a4ebd7d6d64ee2af1c5","b":1}' crossorigin="anonymous"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script> <!-- Đường dẫn đến hub SignalR -->
+    @RenderSection("Scripts", required: false)  <!-- Thêm dòng này -->
     <script>
         function confirmLogout() {
             // Hiển thị hộp thoại xác nhận
@@ -612,6 +599,29 @@
             }
             // Nếu chọn "Cancel", không làm gì
         }
+        $(function ()
+        {
+            // Kết nối đến hub SignalR
+            var notificationHub = $.connection.notificationHubToUser;
+            console.log(notificationHub);
+            // Nhận số lượng thông báo từ server
+                notificationHub.client.updateNotificationCountUser = function (count) {
+                    if (count == 0) {
+                        $('#notificationCount').hide();
+                    }
+                     else {
+                        $('#notificationCount').show(); // Hiện nếu count > 0
+                    }
+                $('#notificationCount').text(count); // Cập nhật số lượng thông báo
+                $('#notificationCount1').text("("+count+")"); // Cập nhật số lượng thông báo
+            };
+            // Bắt đầu kết nối
+            $.connection.hub.start().done(function () {
+            setInterval(function () {
+                $.get('@Url.Action("GetNotificationCount", "Home")');
+            }, 2000); // Gọi đến action này mỗi 2 giây
+            });
+        });
     </script>
 
 </body>

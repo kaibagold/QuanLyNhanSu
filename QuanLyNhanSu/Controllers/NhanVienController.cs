@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using QuanLyNhanSu.Migrations;
 using QuanLyNhanSu.Models;
 
 namespace QuanLyNhanSu.Controllers
@@ -39,15 +40,8 @@ namespace QuanLyNhanSu.Controllers
         {
             if (Session["MaNhanVien"] != null)
             {
-                var sw = db.Swaps.Where(n => n.MaNVTrienKhai == id).ToList();
-                //SwapValidate swVal = new SwapValidate();
-                //swVal.Id = sw.Id;
-                //swVal.MaHopDong = sw.MaHopDong;
-                //swVal.SdtKhachHang = sw.SdtKhachHang;
-                //swVal.KhuVuc = sw.KhuVuc;
-                //swVal.TenKhachHang = sw.TenKhachHang;
-                //swVal.MaNVTrienKhai = sw.MaNVTrienKhai;
-                //swVal.PhiDichVu = sw.PhiDichVu;
+                string MaNV = Session["MaNhanVien"].ToString();
+                var sw = db.Swaps.Where(n => n.MaNVTrienKhai == MaNV).ToList();
                 return View(sw);
             }
             return RedirectToAction("Login", "login");
@@ -119,6 +113,8 @@ namespace QuanLyNhanSu.Controllers
         [HttpPost]
         public ActionResult TrienKhaiSwap(SwapValidate swVal)
         {
+            string MaNV = Session["MaNhanVien"].ToString();
+            VatTuCaNhan vatTuCaNhanUpdate = new VatTuCaNhan();
             var sw = db.Swaps.Where(n => n.MaHopDong == swVal.MaHopDong).FirstOrDefault();
             var CTsw = db.ChiTietSwaps.Where(n => n.MaHopDong == swVal.MaHopDong).FirstOrDefault();
             sw.TrangThai = 3; //Hoan tat ca swap trong table Swap
@@ -126,6 +122,28 @@ namespace QuanLyNhanSu.Controllers
             CTsw.DanhGia = null;
             CTsw.TrangThai = 1; //Hoan tat ca swap trong table ChiTietSwap
             db.Swaps.Remove(sw);
+            //cập nhật vật tư cá nhân
+            bool exists = db.VatTuCaNhans.Any(nv => nv.MaVatTu == "AX3000CV2" && nv.MaNhanVien == MaNV);
+            if (exists)
+            {
+                vatTuCaNhanUpdate = db.VatTuCaNhans.Where(n => n.MaNhanVien == MaNV && n.MaVatTu == "AX3000CV2").FirstOrDefault();
+                vatTuCaNhanUpdate.SoLuong --;
+            }
+           
+            bool exists1 = db.VatTuCaNhans.Any(nv => nv.MaVatTu == "AC1000F" && nv.MaNhanVien == MaNV);
+            if (exists)
+            {
+                vatTuCaNhanUpdate = db.VatTuCaNhans.Where(n => n.MaNhanVien == MaNV && n.MaVatTu == "AC1000F").FirstOrDefault();
+                vatTuCaNhanUpdate.SoLuong++;
+            }
+            else
+            {
+                vatTuCaNhanUpdate.MaNhanVien = MaNV;
+                vatTuCaNhanUpdate.MaVatTu = "AC1000F";
+                vatTuCaNhanUpdate.SoLuong = 1;
+                vatTuCaNhanUpdate.TinhTrang = 0;
+                db.VatTuCaNhans.Add(vatTuCaNhanUpdate);
+            }
             db.SaveChanges();
             return Redirect("/NhanVien/NhanCaSwap/" + Session["MaNhanVien"]);
         }

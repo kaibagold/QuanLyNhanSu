@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Đăng nhập";
+    ViewBag.Title = "Quên mật khẩu";
     Layout = null;
 }
 <div class="container">
@@ -10,18 +10,17 @@
         <a href="#">HƯỚNG DẪN SỬ DỤNG</a>
     </div>
     <div class="login-section">
-        <h2>ĐĂNG NHẬP</h2>
+        <h2>QUÊN MẬT KHẨU</h2>
         <form method="post">
             @Html.AntiForgeryToken()
-            <input type="text" name="MaNhanVien" placeholder="UserName" required autofocus>
+            <input type="text" name="MaNhanVien" placeholder="Mã nhân viên" required autofocus autocomplete="off">
             <div class="password-container">
-                <input type="password" name="MatKhau" id="password" class="password-input" placeholder="Password" required>
-                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                <input type="text" name="MatKhau" id="password" class="password-input" placeholder="Email" required autocomplete="off">
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Xác Nhận</button>
         </form>
         <span class="text-danger" style="font-size: 14px; color: red;"> @ViewBag.err</span>
-        <a href="@Url.Action("QuenMatKhau","login")">Quên mật khẩu</a>
+        <a href="@Url.Action("Login","login")">Quay lại đăng nhập</a>
         <script src="~/Content/js/index_login.js"></script>
     </div>
 </div>

@@ -204,6 +204,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\loginController.cs" />
     <Compile Include="Controllers\NhanVienController.cs" />
+    <Compile Include="Controllers\ThongBaoUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -902,7 +903,6 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Scripts\tether.min.js" />
-    <Content Include="Views\login\login.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -919,7 +919,6 @@
     <Content Include="Views\login\Login.cshtml" />
     <Content Include="Views\NhanVien\Index.cshtml" />
     <Content Include="Views\Shared\test.cshtml" />
-    <Content Include="Views\login\Login - Copy.cshtml" />
     <Content Include="Views\login\UpDateUser.cshtml" />
     <Content Include="Views\login\test.cshtml" />
     <Content Include="Views\NhanVien\NhanCaSwap.cshtml" />
@@ -929,6 +928,8 @@
     <Content Include="Views\login\LuongSwap.cshtml" />
     <Content Include="Views\NhanVien\TamUngVatTu.cshtml" />
     <Content Include="Views\NhanVien\QuanLyVatTu.cshtml" />
+    <Content Include="Views\ThongBaoUser\Index.cshtml" />
+    <Content Include="Views\login\QuenMatKhau.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -936,6 +937,7 @@
     <Folder Include="Areas\admin\Views\Author\" />
     <Folder Include="Content\-\media\project\fpt-corporation\fpt\home\banner\common\image\" />
     <Folder Include="Views\Authen\" />
+    <Folder Include="Views\ThongBao\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
