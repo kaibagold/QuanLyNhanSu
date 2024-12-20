@@ -104,7 +104,7 @@ namespace QuanLyNhanSu.Controllers
 
                 return View(up);
             }
-            return Redirect("~/");
+            return Redirect("/login/Login");
         }
         [HttpPost]
         public ActionResult UpDateUser(UserValidate us, HttpPostedFileBase HinhAnh)
@@ -131,10 +131,7 @@ namespace QuanLyNhanSu.Controllers
                 }
                 else
                 {
-                    if (System.IO.File.Exists(Server.MapPath($"{up.HinhAnh}")))//Nếu nv có hình ảnh rồi
                         us.HinhAnh = up.HinhAnh;
-                    else
-                        us.HinhAnh = "avt_profile_default.png";
                 }
                 us.Email = up.Email;//load lại email cũ
                 us.MaNhanVien = up.MaNhanVien;//load lại email cũ
@@ -161,6 +158,8 @@ namespace QuanLyNhanSu.Controllers
         }
         public ActionResult LichSuLuong()
         {
+            if (Session["MaNhanVien"] == null)
+                return Redirect("~/login/Login");
             var id = Session["MaNhanVien"] as String;
             var ctL = db.ChiTietLuongs.Where(n => n.MaNhanVien == id).ToList();
         
@@ -238,6 +237,8 @@ namespace QuanLyNhanSu.Controllers
         }
         public ActionResult LuongSwap(String month)
         {
+            if (Session["MaNhanVien"] == null)
+                return Redirect("~/login/Login");
             var id = Session["MaNhanVien"] as String;
             if (month == null) //Neu nguoi dung chua chon thang
             {
@@ -274,7 +275,7 @@ namespace QuanLyNhanSu.Controllers
                 tb.TrangThai = 0;
                 db.ThongBaos.Add(tb);
                 db.SaveChanges();
-                ViewBag.err = "Đã yêu cầu, vui lòng kiểm tra Email";
+                ViewBag.err = "Đã yêu cầu, vui lòng chờ phản hồi từ Email";
                 return View();
             }
 

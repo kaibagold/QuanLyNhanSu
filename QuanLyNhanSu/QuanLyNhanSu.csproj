@@ -438,6 +438,7 @@
     <Content Include="Content\anh\fpt-logo.png" />
     <Content Include="Content\anh\icon\con-nguoi.svg" />
     <Content Include="Content\anh\icon\cong-nghe.svg" />
+    <Content Include="Content\anh\icon\Fpt-icon.png" />
     <Content Include="Content\anh\icon\kinh-doanh.svg" />
     <Content Include="Content\anh\icon\play.png" />
     <Content Include="Content\anh\icon\user_login.png" />
@@ -879,6 +880,7 @@
     <Content Include="Areas\admin\Views\QuanLyVatTu\ThemVatTu.cshtml" />
     <Content Include="Areas\admin\Views\QuanLyVatTu\VatTuCaNhan.cshtml" />
     <Content Include="Areas\admin\Views\QuanLyVatTu\ChiTietVatTuCaNhan.cshtml" />
+    <Content Include="Areas\admin\Views\ThongKe\ThongKeTheoNam.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

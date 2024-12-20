@@ -2,7 +2,7 @@
 @using QuanLyNhanSu.Models
 @using System.IO;
 @{
-    ViewBag.Title = "thông tin swap";
+    ViewBag.Title = "Triển khai swap";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -52,7 +52,7 @@
                             </div>
                             <div class="about">
                                 <h5>@nv.MaNhanVien</h5>
-                                <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                <p>Để đảm bảo an toàn, người dùng cần tránh chia sẻ thông tin trên các nền tảng không đáng tin cậy, sử dụng mật khẩu mạnh, kích hoạt xác thực hai yếu tố và thường xuyên kiểm tra các quyền riêng tư trên ứng dụng.</p>
                                 @{
                                     if (TempData["SuccessMessage"] != null)
                                     {
@@ -202,35 +202,4 @@
             });
         });
     });
-</script>
-<script>
-    const nameElement = document.getElementById("name");
-    const inputElement = document.getElementById("name-input");
-    const editIcon = document.getElementById("edit-icon");
-
-    editIcon.addEventListener("click", () => {
-        inputElement.style.display = "block";
-        nameElement.style.display = "none";
-        editIcon.style.display = "none"
-        inputElement.value = nameElement.textContent;
-        inputElement.focus();
-    });
-
-    inputElement.addEventListener("blur", () => {
-        nameElement.textContent = inputElement.value;
-        inputElement.style.display = "none";
-        nameElement.style.display = "block";
-        editIcon.style.position = "absolute";
-        editIcon.style.display = "inline-block"
-    });
-    function triggerFileUpload() {
-        document.getElementById('fileInput').click(); // Kích hoạt sự kiện click của input file
-    }
-    //hiển thị thông báo trong vòng 2s
-    $(document).ready(function () {
-        setTimeout(function () {
-            $('.thong_bao_update').fadeOut('slow');
-        }, 2000); // Ẩn thông báo sau 2 giây
-    });
-
 </script>

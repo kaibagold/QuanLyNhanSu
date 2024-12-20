@@ -1,19 +1,21 @@
 ﻿@model QuanLyNhanSu.Models.ThongKeViewModel
 @{
-    ViewBag.Title = "Thống kê";
+    ViewBag.Title = "Thống kê theo năm";
     Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
 }
+
 <style>
     .col-6 {
         margin: 10px;
         background-color: #f1f2f1;
         border-radius: 10px
     }
+
     .inputYear {
         background-color: #f1f2f1;
         border-radius: 10px;
         margin-left: 60px;
-        width: 70px;
+        width: 90px;
     }
 </style>
 <div class="margin-bottom:5px">
@@ -32,16 +34,7 @@
         </ol>
     </div>
 </div>
-<select name="nam" class="inputYear" id="nam">
-    <option value="">-- Chọn năm --</option>
-    <option value="2018">2018</option>
-    <option value="2019">2019</option>
-    <option value="2020">2020</option>
-    <option value="2021">2021</option>
-    <option value="2022">2022</option>
-    <option value="2023">2023</option>
-    <option value="2024" selected>2024</option>
-</select>
+<input type="number" class="inputYear" id="yearInput" placeholder="Nhập năm" min="1900" max="2100" />
 <div class="container" style="">
     <div class="row" style="display:flex;flex-direction:row">
         <div class="col-6" style="width: 500px">
@@ -63,12 +56,13 @@
         </div>
         <div class="col-6" style="width: 500px">
             <!-- Thẻ col thứ hai -->
-            <h3 style="text-align: center;">Thống Kê Ca Swap</h3>
-            <canvas id="salaryChartSwap"></canvas>
+            <h3 style="text-align: center;">Thống Kê Lương Theo Quý</h3>
+            <canvas id="salaryChart"></canvas>
         </div>
     </div>
     Tổng chi : <b>@String.Format("{0:#,#}", Model.TongChi).Replace(",", ",") đ</b>
 </div>
+
 
 @section scripts {
     <script>
@@ -235,81 +229,24 @@
             }
         }
     });
-        //thống kê ca swap
-        //Lương theo quý
-    var ctx2 = document.getElementById('salaryChartSwap').getContext('2d');
-    var labels2 = [];
-    var data2 = [];
-    var quarterlyData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.dsSwap));
-    // Duyệt qua dữ liệu và thêm vào labels và data
-    quarterlyData.forEach(function(item) {
-        labels2.push('Tháng ' + item.Month);
-        data2.push(item.Count);
-    });
-    var salaryChart = new Chart(ctx2, {
-        type: 'pie',
-        data: {
-            labels: labels2,
-            datasets: [{
-                label: 'Tổng Ca Swap Theo Tháng',
-                data: data2,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
+        //Chọn năm
+        $(document).ready(function () {
+        $('#yearInput').on('change', function () {
+            var selectedYear = $(this).val(); // Lấy giá trị năm đã chọn
+
+            // Gửi giá trị năm đến controller thông qua AJAX
+            $.ajax({
+                url: '@Url.Action("ThongKeTheoNam", "ThongKe")', // Thay "YourController" bằng tên controller của bạn
+                type: 'POST',
+                data: { year: selectedYear },
+                success: function (response) {
+                    $('#message').text('Năm đã được gửi: ' + response);
                 },
-                title: {
-                    display: true,
-                    text: 'Thống Kê Ca Swap Theo Tháng'
+                error: function () {
+                    $('#message').text('Không có dữ liệu.');
                 }
-            }
-        }
-    });
-        // Chọn năm, Lấy thẻ select
-        const yearSelect = document.getElementById('nam');
-        // Hàm lấy tham số tháng từ URL
-        function getURLParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-        // Thiết lập giá trị tháng khi tải trang
-        const selectedYear = getURLParam('year');
-        if (selectedYear) {
-            yearSelect.value = selectedYear; // Gán giá trị đã chọn vào thẻ select tháng
-        }
-        // Gắn sự kiện change
-        yearSelect.addEventListener('change', function () {
-            // Lấy giá trị được chọn
-            const selectedYear = yearSelect.value;
-            // Nếu người dùng chọn một năm (không phải giá trị mặc định)
-            if (selectedYear) {
-                // Thêm giá trị tháng vào URL dưới dạng tham số
-                const url = new URL(window.location.href);
-                url.searchParams.set('year', selectedYear);
-                // Load lại trang với URL mới
-                window.location.href = url.toString();
-            }
+            });
         });
-        console.log("hehe");
+    });
     </script>
 }

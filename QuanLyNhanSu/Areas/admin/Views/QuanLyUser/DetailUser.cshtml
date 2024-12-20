@@ -11,7 +11,25 @@
 }
 
 <link rel="stylesheet" href="~/Content/css/EditProfile.css" />
-
+<div class="">
+    <div class="">
+        <h1 class="page-header">
+            Chi tiết nhân viên
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <i class="fa fa-dashboard"></i> <a href="@Url.Action("index","Admin")">Tổng quan</a>
+            </li>
+            <li>
+                <i class="fa fa-us"></i> <a href="@Url.Action("index","QuanLyUser")">Nhân viên</a>
+            </li>
+            <li>
+                <i class="fa fa-user"></i>
+                Chi tiết
+            </li>
+        </ol>
+    </div>
+</div>
 <section class="editProfile" style="height:550px">
     <div class="container">
         <form method="post" role="form" enctype="multipart/form-data">
@@ -48,7 +66,7 @@
                                 </div>
                                 <div class="about">
                                     <h5>@Model.MaNhanVien</h5>
-                                    <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                                    <p>Để đảm bảo an toàn, người dùng cần tránh chia sẻ thông tin trên các nền tảng không đáng tin cậy, sử dụng mật khẩu mạnh, kích hoạt xác thực hai yếu tố và thường xuyên kiểm tra các quyền riêng tư trên ứng dụng.</p>
                                     @{
                                         if (TempData["SuccessMessage"] != null)
                                         {
@@ -77,15 +95,15 @@
 
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="fullName">Mật Khẩu</label>
-                                        <input class="form-control" type="password" name="MatKhau" value="@Model.MatKhau" placeholder="Enter full name">
+                                        <label for="fullName">Phòng Ban</label>
+                                        <input class="form-control" type="text" name="MaPhongBan" value="@Model.MaPhongBan" readonly>
                                         @Html.ValidationMessageFor(model => model.MatKhau)
                                     </div>
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label for="eMail">Xác Nhận Mật Khẩu</label>
-                                        <input class="form-control" type="password" name="XacNhanMatKhau" value="@Model.XacNhanMatKhau">
+                                        <label for="eMail">Chức Vụ</label>
+                                        <input class="form-control" type="text" name="MaChucVuNV" value="@Model.MaChucVuNV" readonly>
                                         @Html.ValidationMessageFor(model => model.XacNhanMatKhau)
                                     </div>
                                 </div>
@@ -134,7 +152,7 @@
                                                     break;
                                             }
                                         }
-                                        <select name="GioiTinh" style="width:336.68px;height:40px;font-size:16px">
+                                        <select name="GioiTinh" style=" width: 393.75px; height: 37px; font-size: 16px">
                                             <option name="GioiTinh" value="1" @check1>Nam</option>
                                             <option name="GioiTinh" value="0" @check0>Nữ</option>
                                             <option name="GioiTinh" value="1" @check2>Khác</option>

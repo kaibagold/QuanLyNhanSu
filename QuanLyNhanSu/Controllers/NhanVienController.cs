@@ -17,6 +17,8 @@ namespace QuanLyNhanSu.Controllers
         public ActionResult Index()
         {
             var id = Session["MaNhanVien"] as string;
+            if(Session["MaNhanVien"] == null)
+                return Redirect("~/login/Login");
             var chitiet = db.ChiTietLuongs.Where(n => n.MaNhanVien == id).ToList();
             return View(chitiet);
         }
@@ -131,7 +133,7 @@ namespace QuanLyNhanSu.Controllers
             }
            
             bool exists1 = db.VatTuCaNhans.Any(nv => nv.MaVatTu == "AC1000F" && nv.MaNhanVien == MaNV);
-            if (exists)
+            if (exists1)
             {
                 vatTuCaNhanUpdate = db.VatTuCaNhans.Where(n => n.MaNhanVien == MaNV && n.MaVatTu == "AC1000F").FirstOrDefault();
                 vatTuCaNhanUpdate.SoLuong++;

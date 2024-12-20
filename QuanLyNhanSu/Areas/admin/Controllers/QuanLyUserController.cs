@@ -47,7 +47,8 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 up.MaChuyenNganh = us.MaChuyenNganh;
                 up.MaTrinhDoHocVan = us.MaTrinhDoHocVan;
                 up.CMND = us.CMND;
-
+                up.MaPhongBan = us.MaPhongBan;
+                up.MaChucVuNV = us.MaChucVuNV;
                 return View(up);
             }
             return Redirect("~/");
@@ -61,8 +62,6 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             {
                 var up = db.NhanViens.Where(n => n.MaNhanVien == us.MaNhanVien).FirstOrDefault();
                 up.MaNhanVien = us.MaNhanVien;
-                up.MatKhau = us.MatKhau;
-                up.MatKhau = us.XacNhanMatKhau;
                 up.HoTen = us.HoTen;
                 up.NgaySinh = us.NgaySinh;
                 up.QueQuan = us.QueQuan;
@@ -79,10 +78,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                 }
                 else
                 {
-                    if (System.IO.File.Exists(Server.MapPath($"{up.HinhAnh}")))//Nếu nv có hình ảnh rồi
                         us.HinhAnh = up.HinhAnh;
-                    else
-                        us.HinhAnh = "avt_profile_default.png";
                 }
                 us.Email = up.Email;//load lại email cũ
                 us.MaNhanVien = up.MaNhanVien;//load lại email cũ
@@ -92,7 +88,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             }
             catch (Exception e)
             {
-                TempData["SuccessMessage"] = "Cập nhật thất bại!"+e;
+                TempData["SuccessMessage"] = "Cập nhật thất bại! "+e;
                 return View(us);
             }
         }
@@ -163,9 +159,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
             upUser.XacNhanMatKhau = upUser.MatKhau;
             var us = db.NhanViens.Where(n => n.MaNhanVien == upUser.MaNhanVien).FirstOrDefault();
 
-            if (ModelState.IsValid)
-            {
-                //var us = db.NhanViens.Where(n => n.MaNhanVien == upUser.MaNhanVien).FirstOrDefault();
+
                 if (us != null)
                 {
 
@@ -192,20 +186,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                     us.MaChuyenNganh = upUser.MaChuyenNganh;
                     us.MaTrinhDoHocVan = upUser.MaTrinhDoHocVan;
                     us.MaPhongBan = upUser.MaPhongBan;
-                    us.CMND = upUser.CMND;
-
-                    var trinhdo = db.TrinhDoHocVans.Where(n => n.MaTrinhDoHocVan.Equals(us.MaTrinhDoHocVan)).FirstOrDefault();
-
-                    var luong = db.Luongs.Where(n => n.MaNhanVien.Equals(us.MaNhanVien)).FirstOrDefault();
-
-                    if (trinhdo.HeSoBac != null)
-                    {
-                        luong.HeSoLuong = luong.HeSoLuong < (double)trinhdo.HeSoBac ? (double)trinhdo.HeSoBac : luong.HeSoLuong;
-                    }
-                    else
-                    { luong.HeSoLuong = 1; }
-
-
+                    us.CMND = upUser.CMND;                 
 
                     db.CapNhatTrinhDoHocVans.Add(capNhat);
 
@@ -213,7 +194,7 @@ namespace QuanLyNhanSu.Areas.admin.Controllers
                     return Redirect("/admin/QuanLyUser");
 
                 }
-            }
+
             return View(upUser);
 
         }//end update

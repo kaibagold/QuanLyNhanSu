@@ -66,6 +66,8 @@ namespace QuanLyNhanSu
                         "~/Content/boostrap.min.css.map",
                         "~/Content/datatables.min.css",
                         "~/Content/css/font-awesome.min.css"));
+            bundles.Add(new StyleBundle("~/Content/font_awesome").Include(
+                        "~/Content/css/font-awesome.min.css"));
         }
     }
 }
